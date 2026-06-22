@@ -68,6 +68,23 @@ export default function DashboardSidebar() {
     Purchase History
   </div>
 </Link>
+<Link href="/dashboard/admin">Admin Home</Link>
+
+<Link href="/dashboard/manage-users">
+  Manage Users
+</Link>
+
+<Link href="/dashboard/manage-all-ebooks">
+  Manage Ebooks
+</Link>
+
+<Link href="/dashboard/transactions">
+  Transactions
+</Link>
+
+<Link href="/dashboard/analytics">
+  Analytics
+</Link>
 
 
       </div>
