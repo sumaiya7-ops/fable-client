@@ -110,7 +110,7 @@ export default function FeaturedBooks() {
                     </p>
                   </div>
 
-                  <p className="text-indigo-600 font-bold mt-5 text-base">
+                  <p className="text-red-600 font-bold mt-5 text-base">
                     {item.price}
                   </p>
                 </div>

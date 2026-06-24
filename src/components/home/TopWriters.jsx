@@ -41,23 +41,25 @@ export default function TopWriters() {
               🌍 International Best Authors
             </p>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900">
               Top Writers
             </h2>
           </div>
+          
 
           <p className="text-gray-600 mt-4 md:mt-0 max-w-md">
             Explore the most influential and best-selling writers who shaped
             literature around the world.
           </p>
         </div>
+        <div className="h-2"></div>
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {writers.map((writer) => (
             <div
               key={writer.id}
-              className="group bg-white rounded-3xl p-6 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+              className="group bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
             >
               {/* Image */}
               <div className="relative overflow-hidden rounded-2xl">

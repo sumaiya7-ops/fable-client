@@ -26,6 +26,10 @@ export default function MobileSidebar() {
       name: "Contact",
       href: "/contact",
     },
+    {
+      name: "Dashboard",
+      href: "/Dashboard",
+    },
   ];
 
   return (

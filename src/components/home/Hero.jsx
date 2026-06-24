@@ -21,7 +21,7 @@ export default function Hero() {
             Explore thousands of original ebooks from talented writers around the world.
           </p>
 
-          <button className="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-8 rounded-xl font-semibold transition duration-300 shadow-md">
+          <button className="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white  rounded-md font-semibold transition duration-300 shadow-md">
            
             Browse Ebooks 
 

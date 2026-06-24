@@ -66,6 +66,12 @@ export default function Navbar() {
           >
             Contact
           </Link>
+            <Link
+    href="/dashboard"
+    className="!text-black font-medium hover:text-indigo-600 transition"
+  >
+    Dashboard
+  </Link>
 
         </div>
          <div className="hidden md:block">

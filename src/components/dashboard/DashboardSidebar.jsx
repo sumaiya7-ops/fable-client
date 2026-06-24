@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function DashboardSidebar() {
   return (
-    <aside className="bg-white rounded-2xl p-6 h-full shadow-md">
+    <aside className="bg-white text-black rounded-2xl p-6 h-full shadow-md">
 
       <h2 className="text-2xl font-bold text-indigo-600 mb-8">
         Dashboard
@@ -11,7 +11,7 @@ export default function DashboardSidebar() {
       <div className="space-y-4">
 
         <Link href="/dashboard">
-          <div className="p-3 rounded-xl hover:bg-indigo-100 cursor-pointer">
+          <div className="p-3  rounded-xl hover:bg-indigo-100 cursor-pointer">
             Overview
           </div>
         </Link>

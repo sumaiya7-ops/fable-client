@@ -34,16 +34,19 @@ export default function Genres() {
                 <span className="inline-block px-4 py-2 rounded-full bg-white text-indigo-600 text-sm font-semibold shadow-sm">
               📚 Browse Categories
             </span>
+            <div className="h-2"></div>
 
             <h2 className="mt-5 text-4xl md:text-5xl font-extrabold text-gray-900">
               Ebook Genres
-            </h2>
+            </h2> 
           </div>
+         
 
           <p className="mt-4 md:mt-0 text-gray-600 max-w-md">
             Explore thousands of books across your favorite genres.
           </p>
         </div>
+        <div className="h-2"></div>
 
         {/* Genres Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-6">
