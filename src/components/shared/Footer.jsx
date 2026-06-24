@@ -47,11 +47,12 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3.5 text-sm font-medium">
               {[
-                { name: "Home Portfolio", href: "/" },
-                { name: "Premium Browse", href: "/browse" },
-                { name: "Author Dashboard", href: "/dashboard" },
-                { name: "Exclusive Pricing", href: "#" }
-              ].map((link, index) => (
+  { name: "Home", href: "/" },
+  { name: "Browse Ebooks", href: "/browse" },
+  { name: "Dashboard", href: "/dashboard" },
+  { name: "About", href: "/about" }
+]
+              .map((link, index) => (
                 <li key={index}>
                   <Link href={link.href} className="text-gray-600 hover:text-indigo-600 flex items-center gap-1 group transition duration-200">
                     <span>{link.name}</span>
@@ -108,11 +109,30 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-indigo-200/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-gray-500">
           <p>© {new Date().getFullYear()} Fable Inc. All rights reserved with prestige.</p>
-          <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-indigo-600 transition">Privacy Registry</a>
-            <a href="#" className="hover:text-indigo-600 transition">Terms of Protocol</a>
-            <a href="#" className="hover:text-indigo-600 transition">Cookie Architecture</a>
-          </div>
+     <div className="flex items-center gap-6">
+
+  <Link
+    href="/privacy"
+    className="hover:text-indigo-600 transition"
+  >
+    Privacy Policy
+  </Link>
+
+  <Link
+    href="/terms"
+    className="hover:text-indigo-600 transition"
+  >
+    Terms & Conditions
+  </Link>
+
+  <Link
+    href="/contact"
+    className="hover:text-indigo-600 transition"
+  >
+    Contact
+  </Link>
+
+</div>
         </div>
 
       </div>

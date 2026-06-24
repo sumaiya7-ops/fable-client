@@ -86,6 +86,10 @@ export default function DashboardSidebar() {
   Analytics
 </Link>
 
+<Link href="/profile">
+  Profile
+</Link>
+
 
       </div>
     </aside>
