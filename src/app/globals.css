@@ -114,9 +114,7 @@ body {
   line-height: 1.7;
 }
 
-/* ===========================
-   SCROLLBAR
-=========================== */
+
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -135,9 +133,6 @@ body {
   background: #6366f1;
 }
 
-/* ===========================
-   BOOK CARD HOVER
-=========================== */
 
 .book-card {
   transition: all 0.3s ease;
@@ -149,9 +144,6 @@ body {
   box-shadow: 0 15px 35px rgba(99, 102, 241, 0.15);
 }
 
-/* ===========================
-   IMAGE RESET
-=========================== */
 
 img {
   max-width: 100%;
@@ -163,9 +155,7 @@ a {
   color: inherit;
 }
 
-/* ===========================
-   RESPONSIVE
-=========================== */
+
 
 @media (max-width: 768px) {
   .section-title {
