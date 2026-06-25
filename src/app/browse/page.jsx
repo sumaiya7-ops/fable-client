@@ -163,19 +163,19 @@ export default function BrowsePage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#ebecf3] text-[#a5a6b5] font-sans w-full flex justify-center selection:bg-[#633efd]/30">
+    <div className="min-h-screen bg-[#ebecf3] text-[#989aaf] font-sans w-full flex justify-center selection:bg-[#633efd]">
       <div className="w-11/12 md:w-10/12 mx-auto py-10 max-w-7xl flex flex-col gap-6">
         
         {/* টপ সার্চ এবং ফিল্টার বার */}
         <div className="flex gap-3 w-full">
           <div className="relative flex-1">
-            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
             <input 
               type="text" 
               placeholder="Search ebooks, authors or genres..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#11121d] border border-gray-800/60 rounded-xl py-3 pl-12 pr-4 text-sm text-white focus:outline-none focus:border-[#633efd] transition"
+              className="w-full bg-indigo-50 border border-indigo-200 rounded-xl py-3 pl-12 pr-4 text-sm text-black focus:outline-none focus:border-[#8466fa] transition"
             />
           </div>
           <button className="bg-[#737ef7] border border-blue-400 px-4 py-3 rounded-xl flex items-center gap-2 text-sm text-black hover:bg-[#ec5050] transition">
@@ -190,7 +190,7 @@ export default function BrowsePage() {
           {/* স্ক্রিনশটের হুবহু বামদিকের ফিল্টার সাইডবার */}
           <aside className="w-full lg:w-60 flex flex-col gap-6 shrink-0">
             <div>
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Genre</h3>
+              <h3 className="text-xs font-semibold text-gray-800 uppercase tracking-wider mb-3">Genre</h3>
               <div className="flex flex-col gap-1">
                 {genresList.map((genre) => (
                   <button
@@ -198,8 +198,8 @@ export default function BrowsePage() {
                     onClick={() => setSelectedGenre(genre)}
                     className={`flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium transition-all text-left ${
                       selectedGenre === genre 
-                        ? "bg-[#251c4a] text-[#9059ff] font-semibold" 
-                        : "text-gray-400 hover:bg-[#11121d] hover:text-white"
+                        ? "bg-indigo-100 text-[#1d1a24] font-semibold" 
+                        : "text-gray-700 hover:bg-indigo-100 hover:text-gray-800"
                     }`}
                   >
                     <span>{genre}</span>
@@ -210,10 +210,10 @@ export default function BrowsePage() {
             </div>
 
             {/* প্রাইস রেঞ্জ স্লাইডার */}
-            <div className="border-t border-gray-900/60 pt-4">
+            <div className="border-t border-gray-400 pt-4">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Price Range</h3>
-                <span className="text-xs text-[#9059ff] font-bold">0-${priceRange}</span>
+                <span className="text-xs text-red-600 font-bold">0-${priceRange}</span>
               </div>
               <input 
                 type="range" 
@@ -221,42 +221,42 @@ export default function BrowsePage() {
                 max="50" 
                 value={priceRange}
                 onChange={(e) => setPriceRange(Number(e.target.value))}
-                className="w-full accent-[#633efd] bg-gray-800 h-1 rounded-lg cursor-pointer"
+                className="w-full accent-[#fe223f] bg-gray-800 h-1 rounded-lg cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] text-gray-600 mt-1 font-medium">
+              <div className="flex justify-between text-[10px] text-red-400 mt-1 font-medium">
                 <span>$0</span>
                 <span>$50+</span>
               </div>
             </div>
 
             {/* অ্যাভেইলেবিলিটি রেডিও/চেকবক্স */}
-            <div className="border-t border-gray-900/60 pt-4 flex flex-col gap-2">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Availability</h3>
-              <label className="flex items-center gap-2 text-xs text-gray-400 cursor-pointer">
-                <input type="radio" name="availability" defaultChecked className="accent-[#633efd]" />
+            <div className="border-t border-gray-400 pt-4 flex flex-col gap-2">
+              <h3 className="text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Availability</h3>
+              <label className="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
+                <input type="radio" name="availability" defaultChecked  className="accent-[#633efd] " />
                 All
               </label>
-              <label className="flex items-center gap-2 text-xs text-gray-400 cursor-pointer">
+              <label className="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
                 <input type="radio" name="availability" className="accent-[#633efd]" />
                 Free
               </label>
-              <label className="flex items-center gap-2 text-xs text-gray-400 cursor-pointer">
+              <label className="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
                 <input type="radio" name="availability" className="accent-[#633efd]" />
                 Paid
               </label>
             </div>
 
             {/* সর্ট বাই ড্রপডাউন */}
-            <div className="border-t border-gray-900/60 pt-4">
+            <div className="border-t border-gray-300 pt-4">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Sort By</h3>
-              <select className="w-full bg-[#11121d] border border-gray-800/60 text-xs text-gray-300 px-3 py-2.5 rounded-xl outline-none focus:border-[#633efd] cursor-pointer">
+              <select className="w-full bg-indigo-100 border border-indigo-300 text-xs text-gray-900 px-3 py-2.5 rounded-xl outline-none focus:border-[#633efd] cursor-pointer">
                 <option>Newest First</option>
                 <option>Price Low → High</option>
                 <option>Price High → Low</option>
               </select>
             </div>
 
-            <button className="w-full bg-[#633efd] text-white font-semibold py-3 rounded-xl hover:bg-[#5232db] transition shadow-lg shadow-[#633efd]/20 text-xs mt-2">
+            <button className="w-full bg-red-500 text-white font-semibold py-3 rounded-xl hover:bg-[#5232db] transition shadow-lg shadow-[#633efd]/20 text-xs mt-2">
               Apply Filters
             </button>
           </aside>

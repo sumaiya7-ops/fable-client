@@ -1,60 +1,53 @@
 "use client";
 
+import { useState } from "react"; // useState ইমপোর্ট করতে হবে
 import Link from "next/link";
-// ব্র্যান্ড আইকন বাদ দিয়ে গ্যারান্টেড লুসিড আইকন ইমপোর্ট করা হয়েছে
-import { ArrowUpRight, Mail, Phone, MapPin, Share2, Globe, Link as LinkIcon, MessageSquare } from "lucide-react";
+import { ArrowUpRight, Share2, Globe, Link as LinkIcon, MessageSquare, MapPin, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email) return alert("দয়া করে একটি সঠিক ইমেইল দিন।");
+    
+    // এখানে ভবিষ্যতে আপনার API কল করতে পারবেন
+    setSubscribed(true);
+    setEmail(""); // ইনপুট বক্স খালি করার জন্য
+  };
+
   return (
-    <footer className="bg-indigo-100 border-t border-indigo-200/60 w-full flex justify-center pt-20 pb-12">
-      
-      {/* w-10/12 রেসপন্সিভ লেআউট */}
-      <div className="w-11/12 md:w-10/12 max-w-7xl flex flex-col gap-16">
-        
-        {/* Top Grid */}
+    <footer className="relative bg-gradient-to-br from-indigo-50 via-white to-indigo-100 text-indigo-900 border-t border-indigo-100 mt-20 overflow-hidden w-full flex flex-col items-center pt-20 pb-12">
+      {/* (আগের ব্যাকগ্রাউন্ড ব্লার কোড এখানে থাকবে...) */}
+      <div className="absolute -top-20 -left-20 w-72 h-72 bg-indigo-300 blur-3xl opacity-30 rounded-full pointer-events-none"></div>
+      <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-pink-300 blur-3xl opacity-20 rounded-full pointer-events-none"></div>
+
+      <div className="w-11/12 md:w-10/12 max-w-7xl flex flex-col gap-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           
-          {/* Column 1: Brand Info */}
+          {/* Column 1, 2, 3 আগের মতোই থাকবে */}
           <div className="space-y-6">
-            <Link href="/" className="text-3xl font-extrabold text-black tracking-tight block">
+            <Link href="/" className="text-3xl font-black tracking-tight text-indigo-950 block">
               Fable<span className="text-indigo-600">.</span>
             </Link>
-            <p className="text-gray-600 text-sm leading-relaxed max-w-xs">
-              A premium sanctuary for bibliophiles and visionary authors. Discover elite literary masterpieces curated just for you.
+            <p className="text-indigo-800/80 text-sm leading-relaxed max-w-xs">
+              A premium sanctuary for bibliophiles and visionary authors.
             </p>
-            
-            {/*১০০% সেফ লুসিড আইকন গ্রুপ */}
             <div className="flex items-center gap-4 pt-2">
-              <a href="#" className="w-9 h-9 rounded-full bg-white text-gray-700 hover:text-indigo-600 flex items-center justify-center shadow-sm hover:shadow-md hover:-translate-y-1 transition duration-300 border border-indigo-100">
-                <Share2 size={18} />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white text-gray-700 hover:text-indigo-600 flex items-center justify-center shadow-sm hover:shadow-md hover:-translate-y-1 transition duration-300 border border-indigo-100">
-                <Globe size={18} />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white text-gray-700 hover:text-indigo-600 flex items-center justify-center shadow-sm hover:shadow-md hover:-translate-y-1 transition duration-300 border border-indigo-100">
-                <LinkIcon size={18} />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white text-gray-700 hover:text-indigo-600 flex items-center justify-center shadow-sm hover:shadow-md hover:-translate-y-1 transition duration-300 border border-indigo-100">
-                <MessageSquare size={18} />
-              </a>
+              <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50"><Share2 size={18} /></a>
+              <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50"><Globe size={18} /></a>
+              <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50"><LinkIcon size={18} /></a>
+              <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50"><MessageSquare size={18} /></a>
             </div>
           </div>
 
-          {/* Column 2: Links */}
           <div className="space-y-5">
-            <h4 className="text-xs uppercase tracking-widest font-bold text-indigo-900">
-              Explore Celestial
-            </h4>
-            <ul className="space-y-3.5 text-sm font-medium">
-              {[
-  { name: "Home", href: "/" },
-  { name: "Browse Ebooks", href: "/browse" },
-  { name: "Dashboard", href: "/dashboard" },
-  { name: "About", href: "/about" }
-]
-              .map((link, index) => (
+            <h3 className="font-bold text-lg text-indigo-950">Quick Links</h3>
+            <ul className="space-y-2.5 text-sm font-medium">
+              {[{ name: "Home", href: "/" }, { name: "Browse Ebooks", href: "/browse" }, { name: "Dashboard", href: "/dashboard" }, { name: "About", href: "/about" }].map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-600 hover:text-indigo-600 flex items-center gap-1 group transition duration-200">
+                  <Link href={link.href} className="text-indigo-800/80 hover:text-indigo-700 flex items-center gap-1 group transition duration-200">
                     <span>{link.name}</span>
                     <ArrowUpRight size={14} className="opacity-0 -translate-y-0.5 group-hover:opacity-100 transition duration-200" />
                   </Link>
@@ -63,78 +56,54 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Contact */}
           <div className="space-y-5">
-            <h4 className="text-xs uppercase tracking-widest font-bold text-indigo-900">
-              The Atelier
-            </h4>
-            <ul className="space-y-3.5 text-sm font-medium text-gray-600">
-              <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-indigo-600 shrink-0 mt-0.5" />
-                <span>102 Elite Avenue, Literary District, NY</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail size={18} className="text-indigo-600 shrink-0" />
-                <a href="mailto:concierge@fable.com" className="hover:text-indigo-600 transition">concierge@fable.com</a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={18} className="text-indigo-600 shrink-0" />
-                <a href="tel:+1234567890" className="hover:text-indigo-600 transition">+1 (234) 567-890</a>
-              </li>
+            <h3 className="font-bold text-lg text-indigo-950">The Atelier</h3>
+            <ul className="space-y-3.5 text-sm font-medium text-indigo-800/80">
+              <li className="flex items-start gap-3"><MapPin size={18} className="text-indigo-600 shrink-0 mt-0.5" /><span>Bangladesh</span></li>
+              <li className="flex items-center gap-3"><Mail size={18} className="text-indigo-600 shrink-0" /><a href="mailto:sumaiyakookie307@gmail.com" className="hover:text-indigo-700 transition">sumaiyakookie307@gmail.com</a></li>
+              <li className="flex items-center gap-3"><Phone size={18} className="text-indigo-600 shrink-0" /><a href="tel:+8801826459605" className="hover:text-indigo-700 transition">+880 1826459605</a></li>
             </ul>
           </div>
 
-          {/* Column 4: Newsletter */}
+          {/* Column 4: Newsletter (সংশোধিত ফর্ম) */}
           <div className="space-y-5">
-            <h4 className="text-xs uppercase tracking-widest font-bold text-indigo-900">
-              The Elite Circle
-            </h4>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              Subscribe to unlock private literary collections and bespoke author insights.
+            <h3 className="font-bold text-lg text-indigo-950">The Elite Circle</h3>
+            <p className="text-indigo-800/80 text-sm leading-relaxed">
+              Subscribe to unlock private literary collections.
             </p>
-            <div className="flex gap-2 bg-white p-1.5 rounded-xl border border-indigo-200/80 shadow-inner focus-within:border-indigo-500 transition duration-300">
-              <input
-                type="email"
-                placeholder="Your premium email..."
-                className="w-full bg-transparent px-3 text-sm text-black outline-none placeholder:text-gray-400"
-              />
-              <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg text-xs font-semibold transition duration-300 whitespace-nowrap shadow-sm">
-                Join Us
-              </button>
-            </div>
+            
+            {subscribed ? (
+              <p className="text-green-600 text-sm font-semibold animate-pulse">
+                🎉 Thank you for joining our circle!
+              </p>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex gap-2 bg-white p-1.5 rounded-xl border border-indigo-200/80 shadow-md focus-within:border-indigo-500 transition duration-300">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your premium email..."
+                  required
+                  className="w-full bg-transparent px-3 text-sm text-black outline-none placeholder:text-indigo-800/40"
+                />
+                <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg text-xs font-semibold transition duration-300 whitespace-nowrap shadow-sm">
+                  Join Us
+                </button>
+              </form>
+            )}
           </div>
 
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-indigo-200/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-gray-500">
-          <p>© {new Date().getFullYear()} Fable Inc. All rights reserved with prestige.</p>
-     <div className="flex items-center gap-6">
-
-  <Link
-    href="/privacy"
-    className="hover:text-indigo-600 transition"
-  >
-    Privacy Policy
-  </Link>
-
-  <Link
-    href="/terms"
-    className="hover:text-indigo-600 transition"
-  >
-    Terms & Conditions
-  </Link>
-
-  <Link
-    href="/contact"
-    className="hover:text-indigo-600 transition"
-  >
-    Contact
-  </Link>
-
-</div>
+          <p>© {new Date().getFullYear()} Fable Inc. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/privacy" className="hover:text-indigo-700 transition">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-indigo-700 transition">Terms & Conditions</Link>
+            <Link href="/contact" className="hover:text-indigo-700 transition">Contact</Link>
+          </div>
         </div>
-
       </div>
     </footer>
   );
