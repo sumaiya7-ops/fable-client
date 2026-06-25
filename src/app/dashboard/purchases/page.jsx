@@ -29,10 +29,10 @@ const initialPurchases = [
   },
 ];
 export default function PurchasesPage() {
-  // যদি খালি টেস্ট করতে চান, তাহলে useState([]) করে দিতে পারেন
+ 
   const [purchases, setPurchases] = useState(initialPurchases);
 
-  // এম্পটি স্টেট হ্যান্ডলিং
+ 
   if (purchases.length === 0) {
     return (
       <div className="min-h-[70vh] flex items-center justify-center bg-[#0b0c16]">
@@ -64,7 +64,7 @@ export default function PurchasesPage() {
             key={book.id}
             className="bg-[#0f1123] border border-[#1e223d] rounded-2xl p-4 shadow-2xl hover:border-[#3b3370] transition flex flex-col justify-between group"
           >
-            {/* ইবুক কভার ইমেজ */}
+           
             <div className="relative overflow-hidden rounded-xl bg-[#15182e] h-64 w-full">
               <img
                 src={book.cover}
@@ -73,7 +73,7 @@ export default function PurchasesPage() {
               />
             </div>
 
-            {/* ইবুক ডিটেইলস */}
+            
             <div className="mt-4 flex-grow flex flex-col justify-between">
               <div>
                 <h2 className="font-semibold text-white text-lg line-clamp-1 group-hover:text-indigo-400 transition">
@@ -84,7 +84,7 @@ export default function PurchasesPage() {
                 </p>
               </div>
 
-              {/* রিড নাও একশন বাটন */}
+   
               <button className="mt-5 w-full bg-[#5826df] hover:bg-[#471cb8] text-white py-2.5 rounded-xl font-medium text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-purple-950/20">
                 <BookOpen size={16} />
                 Read Now
