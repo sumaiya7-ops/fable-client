@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react"; // useState ইমপোর্ট করতে হবে
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Share2, Globe, Link as LinkIcon, MessageSquare, MapPin, Mail, Phone } from "lucide-react";
 
@@ -12,14 +12,14 @@ export default function Footer() {
     e.preventDefault();
     if (!email) return alert("দয়া করে একটি সঠিক ইমেইল দিন।");
     
-    // এখানে ভবিষ্যতে আপনার API কল করতে পারবেন
+  
     setSubscribed(true);
-    setEmail(""); // ইনপুট বক্স খালি করার জন্য
+    setEmail(""); 
   };
 
   return (
     <footer className="relative bg-gradient-to-br from-indigo-50 via-white to-indigo-100 text-indigo-900 border-t border-indigo-100 mt-20 overflow-hidden w-full flex flex-col items-center pt-20 pb-12">
-      {/* (আগের ব্যাকগ্রাউন্ড ব্লার কোড এখানে থাকবে...) */}
+     
       <div className="absolute -top-20 -left-20 w-72 h-72 bg-indigo-300 blur-3xl opacity-30 rounded-full pointer-events-none"></div>
       <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-pink-300 blur-3xl opacity-20 rounded-full pointer-events-none"></div>
 
