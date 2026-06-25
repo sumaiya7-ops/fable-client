@@ -34,7 +34,7 @@ export default function TopWriters() {
     <section className="bg-indigo-100 mt-20 mb-20 w-full flex justify-center py-16">
       <div className="w-11/12 md:w-10/12 max-w-7xl">
         
-        {/* Header */}
+      
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
           <div>
             <p className="text-indigo-600 font-semibold tracking-widest uppercase mb-2">
