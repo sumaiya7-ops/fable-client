@@ -3,13 +3,12 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    // w-full এবং flex justify-center দিয়ে পুরো সেকশনকে মাঝখানে এলাইন করা হয়েছে
+
     <section className="bg-indigo-100 py-16 md:py-20 lg:py-28 w-full flex justify-center">
       
-      {/* মোবাইলে w-11/12 এবং বড় স্ক্রিনে w-10/12 রেসপন্সিভ উইডথ */}
+
       <div className="w-11/12 md:w-10/12 max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-        {/* Left Content (মোবাইলে টেক্সট নিচে নামাতে order-2 ব্যবহার করা হয়েছে) */}
         <div className="order-2 lg:order-1 text-left">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-black leading-tight tracking-tight">
             Discover & Read
