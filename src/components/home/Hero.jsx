@@ -27,7 +27,7 @@ export default function Hero() {
           </button>
         </div>
 
-        {/* Right Image (আপনার পাঠানো নতুন লাইব্রেরি ইমেজ) */}
+        
         <div className="order-1 lg:order-2 w-full flex justify-center">
           <img
             src="https://i.postimg.cc/1znS3RDG/book-2.jpg"

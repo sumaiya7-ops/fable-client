@@ -22,11 +22,10 @@ const genres = [
 
 export default function Genres() {
   return (
-    // bg-indigo-100 কালার ঠিক রাখা হয়েছে 
-    // mt-20 ওপরের সেকশন থেকে এবং mb-20 নিচের সেকশন থেকে চমৎকার গ্যাপ (Space) তৈরি করবে
+    
     <section className="bg-indigo-100 mt-20 mb-20 w-full flex justify-center py-16">
       
-      {/* মোবাইলে w-11/12 এবং মাঝারি/বড় স্ক্রিনে w-10/12 রেসপন্সিভ উইডথ */}
+     
       <div className="w-11/12 md:w-10/12 max-w-7xl">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-14">
           <div>
