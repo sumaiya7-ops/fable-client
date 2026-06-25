@@ -78,7 +78,7 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* ৪. কনফার্ম পাসওয়ার্ড ইনপুট গ্রুপ (চোখ আইকন সহ) */}
+        
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-900 block pl-1">
               Confirm Password
@@ -99,14 +99,14 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* ৫. চুজ রোল সেকশন (রেডিও বাটন ডিজাইন) */}
+         
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-800 block pl-1">
               Choose Role
             </label>
             <div className="grid grid-cols-2 gap-4">
               
-              {/* পাঠক রোল বাটন */}
+              
               <label 
                 className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all duration-200 bg-indigo-100 ${
                   role === "reader" ? "border-[#583ae2]" : "border-[#1e3078]"
