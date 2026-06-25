@@ -30,10 +30,9 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        {/* ৩. ফর্ম সেকশন */}
         <form className="flex flex-col gap-6">
 
-          {/* ১. ফুল নেম ইনপুট গ্রুপ */}
+          
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-900 block pl-1">
               Full Name
@@ -45,7 +44,7 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* ২. ইমেইল ইনপুট গ্রুপ */}
+      
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-black block pl-1">
               Email
@@ -57,7 +56,7 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* ৩. পাসওয়ার্ড ইনপুট গ্রুপ (চোখ আইকন সহ) */}
+          
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-black block pl-1">
               Password
