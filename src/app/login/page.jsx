@@ -63,7 +63,7 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          {/* লগইন বাটন - প্যাডিং এবং ফন্ট সাইজ বাড়িয়ে বড় করা হয়েছে (py-4.5, text-lg) */}
+          
           <div className="mt-2">
             <button
               type="submit"
@@ -101,17 +101,17 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* ৫. গুগল বাটন এবং তার নিচের অংশ - বাটন বড় করা হয়েছে (py-4, text-lg) */}
+       
         <div className="flex flex-col gap-6">
           <button
             type="button"
             className="w-full bg-[#35437d] border border-[#2b3765] text-gray-200 py-4 rounded-xl flex items-center justify-center gap-3 text-base sm:text-lg font-semibold hover:bg-[#1b2343] hover:border-[#384883] transition-all duration-200 cursor-pointer"
           >
-            <FcGoogle className="text-2xl " /> {/* আইকন সাইজ বাড়ানো হয়েছে */}
+            <FcGoogle className="text-2xl " />
             Google
           </button>
 
-          {/* রেজিস্টার লিংক */}
+         
           <p className="text-center text-gray-500 text-xs sm:text-sm mt-2">
             Don't have an account?{" "}
             <Link
