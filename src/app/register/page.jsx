@@ -12,12 +12,12 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfbf8] px-4 py-12">
       
-      {/* ১. লোগো এবং কার্ডের মাঝখানে বড় স্পেস */}
+
       <h1 className="text-4xl font-bold text-center text-[#6c43f5] mb-10 tracking-wide drop-shadow-[0_0_15px_rgba(126,91,239,0.3)]">
         Fable
       </h1>
 
-      {/* মেইন রেজিস্ট্রেশন কার্ড কন্টেইনার - আপনার লগইন পেজের মতো কালার bg-[#32448b] */}
+ 
       <div className="w-8/12 max-w-[480px] mx-auto bg-[#eceff9] border  rounded-2xl p-8 sm:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.4)] flex flex-col gap-8">
 
         {/* ২. Create Your Account সেকশন */}
