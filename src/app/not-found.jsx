@@ -21,7 +21,7 @@ export default function NotFound() {
           />
         </div>
 
-        {/* ডান পাশের অংশ: টেক্সট কন্টেন্ট */}
+        
         <div className="w-full text-center md:text-left max-w-md">
 
           <h1 className="text-7xl sm:text-8xl font-bold text-indigo-500 tracking-wider">
@@ -36,7 +36,7 @@ export default function NotFound() {
             Oops! The page you are looking for doesn't exist.
           </p>
 
-       {/* অ্যানিমেশন এবং হভার ইফেক্ট সহ বড় বাটন */}
+       
           <Link
             href="/"
             className="inline-block mt-8 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 animate-pulse [animation-duration:3s]"
