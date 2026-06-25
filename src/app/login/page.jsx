@@ -7,15 +7,15 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfbf8] px-4 py-12">
       
-      {/* ১. লোগো এবং কার্ডের মাঝখানে বড় স্পেস */}
+      
       <h1 className="text-4xl font-bold text-center text-[#6c43f5] mb-10 tracking-wide drop-shadow-[0_0_15px_rgba(126,91,239,0.3)]">
         Fable
       </h1>
 
-      {/* মেইন লগইন কার্ড কন্টেইনার - w-8/12 */}
+     
       <div className="w-8/12 max-w-[480px] mx-auto bg-[#eceff9]  rounded-3xl p-8 sm:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.4)] flex flex-col gap-8">
 
-        {/* ২. Welcome Back সেকশন */}
+      
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-black">
             Welcome Back!
