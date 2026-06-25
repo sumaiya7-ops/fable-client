@@ -202,9 +202,7 @@ export default function UserDashboardPage() {
 
           </div>
 
-          {/* ========================================================================= */}
-          {/* ডান পাশের সাইডবার কলাম (Reading Progress, Goals & Activities)             */}
-          {/* ========================================================================= */}
+         
           <div className="space-y-6">
             
             {/* ─── READING PROGRESS & READING GOAL ─── */}

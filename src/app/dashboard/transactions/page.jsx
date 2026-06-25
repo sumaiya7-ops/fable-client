@@ -187,14 +187,13 @@ export default function TransactionsPage() {
           </table>
         </div>
 
-        {/* এম্পটি স্টেট */}
         {filteredTransactions.length === 0 && (
           <div className="text-center py-12 border border-t-0 border-[#1e223d]/40 rounded-b-xl">
             <p className="text-gray-500 text-sm">No transactions found.</p>
           </div>
         )}
 
-        {/* পেজিনেশন */}
+       
         <div className="flex justify-center items-center gap-2">
           <button className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#5826df] text-white text-xs font-semibold">
             1
