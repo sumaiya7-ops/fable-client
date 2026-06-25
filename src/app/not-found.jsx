@@ -6,13 +6,13 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#2b396a] px-4 py-12">
       
-      {/* মেইন কন্টেইনার: আপনার রিকোয়েস্ট অনুযায়ী w-10/12 সেট করা হয়েছে */}
+      
       <div className="w-10/12 max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20">
         
-        {/* বাম পাশের অংশ: অ্যাস্ট্রোনট ইমেজ (রেসপনসিভ সাইজ) */}
+       
         <div className="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[420px] flex justify-center">
           <Image
-            src="https://i.postimg.cc/VLSnLsfv/404.jpg" // আপনার public/ ফোল্ডারের ছবির নাম ও এক্সটেনশন অনুযায়ী পরিবর্তন করে নিবেন
+            src="https://i.postimg.cc/VLSnLsfv/404.jpg"
             alt="Astronaut in Space"
             width={450}
             height={450}
