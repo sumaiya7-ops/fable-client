@@ -25,10 +25,10 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* ৩. ফর্ম সেকশন */}
+       
         <form className="flex flex-col gap-6">
 
-          {/* ইমেইল ইনপুট গ্রুপ - ইনপুট ফিল্ড বড় করা হয়েছে (p-5, text-base) */}
+        
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-600 block pl-1">
               Email
@@ -40,7 +40,7 @@ export default function LoginPage() {
             /> 
           </div>
 
-          {/* পাসওয়ার্ড ইনপুট গ্রুপ - ইনপুট ফিল্ড বড় করা হয়েছে (p-5, text-base) */}
+ 
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-600 block pl-1">
               Password
@@ -52,7 +52,7 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* ফরগট পাসওয়ার্ড লিংক */}
+    
           <div className="flex justify-end mt-1">
             <Link
               href="/forgot-password"
