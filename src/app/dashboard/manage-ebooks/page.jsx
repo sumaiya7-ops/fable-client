@@ -55,49 +55,50 @@ export default function ManageEbooksPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0c16] text-[#94a3b8] p-4 md:p-8 space-y-8 font-sans">
+    <div className="min-h-screen bg-white text-gray-800 p-4 md:p-8 space-y-8 font-sans">
       
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-white tracking-wide">
+        <h1 className="text-3xl font-bold  tracking-wide">
           Manage Ebooks
         </h1>
-        <p className="text-gray-400 mt-2 text-sm">
+        <p className="text-gray-600 mt-2 text-sm">
           Monitor, search and filter your library database.
         </p>
       </div>
+      <div className="h-1"></div>
 
       {/* Stats Cards Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Total Ebooks */}
-        <div className="bg-[#0f1123] border border-[#1e223d] p-6 rounded-2xl shadow-2xl">
+        <div className="bg-indigo-50 border border-indigo-200 p-6 rounded-xl shadow-2xl">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-gray-400 text-sm font-medium">Total Ebooks</h3>
-            <BookOpen size={20} className="text-indigo-400" />
+            <h3 className="text-gray-600 text-sm font-medium">Total Ebooks</h3>
+            <BookOpen size={20} className="text-indigo-600" />
           </div>
-          <p className="text-3xl font-bold text-white tracking-wide">
+          <p className="text-3xl font-bold text-red-600 tracking-wide">
             {ebooks.length}
           </p>
         </div>
 
         {/* Published */}
-        <div className="bg-[#0f1123] border border-[#1e223d] p-6 rounded-2xl shadow-2xl">
+        <div className="bg-indigo-50 border border-indigo-300 p-6 rounded-xl shadow-2xl">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-gray-400 text-sm font-medium">Published</h3>
-            <CheckCircle size={20} className="text-emerald-400" />
+            <h3 className="text-gray-600 text-sm font-medium">Published</h3>
+            <CheckCircle size={20} className="text-emerald-600" />
           </div>
-          <p className="text-3xl font-bold text-white tracking-wide">
+          <p className="text-3xl font-bold text-red-600 tracking-wide">
             {publishedCount}
           </p>
         </div>
 
         {/* Draft */}
-        <div className="bg-[#0f1123] border border-[#1e223d] p-6 rounded-2xl shadow-2xl">
+        <div className="bg-indigo-50 border border-indigo-400 p-6 rounded-xl shadow-2xl">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-gray-400 text-sm font-medium">Draft</h3>
-            <FileText size={20} className="text-purple-400" />
+            <h3 className="text-gray-600 text-sm font-medium">Draft</h3>
+            <FileText size={20} className="text-purple-600" />
           </div>
-          <p className="text-3xl font-bold text-white tracking-wide">
+          <p className="text-3xl font-bold text-red-500 tracking-wide">
             {draftCount}
           </p>
         </div>
@@ -106,13 +107,13 @@ export default function ManageEbooksPage() {
       {/* Search + Filter */}
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <div className="relative w-full sm:w-80">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          
           <input
             type="text"
             placeholder="Search ebook..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-[#15182e] border border-[#272b4d] text-sm text-white pl-9 pr-4 py-2.5 rounded-xl focus:outline-none focus:border-[#5826df] transition"
+            className="w-full bg-indigo-100 text-gray-700 border border-indigo-400 text-sm  pl-9 pr-4 py-2.5 rounded-xl focus:outline-none focus:border-[#5826df] transition"
           />
         </div>
 
@@ -120,39 +121,39 @@ export default function ManageEbooksPage() {
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="w-full appearance-none bg-[#15182e] border border-[#272b4d] text-sm text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#5826df] cursor-pointer pr-10"
+            className="w-full appearance-none bg-indigo-100 border border-indigo-300 text-sm text-gray-700 px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#5826df] cursor-pointer pr-10"
           >
             <option value="All">All Status</option>
             <option value="Published">Published</option>
             <option value="Draft">Draft</option>
           </select>
-          <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+          <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 pointer-events-none" />
         </div>
       </div>
 
       {/* Table Container */}
-      <div className="bg-[#0f1123] border border-[#1e223d] rounded-2xl p-5 md:p-6 shadow-2xl overflow-x-auto">
+      <div className="bg-indigo-100 border border-indigo-300 rounded2xl p-5 md:p-6 shadow-2xl overflow-x-auto">
         <table className="w-full min-w-[700px] text-left border-collapse">
           <thead>
-            <tr className="text-gray-400 text-sm font-medium border-b border-[#1e223d]">
+            <tr className="text-gray-700 text-md font-medium border-b border-indigo-300">
               <th className="pb-4 font-normal">Title</th>
               <th className="pb-4 font-normal">Price</th>
               <th className="pb-4 font-normal">Status</th>
               <th className="pb-4 font-normal text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#1e223d]/40">
+          <tbody className="divide-y divide-indigo-500">
             {filteredEbooks.map((ebook) => (
-              <tr key={ebook.id} className="text-sm text-gray-300 hover:bg-[#15182e]/30 transition">
-                <td className="py-4 font-medium text-white">{ebook.title}</td>
-                <td className="py-4 font-mono text-gray-400">{ebook.price}</td>
+              <tr key={ebook.id} className="text-sm text-gray-500 hover:bg-indigo-200 transition">
+                <td className="py-4 font-medium text-gray-600">{ebook.title}</td>
+                <td className="py-4 font-mono text-red-500">{ebook.price}</td>
                 <td className="py-4">
                   {ebook.status === "Published" ? (
-                    <span className="bg-[#122b27] text-[#5eead4] text-xs font-semibold px-2.5 py-0.5 rounded border border-[#145346]">
+                    <span className="bg-emerald-500 text-white text-xs font-semibold px-2.5 py-0.5 rounded border border-[#3d8072]">
                       Published
                     </span>
                   ) : (
-                    <span className="bg-[#2a1b4e] text-[#c0a5f7] text-xs font-semibold px-2.5 py-0.5 rounded border border-[#442b80]">
+                    <span className="bg-red-500 text-white text-xs font-semibold px-2.5 py-0.5 rounded border border-red-700">
                       Draft
                     </span>
                   )}
@@ -160,13 +161,13 @@ export default function ManageEbooksPage() {
                 <td className="py-4 text-right">
                   <div className="inline-flex items-center gap-3">
                     {/* এডিট বাটন */}
-                    <button className="text-gray-400 hover:text-indigo-400 transition" title="Edit">
+                    <button className="text-gray-600 hover:text-indigo-700 transition" title="Edit">
                       <Edit2 size={16} />
                     </button>
                     {/* ডিলিট বাটন */}
                     <button 
                       onClick={() => handleDelete(ebook.id)}
-                      className="text-[#ef4444] bg-[#36161c] border border-[#6b1e28] p-1.5 rounded hover:bg-[#4c1c24] transition" 
+                      className="text-[#fa2828] bg-white border border-white p-1.5 rounded  transition" 
                       title="Delete"
                     >
                       <Trash2 size={15} />
@@ -181,7 +182,7 @@ export default function ManageEbooksPage() {
         {/* সার্চ রেজাল্ট না থাকলে এম্পটি স্টেট */}
         {filteredEbooks.length === 0 && (
           <div className="py-12 text-center">
-            <p className="text-gray-500 text-sm">No matching ebooks found.</p>
+            <p className="text-gray-600 text-sm">No matching ebooks found.</p>
           </div>
         )}
       </div>

@@ -58,8 +58,8 @@ export default function AddEbookPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0813] text-white p-4 md:p-8">
-      <div className="max-w-5xl mx-auto bg-[#131126]/70 border border-[#221f3b] rounded-3xl p-5 md:p-8">
+    <div className="min-h-screen bg-white text-gray-800 p-4 md:p-8">
+      <div className="max-w-5xl mx-auto bg-indigo-100 border border-indigo-500 rounded-xl p-5 md:p-8">
 
         {/* Header */}
         <div className="mb-8">
@@ -67,7 +67,7 @@ export default function AddEbookPage() {
             Add New Ebook
           </h1>
 
-          <p className="text-gray-400 text-sm mt-2">
+          <p className="text-gray-600 text-sm mt-2">
             Publish your ebook and share your story with readers worldwide.
           </p>
         </div>
@@ -81,7 +81,7 @@ export default function AddEbookPage() {
 
               {/* Title */}
               <div>
-                <label className="block text-sm mb-2 text-gray-300">
+                <label className="block text-md mb-2 text-gray-900">
                   Ebook Title
                 </label>
 
@@ -92,13 +92,13 @@ export default function AddEbookPage() {
                   onChange={handleChange}
                   placeholder="Enter ebook title"
                   required
-                  className="w-full bg-[#0b0813] border border-[#221f3b] rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
+                  className="w-full bg-indigo-50 border border-indigo-200 text-gray-500 rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
                 />
               </div>
 
               {/* Author */}
               <div>
-                <label className="block text-sm mb-2 text-gray-300">
+                <label className="block text-md mb-2 text-gray-800">
                   Author Name
                 </label>
 
@@ -109,13 +109,13 @@ export default function AddEbookPage() {
                   onChange={handleChange}
                   placeholder="Enter author name"
                   required
-                  className="w-full bg-[#0b0813] border border-[#221f3b] rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
+                  className="w-full bg-indigo-50 border border-indigo-300 rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
                 />
               </div>
 
               {/* Description */}
               <div>
-                <label className="block text-sm mb-2 text-gray-300">
+                <label className="block text-md mb-2 text-gray-900">
                   Description
                 </label>
 
@@ -126,7 +126,7 @@ export default function AddEbookPage() {
                   onChange={handleChange}
                   placeholder="Write ebook description..."
                   required
-                  className="w-full bg-[#0b0813] border border-[#221f3b] rounded-xl px-4 py-3 outline-none resize-none focus:border-indigo-500"
+                  className="w-full bg-indigo-50 border border-indigo-500 text-gray-600 rounded-xl px-4 py-3 outline-none resize-none focus:border-indigo-500"
                 />
               </div>
 
@@ -137,7 +137,7 @@ export default function AddEbookPage() {
 
               {/* Genre */}
               <div>
-                <label className="block text-sm mb-2 text-gray-300">
+                <label className="block text-sm mb-2 text-gray-800">
                   Genre
                 </label>
 
@@ -146,7 +146,7 @@ export default function AddEbookPage() {
                   value={formData.genre}
                   onChange={handleChange}
                   required
-                  className="w-full bg-[#0b0813] border border-[#221f3b] rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
+                  className="w-full bg-indigo-50 border border-indigo-300 rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
                 >
                   <option value="">Select Genre</option>
                   <option>Fiction</option>
@@ -160,7 +160,7 @@ export default function AddEbookPage() {
 
               {/* Language */}
               <div>
-                <label className="block text-sm mb-2 text-gray-300">
+                <label className="block text-sm mb-2 text-gray-800">
                   Language
                 </label>
 
@@ -169,7 +169,7 @@ export default function AddEbookPage() {
                   value={formData.language}
                   onChange={handleChange}
                   required
-                  className="w-full bg-[#0b0813] border border-[#221f3b] rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
+                  className="w-full bg-indigo-50 border border-indigo-300 rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
                 >
                   <option value="">Select Language</option>
                   <option>English</option>
@@ -180,7 +180,7 @@ export default function AddEbookPage() {
 
               {/* Pages */}
               <div>
-                <label className="block text-sm mb-2 text-gray-300">
+                <label className="block text-sm mb-2 text-gray-800">
                   Total Pages
                 </label>
 
@@ -191,13 +191,13 @@ export default function AddEbookPage() {
                   onChange={handleChange}
                   placeholder="250"
                   required
-                  className="w-full bg-[#0b0813] border border-[#221f3b] rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
+                  className="w-full bg-indigo-50 text-gray-600 border border-indigo-300 rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
                 />
               </div>
 
               {/* Price */}
               <div>
-                <label className="block text-sm mb-2 text-gray-300">
+                <label className="block text-sm mb-2 text-gray-800">
                   Price (USD)
                 </label>
 
@@ -209,23 +209,23 @@ export default function AddEbookPage() {
                   onChange={handleChange}
                   placeholder="4.99"
                   required
-                  className="w-full bg-[#0b0813] border border-[#221f3b] rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
+                  className="w-full bg-indigo-50 border border-indigo-300 text-gray-600 rounded-xl px-4 py-3 outline-none focus:border-indigo-500"
                 />
               </div>
 
               {/* Cover Upload */}
               <div>
-                <label className="block text-sm mb-2 text-gray-300">
+                <label className="block text-sm mb-2 text-gray-800">
                   Cover Image
                 </label>
 
-                <label className="flex flex-col justify-center items-center h-32 border border-dashed border-[#221f3b] rounded-xl cursor-pointer hover:border-indigo-500 transition">
+                <label className="flex flex-col justify-center items-center h-32 border border-dashed border-indigo-600 rounded-xl cursor-pointer hover:border-indigo-500 transition">
                   <Upload
                     size={24}
-                    className="text-indigo-500 mb-2"
+                    className="text-red-500 mb-2"
                   />
 
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-gray-600">
                     {formData.coverImage
                       ? formData.coverImage.name
                       : "Upload Cover Image"}
@@ -242,17 +242,17 @@ export default function AddEbookPage() {
 
               {/* PDF Upload */}
               <div>
-                <label className="block text-sm mb-2 text-gray-300">
+                <label className="block text-sm mb-2 text-gray-800">
                   Ebook PDF
                 </label>
 
                 <label className="flex flex-col justify-center items-center h-32 border border-dashed border-[#221f3b] rounded-xl cursor-pointer hover:border-indigo-500 transition">
                   <FileText
                     size={24}
-                    className="text-indigo-500 mb-2"
+                    className="text-indigo-800 mb-2"
                   />
 
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-gray-600">
                     {formData.pdfFile
                       ? formData.pdfFile.name
                       : "Upload PDF File"}
@@ -271,19 +271,19 @@ export default function AddEbookPage() {
           </div>
 
           {/* Buttons */}
-          <div className="border-t border-[#221f3b] mt-8 pt-6 flex flex-col sm:flex-row justify-end gap-3">
+          <div className="border-t border-indigo-500 mt-8 pt-6 flex flex-col sm:flex-row justify-end gap-3">
 
             <button
               type="button"
               onClick={handleDraft}
-              className="px-6 py-3 rounded-xl border border-[#221f3b] hover:bg-[#1a1730] transition"
+              className="px-6 py-3 rounded-xl border border-indigo-400  transition"
             >
               Save Draft
             </button>
 
             <button
               type="submit"
-              className="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 transition"
+              className="px-6 py-3 rounded-xl bg-red-600 text-white hover:bg-emerald-600 transition"
             >
               Publish Ebook
             </button>

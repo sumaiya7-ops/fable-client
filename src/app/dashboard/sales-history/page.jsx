@@ -15,7 +15,7 @@ const sales = [
 
 export default function SalesHistoryPage() {
   return (
-    <div className="bg-white p-6 rounded-3xl shadow-md">
+    <div className="bg-white p-6 rounded-xl shadow-md">
 
       <h1 className="text-3xl font-bold mb-6 text-black">
         Sales History
@@ -26,7 +26,7 @@ export default function SalesHistoryPage() {
         <table className="w-full">
 
           <thead>
-            <tr className="border-b">
+            <tr className="border-b text-gray-700">
               <th className="text-left py-4">Ebook</th>
               <th className="text-left py-4">Buyer</th>
               <th className="text-left py-4">Amount</th>
@@ -36,7 +36,7 @@ export default function SalesHistoryPage() {
 
           <tbody>
             {sales.map((sale, i) => (
-              <tr key={i} className="border-b">
+              <tr key={i} className="border-b text-gray-700">
 
                 <td className="py-4">{sale.ebook}</td>
                 <td>{sale.buyer}</td>

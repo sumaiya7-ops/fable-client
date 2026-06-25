@@ -12,5 +12,5 @@ export default function BookmarksPage() {
     );
   }
 
-  return <div>Bookmarks Data</div>;
+  return <div className="text-gray-800">Bookmarks Data</div>;
 }

@@ -86,30 +86,30 @@ export default function ManageAllEbooks() {
   const totalSalesCount = ebooks.reduce((sum, book) => sum + book.sales, 0);
 
   return (
-    <div className="min-h-screen bg-[#0b0c16] text-[#94a3b8] p-4 md:p-8 flex items-center justify-center font-sans">
+    <div className="min-h-screen bg-white text-gray-800 p-4 md:p-8 flex items-center justify-center font-sans">
       
       {/* মেইন কন্টেইনার */}
-      <div className="bg-[#0f1123] border border-[#1e223d] p-5 md:p-8 rounded-2xl w-full max-w-6xl shadow-2xl space-y-8">
+      <div className="bg-indigo-50 border border-indigo-200 p-5 md:p-8 rounded-xl w-full max-w-6xl shadow-2xl space-y-8">
         
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-semibold text-white tracking-wide mb-1">
+          <h1 className="text-2xl font-semibold  tracking-wide mb-1">
             Manage Ebooks
           </h1>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-600">
             View and manage all ebooks.
           </p>
         </div>
 
         {/* Stats Cards Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          <div className="bg-[#15182e] border border-[#272b4d] rounded-2xl p-5 shadow-lg">
+          <div className="bg-indigo-100 border border-indigo-400 rounded-xl p-5 shadow-lg">
             <div className="flex items-center justify-between">
-              <BookOpen className="text-indigo-400" size={24} />
-              <span className="text-emerald-500 bg-[#162a2b] text-xs font-semibold px-2 py-0.5 rounded-full border border-emerald-900">+12%</span>
+              <BookOpen className="text-indigo-700" size={24} />
+              <span className="text-emerald-600 bg-white text-xs font-semibold px-2 py-0.5 rounded-full border border-emerald-700">+12%</span>
             </div>
-            <h3 className="text-gray-400 mt-4 text-sm font-medium">Total Ebooks</h3>
-            <p className="text-3xl font-bold text-white mt-1">{ebooks.length}</p>
+            <h3 className="text-gray-500 mt-4 text-sm font-medium">Total Ebooks</h3>
+            <p className="text-3xl font-bold text-red-500 mt-1">{ebooks.length}</p>
           </div>
 
           <div className="bg-[#15182e] border border-[#272b4d] rounded-2xl p-5 shadow-lg">

@@ -10,19 +10,22 @@ const initialPurchases = [
     id: 1,
     title: "The Silent Watcher",
     author: "James Rollins",
-    cover: "https://unsplash.com",
+    cover:
+      "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500&q=80",
   },
   {
     id: 2,
     title: "Beyond the Horizon",
     author: "James Rollins",
-    cover: "https://unsplash.com",
+    cover:
+      "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500&q=80",
   },
   {
     id: 3,
     title: "Midnight Whispers",
     author: "Emily Stone",
-    cover: "https://unsplash.com",
+    cover:
+      "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=500&q=80",
   },
 ];
 export default function PurchasesPage() {
