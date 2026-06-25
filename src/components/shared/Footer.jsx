@@ -26,7 +26,7 @@ export default function Footer() {
       <div className="w-11/12 md:w-10/12 max-w-7xl flex flex-col gap-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           
-          {/* Column 1, 2, 3 আগের মতোই থাকবে */}
+         
           <div className="space-y-6">
             <Link href="/" className="text-3xl font-black tracking-tight text-indigo-950 block">
               Fable<span className="text-indigo-600">.</span>
@@ -65,7 +65,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Newsletter (সংশোধিত ফর্ম) */}
+      
           <div className="space-y-5">
             <h3 className="font-bold text-lg text-indigo-950">The Elite Circle</h3>
             <p className="text-indigo-800/80 text-sm leading-relaxed">
@@ -95,7 +95,7 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Bar */}
+      
         <div className="pt-8 border-t border-indigo-200/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-gray-500">
           <p>© {new Date().getFullYear()} Fable Inc. All rights reserved.</p>
           <div className="flex items-center gap-6">
