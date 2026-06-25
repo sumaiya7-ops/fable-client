@@ -121,7 +121,7 @@ export default function RegisterPage() {
                 <span className="text-sm text-gray-800 font-medium">I'm a Reader</span>
               </label>
 
-              {/* লেখক রোল বাটন */}
+              
               <label 
                 className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all duration-200 bg-indigo-100 ${
                   role === "writer" ? "border-[#583ae2]" : "border-[#2b3765]"
@@ -139,7 +139,6 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* রেজিস্ট্রেশন মেইন বড় বাটন */}
           <div className="mt-2">
             <button
               type="submit"
@@ -165,7 +164,7 @@ export default function RegisterPage() {
 
         </form>
 
-        {/* লগইন লিংক টেক্সট - গ্লোবাল থিম বাইপাস ট্রিক */}
+        
         <p className="text-center text-gray-700 text-xs sm:text-sm mt-2">
           Already have an account?{" "}
           <Link
