@@ -63,7 +63,7 @@ export default function ManageUsers() {
   });
 
   return (
-    <div className="min-h-screen bg-white text-[#94a3b8] p-4 md:p-8">
+    <div className="min-h-screen bg-white text-[#94a3b8] p-4 md:p-8" style={{ paddingLeft: "8px" , paddingRight:"8px" }}>
       <div className="max-w-7xl mx-auto bg-indigo-50 border border-indigo-400 rounded-xl p-5 md:p-8 shadow-2xl">
         
         {/* Header */}
@@ -181,7 +181,7 @@ export default function ManageUsers() {
         {/* Empty State */}
         {filteredUsers.length === 0 && (
           <div className="text-center py-16">
-            <h3 className="text-2xl font-semibold text-white mb-2">
+            <h3 className="text-2xl font-semibold text-indigo-900 mb-2">
               No Users Found
             </h3>
             <p className="text-gray-400">

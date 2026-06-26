@@ -19,7 +19,7 @@ export default function ContactPage() {
         {/* gap-8 বা gap-12 দিয়ে দুই বক্সের মাঝের ফাঁকা জায়গা নিয়ন্ত্রণ করা হয়েছে */}
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Info */}
-          <div className="bg-indigo-50 rounded-3xl shadow-lg p-8 md:p-10 space-y-6">
+          <div className="bg-indigo-50 rounded-3xl shadow-lg p-8 md:p-10 space-y-6" style={{ padding: "8px" , paddingRight:"8px" }}>
             <h2 className="text-2xl font-bold text-black">
               Get In Touch
             </h2>
@@ -48,7 +48,7 @@ export default function ContactPage() {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-indigo-50 rounded-xl shadow-lg p-8 md:p-10">
+          <div className="bg-indigo-50 rounded-xl shadow-lg p-8 md:p-10" style={{ padding: "8px" , paddingRight:"8px" }}>
             <form className="space-y-5">
               <input
                 type="text"

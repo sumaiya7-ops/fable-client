@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, ChevronDown, Edit2, Trash2, BookOpen, CheckCircle, FileText } from "lucide-react";
+import {  ChevronDown, Edit2, Trash2, BookOpen, CheckCircle, FileText } from "lucide-react";
 import EmptyState from "../../../components/shared/EmptyState";
 
 // রিয়েল ডার্ক থিমে টেস্ট করার জন্য মক ডেটা
@@ -55,13 +55,14 @@ export default function ManageEbooksPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 p-4 md:p-8 space-y-8 font-sans">
+    <div className="min-h-screen bg-white text-gray-800 p-4 md:p-8 space-y-8 font-sans" >
       
       {/* Header */}
-      <div>
+      <div >
         <h1 className="text-3xl font-bold  tracking-wide">
           Manage Ebooks
         </h1>
+
         <p className="text-gray-600 mt-2 text-sm">
           Monitor, search and filter your library database.
         </p>

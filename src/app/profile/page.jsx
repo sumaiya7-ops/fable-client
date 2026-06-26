@@ -13,11 +13,10 @@ export default function ProfilePage() {
     memberSince: "May 10, 2024",
     bio: "Passionate fiction writer creating immersive stories for readers worldwide.",
     location: "New York, USA",
-    website: "www.emilystorm.com",
-    facebook: "facebook.com/emilystorm",
-    twitter: "x.com/emilystorm",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500",
+    website: "://emilystorm.com",
+    facebook: "://facebook.com",
+    twitter: "://x.com",
+    avatar: "https://unsplash.com",
   });
 
   const [formData, setFormData] = useState(user);
@@ -51,10 +50,10 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-indigo-100 flex justify-center py-10 px-4">
+    <div className="min-h-screen bg-indigo-100 flex justify-center py-10 px-4" style={{ paddingLeft: "8px" , paddingRight:"8px" }}>
       <div className="w-11/12 md:w-10/12 max-w-6xl">
 
-        <div className="bg-white rounded-xl shadow-sm border border-indigo-200 p-6 md:p-10">
+        <div className="bg-white rounded-xl shadow-sm border border-indigo-200 p-6 md:p-10" style={{ padding: "8px"  }}>
 
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
@@ -71,7 +70,7 @@ export default function ProfilePage() {
             {!isEditing ? (
               <button
                 onClick={() => setIsEditing(true)}
-                className="bg-red-500  text-white px-6 py-3 rounded-xl flex items-center gap-2"
+                className="bg-red-500 text-white px-6 py-3 rounded-xl flex items-center gap-2" style={{ padding: "3px"  }}
               >
                 <Edit2 size={18} />
                 Edit Profile
@@ -79,7 +78,7 @@ export default function ProfilePage() {
             ) : (
               <button
                 onClick={handleSave}
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl flex items-center gap-2"
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl flex items-center gap-2" style={{ padding: "4px"  }}
               >
                 <Check size={18} />
                 Save Changes
@@ -90,7 +89,7 @@ export default function ProfilePage() {
           <div className="grid lg:grid-cols-3 gap-8">
 
             {/* Left */}
-            <div className="bg-indigo-50 rounded-2xl p-6 flex flex-col items-center">
+            <div className="bg-indigo-50 rounded-2xl p-6 flex flex-col items-center" style={{ padding: "8px"  }}>
 
               <img
                 src={user.avatar}
@@ -98,7 +97,7 @@ export default function ProfilePage() {
                 className="w-40 h-40 rounded-full object-cover border-4 border-indigo-200"
               />
 
-              <label className="mt-5 bg-red-500 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl cursor-pointer">
+              <label className="mt-5 bg-red-500 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl cursor-pointer" style={{ padding: "2px"  }}>
                 Change Photo
                 <input
                   type="file"
@@ -127,12 +126,10 @@ export default function ProfilePage() {
             <div className="lg:col-span-2 space-y-5">
 
               {/* Name */}
-               <label className="text-xs text-gray-600">
-                  Full Name
-                </label>
-              <div className="bg-indigo-50 p-5 border-red-400 rounded-xl">
-               
-
+              <label className="text-xs text-gray-600">
+                Full Name
+              </label>
+              <div className="bg-indigo-50 p-5 rounded-xl">
                 {isEditing ? (
                   <input
                     type="text"
@@ -147,33 +144,19 @@ export default function ProfilePage() {
                   </p>
                 )}
               </div>
-
-              {/* Email */}
-                <label className="text-xs text-gray-500">
-                  Email
-                </label>
+              {/* Bio (রিসাইজ লক করা হলো) */}
+              <label className="text-xs text-gray-500">
+                Bio
+              </label>
               <div className="bg-indigo-50 p-5 rounded-sm">
-              
-
-                <p className="text-black font-medium mt-2">
-                  {user.email}
-                </p>
-              </div>
-
-              {/* Bio */}
-                  <label className="text-xs text-gray-500">
-                  Bio
-                </label>
-              <div className="bg-indigo-50 p-5 rounded-sm">
-              
-
                 {isEditing ? (
                   <textarea
                     rows="4"
                     name="bio"
                     value={formData.bio}
                     onChange={handleChange}
-                    className="w-full mt-2 text-gray-700 border border-indigo-300 rounded-xl px-4 py-3"
+                    /* 🟢 এখানে resize-none দিয়ে ডিজাইন লক করে দেওয়া হলো যেন নাম্বার না কাটে */
+                    className="w-full mt-2 text-gray-700 border border-indigo-300 rounded-xl px-4 py-3 resize-none"
                   />
                 ) : (
                   <p className="text-gray-700 mt-2">
@@ -182,13 +165,21 @@ export default function ProfilePage() {
                 )}
               </div>
 
-              {/* Location */}
-                  <label className="text-xs text-gray-500">
-                  Location
-                </label>
-              <div className="bg-indigo-50 text-gray-700 p-5 rounded-xl flex items-center gap-3">
-                
+              {/* Email */}
+              <label className="text-xs text-gray-500">
+                Email
+              </label>
+              <div className="bg-indigo-50 p-5 rounded-sm">
+                <p className="text-black font-medium mt-2">
+                  {user.email}
+                </p>
+              </div>
 
+              {/* Location */}
+              <label className="text-xs text-gray-500">
+                Location
+              </label>
+              <div className="bg-indigo-50 text-gray-700 p-5 rounded-xl flex items-center gap-3">
                 {isEditing ? (
                   <input
                     type="text"
@@ -203,11 +194,10 @@ export default function ProfilePage() {
               </div>
 
               {/* Website */}
-                  <label className="text-xs text-gray-500">
-                  Website
-                </label>
+              <label className="text-xs text-gray-500">
+                Website
+              </label>
               <div className="bg-indigo-50 p-5 rounded-sm text-gray-700 flex items-center gap-3">
-              
                 {isEditing ? (
                   <input
                     type="text"
@@ -223,18 +213,13 @@ export default function ProfilePage() {
 
               {/* Social */}
               <div className="grid md:grid-cols-2 gap-4">
-
-               
-
-
+                {/* আপনার সোশ্যাল মিডিয়া ফিল্ডগুলো পরবর্তীতে এখানে আসবে */}
               </div>
 
             </div>
-
           </div>
 
         </div>
-
       </div>
     </div>
   );

@@ -43,22 +43,72 @@ export default function AddEbookPage() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    if (!formData.coverImage) {
+      alert("Please upload a cover image first.");
+      return;
+    }
 
-    alert("Ebook Published Successfully!");
+    try {
+      alert("Uploading cover image to imgBB...");
+      
+      // ১. imgBB তে কভার ইমেজ আপলোড করা
+      const imgData = new FormData();
+      imgData.append("image", formData.coverImage);
+      
+      // আপনার .env ফাইল থেকে VITE_IMGBB_API_KEY বা NEXT_PUBLIC_IMGBB_API_KEY বসাবেন
+      const imgbbRes = await fetch(`https://imgbb.com{process.env.NEXT_PUBLIC_IMGBB_API_KEY || 'YOUR_IMGBB_API_KEY'}`, {
+        method: "POST",
+        body: imgData,
+      });
+      const imgbbResult = await imgbbRes.json();
+      const imageUrl = imgbbResult.data.url;
+
+      alert("Image uploaded successfully! Saving ebook data...");
+
+      // ২. আপনার এক্সপ্রেস ব্যাকএন্ড সার্ভারে সমস্ত ডাটা পাঠানো
+      const ebookPayload = {
+        title: formData.title,
+        description: formData.description,
+        author: formData.author,
+        genre: formData.genre,
+        language: formData.language,
+        pages: Number(formData.pages),
+        price: Number(formData.price),
+        image: imageUrl, // imgBB থেকে প্রাপ্ত লিঙ্ক
+      };
+
+      const serverRes = await fetch("http://localhost:5000/api/v1/ebooks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // আপনার JWT টোকেন থাকলে এখানে যুক্ত করবেন
+        },
+        body: JSON.stringify(ebookPayload),
+      });
+
+      if (serverRes.ok) {
+        alert("Ebook Published Successfully and Saved to DB!");
+        // ফর্ম রিসেট করার লজিক
+      } else {
+        alert("Failed to save ebook on server.");
+      }
+      
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("Something went wrong during publication.");
+    }
   };
-
-  const handleDraft = () => {
+    const handleDraft = () => {
     console.log("Draft Saved", formData);
-
     alert("Draft Saved Successfully!");
   };
 
+
   return (
-    <div className="min-h-screen bg-white text-gray-800 p-4 md:p-8">
+    <div className="min-h-screen bg-white text-gray-800 p-4 md:p-8" style={{ paddingLeft: "8px" , paddingRight:"8px" }}>
       <div className="max-w-5xl mx-auto bg-indigo-100 border border-indigo-500 rounded-xl p-5 md:p-8">
 
         {/* Header */}
@@ -283,7 +333,7 @@ export default function AddEbookPage() {
 
             <button
               type="submit"
-              className="px-6 py-3 rounded-xl bg-red-600 text-white hover:bg-emerald-600 transition"
+              className="px-6 py-3 rounded-xl bg-indigo-900 text-white hover:bg-indigo-950 font-semibold transition shadow-lg shadow-indigo-900/10"
             >
               Publish Ebook
             </button>

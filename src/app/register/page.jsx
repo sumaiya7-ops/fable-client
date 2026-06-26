@@ -9,18 +9,33 @@ export default function RegisterPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [role, setRole] = useState("reader");
 
+  // 🟢 ডাইনামিক ফর্ম সাবমিশন ও স্টেট হ্যান্ডলিং
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Registering as:", role, formData);
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfbf8] px-4 py-12">
       
-
       <h1 className="text-4xl font-bold text-center text-[#6c43f5] mb-10 tracking-wide drop-shadow-[0_0_15px_rgba(126,91,239,0.3)]">
         Fable
       </h1>
 
- 
-      <div className="w-8/12 max-w-[480px] mx-auto bg-[#eceff9] border  rounded-2xl p-8 sm:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.4)] flex flex-col gap-8">
+      <div className="w-8/12 max-w-[480px] mx-auto bg-[#eceff9] border rounded-2xl p-8 sm:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.4)] flex flex-col gap-8" style={{ paddingLeft: "8px" , paddingRight:"8px" }}>
 
-        {/* ২. Create Your Account সেকশন */}
+        {/* Create Your Account সেকশন */}
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-black">
             Create Your Account
@@ -30,33 +45,41 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <form className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
-          
+          {/* Full Name */}
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-900 block pl-1">
               Full Name
             </label>
             <input
               type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
               placeholder="Enter your full name"
-              className="w-full h-8 lg:h-10 md:h-10 bg-indigo-100 border border-[#6a83e9] p-5 rounded-sm text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+              className="w-full bg-indigo-100 border border-[#6a83e9] p-4 rounded-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+              required
             />
           </div>
 
-      
+          {/* Email */}
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-black block pl-1">
               Email
             </label>
             <input
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="Enter your email"
-              className="w-full h-8 lg:h-10 md:h-10 bg-indigo-100 border border-[#748be7] p-5 rounded-sm text-gray-600 placeholder-gray-400 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+              className="w-full bg-indigo-100 border border-[#748be7] p-4 rounded-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+              required
             />
           </div>
 
-          
+          {/* Password */}
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-black block pl-1">
               Password
@@ -64,8 +87,12 @@ export default function RegisterPage() {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder="Enter your password"
-                className="w-full h-8 lg:h-10 md:h-10 bg-indigo-100 border border-[#687dce] p-5 pr-12 rounded-sm text-gray-600 placeholder-gray-400 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+                className="w-full bg-indigo-100 border border-[#687dce] p-4 pr-12 rounded-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+                required
               />
               <button
                 type="button"
@@ -76,8 +103,7 @@ export default function RegisterPage() {
               </button>
             </div>
           </div>
-
-        
+          {/* Confirm Password */}
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-900 block pl-1">
               Confirm Password
@@ -85,8 +111,12 @@ export default function RegisterPage() {
             <div className="relative">
               <input
                 type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
                 placeholder="Confirm your password"
-                className="w-full h-8 lg:h-10 md:h-10 bg-indigo-100 border border-[#7c91e4] p-5 pr-12 rounded-sm text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+                className="w-full bg-indigo-100 border border-[#7c91e4] p-4 pr-12 rounded-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+                required
               />
               <button
                 type="button"
@@ -98,42 +128,40 @@ export default function RegisterPage() {
             </div>
           </div>
 
-         
+          {/* Choose Role */}
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-800 block pl-1">
               Choose Role
             </label>
             <div className="grid grid-cols-2 gap-4">
               
-              
-              <label 
+              <div 
                 className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all duration-200 bg-indigo-100 ${
-                  role === "reader" ? "border-[#583ae2]" : "border-[#1e3078]"
+                  role === "reader" ? "border-[#583ae2]" : "border-transparent"
                 }`}
                 onClick={() => setRole("reader")}
               >
                 <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                  role === "reader" ? "border-[#583ae2]" : "border-red-500"
+                  role === "reader" ? "border-[#583ae2]" : "border-gray-400"
                 }`}>
                   {role === "reader" && <div className="w-2 h-2 bg-[#583ae2] rounded-full"></div>}
                 </div>
                 <span className="text-sm text-gray-800 font-medium">I'm a Reader</span>
-              </label>
+              </div>
 
-              
-              <label 
+              <div 
                 className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all duration-200 bg-indigo-100 ${
-                  role === "writer" ? "border-[#583ae2]" : "border-[#2b3765]"
+                  role === "writer" ? "border-[#583ae2]" : "border-transparent"
                 }`}
                 onClick={() => setRole("writer")}
               >
                 <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                  role === "writer" ? "border-[#583ae2]" : "border-red-500"
+                  role === "writer" ? "border-[#583ae2]" : "border-gray-400"
                 }`}>
                   {role === "writer" && <div className="w-2 h-2 bg-[#583ae2] rounded-full"></div>}
                 </div>
                 <span className="text-sm text-gray-800 font-medium">I'm a Writer</span>
-              </label>
+              </div>
 
             </div>
           </div>
@@ -163,7 +191,6 @@ export default function RegisterPage() {
 
         </form>
 
-        
         <p className="text-center text-gray-700 text-xs sm:text-sm mt-2">
           Already have an account?{" "}
           <Link
@@ -175,7 +202,6 @@ export default function RegisterPage() {
         </p>
 
       </div>
-
     </div>
   );
 }

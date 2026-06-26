@@ -14,7 +14,7 @@ export default function AboutPage() {
       </div>
 
       {/* Main Content */}
-      <div className="bg-indigo-50 rounded-3xl shadow-lg p-8 md:p-12 space-y-8">
+      <div className="bg-indigo-50 rounded-3xl shadow-lg p-8 md:p-12 space-y-8" style={{ padding: "8px"  }}>
         <div>
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             Our Mission

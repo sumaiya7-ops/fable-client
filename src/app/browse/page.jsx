@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Search, ShoppingCart, Heart, Star, X, ChevronDown, SlidersHorizontal } from "lucide-react";
 import { BookOpen, Globe, HardDrive, Tag } from 'lucide-react';
 
@@ -153,6 +154,8 @@ export default function BrowsePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBook, setSelectedBook] = useState(null); 
   const [expandedDescId, setExpandedDescId] = useState(null);
+  const [sortBy, setSortBy] = useState("Newest First");
+
 
   let filteredBooks = realBooksData.filter((book) => {
     const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -161,6 +164,14 @@ export default function BrowsePage() {
     const matchesPrice = book.price <= priceRange;
     return matchesSearch && matchesGenre && matchesPrice;
   });
+
+
+  if (sortBy === "Price Low → High") {
+  filteredBooks.sort((a, b) => a.price - b.price);
+} else if (sortBy === "Price High → Low") {
+  filteredBooks.sort((a, b) => b.price - a.price);
+}
+
 
   return (
     <div className="min-h-screen bg-[#ebecf3] text-[#989aaf] font-sans w-full flex justify-center selection:bg-[#633efd]">
@@ -249,11 +260,16 @@ export default function BrowsePage() {
             {/* সর্ট বাই ড্রপডাউন */}
             <div className="border-t border-gray-300 pt-4">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Sort By</h3>
-              <select className="w-full bg-indigo-100 border border-indigo-300 text-xs text-gray-900 px-3 py-2.5 rounded-xl outline-none focus:border-[#633efd] cursor-pointer">
-                <option>Newest First</option>
-                <option>Price Low → High</option>
-                <option>Price High → Low</option>
-              </select>
+            <select 
+  value={sortBy}
+  onChange={(e) => setSortBy(e.target.value)}
+  className="w-full bg-indigo-100 border border-indigo-300 text-xs text-gray-900 px-3 py-2.5 rounded-xl outline-none focus:border-[#633efd] cursor-pointer"
+>
+  <option>Newest First</option>
+  <option>Price Low → High</option>
+  <option>Price High → Low</option>
+</select>
+
             </div>
 
             <button className="w-full bg-red-500 text-white font-semibold py-3 rounded-xl hover:bg-[#5232db] transition shadow-lg shadow-[#633efd]/20 text-xs mt-2">
@@ -273,7 +289,8 @@ export default function BrowsePage() {
                   >
                     <div>
                       {/* কার্ডের ইমেজ এরিয়া */}
-                      <div className="relative aspect-[3/4] w-full bg-[#161726] rounded-xl overflow-hidden cursor-pointer" onClick={() => setSelectedBook(book)}>
+                           <Link href={`/ebook/${book.id}`} className="relative aspect-[3/4] w-full bg-[#161726] rounded-xl overflow-hidden block">
+
                         <img 
                           src={book.image} 
                           alt={book.title} 
@@ -287,15 +304,15 @@ export default function BrowsePage() {
                         <button className="absolute top-2.5 right-2.5 bg-black/40 backdrop-blur-sm p-1.5 rounded-full text-gray-400 hover:text-red-500 transition">
                           <Heart size={13} />
                         </button>
-                      </div>
+                      </Link>
 
                       {/* বইয়ের ডিটেইলস */}
-                      <h4 
-                        className="font-bold text-gray-800 text-sm mt-3 line-clamp-1 leading-snug cursor-pointer hover:text-[#9059ff] transition" 
-                        onClick={() => setSelectedBook(book)}
-                      >
-                        {book.title}
-                      </h4>
+                    <Link href={`/ebook/${book.id}`}>
+  <h4 className="font-bold text-gray-800 text-sm mt-3 line-clamp-1 leading-snug cursor-pointer hover:text-[#9059ff] transition">
+    {book.title}
+  </h4>
+</Link>
+
                       <p className="text-gray-600 text-[11px] mt-0.5">{book.writer}</p>
                       
                       {/* স্টার রেটিং */}
@@ -358,182 +375,7 @@ export default function BrowsePage() {
       </div>
 
       {/* ভিউ বুক ও বাইং মডাল */}
-     
-{selectedBook && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-white backdrop-blur-md p-4 animate-fadeIn">
-    {/* মেইন প্যানেল: স্ক্রিনশটের মতো ডার্ক নেভি ব্লু কালার থিম এবং বড় সাইজ (max-w-4xl) */}
-    <div className="bg-[#f4f4f7] border border-[#e6e8f4] rounded-2xl max-w-4xl lg:w-10/12 md:w-10/12 w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto text-[#0c0c0d]">
-      
-      {/* ক্লোজ বাটন */}
-      <button 
-        onClick={() => setSelectedBook(null)}
-        className="absolute top-4 right-4 bg-red-600/80 p-2 rounded-full text-white transition-colors duration-200 z-10"
-      >
-        <X size={16} />
-      </button>
-
-      {/* ওপরের সেকশন: গ্রিড লেআউট (বামে বড় কভার, ডানে মূল তথ্য) */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-start">
-        
-        {/* ১. বাম পাশে: বইয়ের বড় কভার ইমেজ (MD স্ক্রিনে ৫ কলাম পাবে) */}
-        <div className="md:col-span-5 w-full aspect-[3/4] rounded-xl overflow-hidden border border-[#a9b2e5] shadow-xl bg-[#0b0e24]">
-          <img 
-            src={selectedBook.image} 
-            alt={selectedBook.title} 
-            className="w-full h-full object-cover transform hover:scale-102 transition duration-500" 
-          />
-        </div>
-
-        {/* ২. ডান পাশে: টাইটেল, রেট, প্রাইস এবং বাটন (MD স্ক্রিনে ৭ কলাম পাবে) */}
-        <div className="md:col-span-7 flex flex-col  h-full space-y-4 pt-1">
-          <div>
-            {/* টাইটেল */}
-            <h2 className="text-2xl sm:text-2xl font-semibold text-gray-800 leading-tight tracking-wide pr-6">
-              {selectedBook.title}
-            </h2>
-            
-            {/* লেখক প্রোফাইল লাইন */}
-            <div className="flex items-center gap-2 mt-3">
-               <img 
-                  src={selectedBook.authorImage || "https://placeholder.com"} 
-                  alt={selectedBook.writer} 
-                  className="w-12 h-12 rounded-full object-cover border border-[#1f2442]"
-                />
-              <p className="text-xs">
-                by <span className="text-[#635bff] font-medium hover:underline cursor-pointer">{selectedBook.writer}</span>
-              </p>
-            </div>
-
-            {/* গোল্ডেন স্টার রেটিং এবং রিভিউ সংখ্যা */}
-            <div className="flex items-center gap-1 mt-3.5 text-xs">
-              <div className="flex text-[#f4ca16] text-sm">★★★★★</div>
-              <span className="text-[#515975] ml-1 font-medium">
-                {selectedBook.rating || "4.8"} ({selectedBook.reviewsCount || "125"} reviews)
-              </span>
-            </div>
-
-            {/* জনরা/ক্যাটাগরি ট্যাগসমূহ */}
-            <div className="flex flex-wrap gap-2 mt-4.5">
-              {(Array.isArray(selectedBook.genre) ? selectedBook.genre : [selectedBook.genre]).map((g, idx) => (
-                <span key={idx} className="text-[#0e0e18] bg-[#bebbed] text-[11px] font-semibold px-4 py-1 rounded-sm capitalize">
-                  {g}
-                </span>
-              ))}
-            </div>
-
-            {/* প্রাইস এবং স্ট্যাটাস */}
-            <div className="mt-6">
-              <p className="text-3xl font-medium text-red-600">${selectedBook.price.toFixed(2)}</p>
-              <div className="flex items-center gap-1.5 text-[#28d972] text-md font-semibold mt-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2ecc71] inline-block animate-pulse"></span>
-                Available
-              </div>
-              <p className="text-[#515975] text-[11px] mt-1">Published: {selectedBook.publishDate || "October 25, 2011"}</p>
-            </div>
-          </div>
-
-          {/* অ্যাকশন বাটনসমূহ (Buy Now & Wishlist) */}
-          <div className="h-14 md:h-20"></div> 
-          <div className="flex items-center gap-10  max-w-md">
-            <button 
-              onClick={() => {
-                alert(`Redirecting to payment checkout for "${selectedBook.title}"...`);
-                setSelectedBook(null);
-              }}
-              className="flex-1 bg-red-600 hover:bg-[#11e011] text-white font-medium  h-8 sm:h-6 md:h-12 rounded-xl transition duration-300 text-xs flex items-center justify-center gap-4 shadow-lg shadow-[#563bf2]/10"
-            >
-              <ShoppingCart size={16} />
-              Buy Now
-            </button>
-            
-            <button className="border border-[#5169f4] bg-blue-400  h-8 sm:h-6 md:h-12 text-gray-800 font-medium  rounded-xl transition text-xs flex items-center gap-1">
-              <Heart size={14} className="text-[#f50606f7]" />
-              Add to Wishlist
-            </button>
-          </div>
-
-          {/* অনারশিপ নোটিশ */}
-          {selectedBook.isOwnBook && (
-            <p className="text-[#103fe9] text-[10px] mt-2">🛑 You are not able to purchase your own ebook.</p>
-          )}
-        </div>
-      </div>
-
-      {/* নিচের সেকশন: ডেসক্রিপশন, মেটাডাটা এবং অথর বক্স (হুবহু ছবির লেআউট) */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 mt-8 pt-6 border-t border-[#b7beed]">
-        
-        {/* বামের অংশ: Description এবং Meta Grid (MD স্ক্রিনে ৭ কলাম) */}
-        <div className="md:col-span-7 space-y-6">
-          <div>
-            <h3 className="text-base font-medium text-gray-800 mb-2">Description</h3>
-            <p className="text-xs leading-relaxed text-gray-600 whitespace-pre-line">
-              {selectedBook.description}
-            </p>
-          </div>
-
-          {/* টেকনিক্যাল মেটাডাটা লিস্ট (ছবির বাম-নিচের স্টাইল) */}
-          <div className="space-y-2.5 text-xs text-[#8794b9]">
-            <div className="flex items-center gap-3 py-0.5">
-              <BookOpen size={14} className="text-[#496ef2]" />
-              <span className="w-20 text-[#51576c]">Pages:</span>
-              <strong className="text-gray-600 font-medium">{selectedBook.pages || "499"}</strong>
-            </div>
-            <div className="flex items-center gap-3 py-0.5">
-              <Globe size={14} className="text-[#353845]" />
-              <span className="w-20 text-[#51576c]">Language:</span>
-              <strong className="text-gray-600 font-medium">{selectedBook.language || "English"}</strong>
-            </div>
-            <div className="flex items-center gap-3 py-0.5">
-              <HardDrive size={14} className="text-[#5277fc]" />
-              <span className="w-20 text-[#51576c]">File Size:</span>
-              <strong className="text-gray-600 font-medium">{selectedBook.fileSize || "3.1 MB"}</strong>
-            </div>
-            <div className="flex items-center gap-3 py-0.5">
-              <Tag size={14} className="text-[#ec0c0c]" />
-              <span className="w-20 text-[#51576c]">Category:</span>
-              <strong className="text-gray-600 font-medium truncate capitalize">
-                {Array.isArray(selectedBook.genre) ? selectedBook.genre.join(', ') : selectedBook.genre}
-              </strong>
-            </div>
-          </div>
-        </div>
-
-        {/* ডানের অংশ: About the Author বক্স (MD স্ক্রিনে ৫ কলাম) */}
-        <div className="md:col-span-5">
-          <div className="bg-indigo-50 border border-[#a0aefb] p-5 rounded-xl flex flex-col justify-between min-h-[180px]">
-            <div>
-              <h3 className="text-[12px] font-semibold text-[#3d455f] mb-3 tracking-wider uppercase">
-                About the Author
-              </h3>
-              <div className="flex items-center gap-3">
-                <img 
-                  src={selectedBook.authorImage || "https://placeholder.com"} 
-                  alt={selectedBook.writer} 
-                  className="w-12 h-12 rounded-full object-cover border border-[#1f2442]"
-                />
-                <div>
-                  <h4 className="font-medium text-black text-sm">{selectedBook.writer}</h4>
-                  <div className="text-[11px] text-[#2f323e] mt-0.5 space-y-0.5">
-                    <p>Total Books: <span className="text-[#f91e30] font-medium">{selectedBook.authorTotalBooks || "5"}</span></p>
-                    <p>Total Sales: <span className="text-[#ea2222] font-medium">{selectedBook.authorTotalSales || "4520"}</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button className="w-full mt-4 bg-indigo-100  border border-indigo-200 text-[#635bff] font-medium py-2 rounded-xl transition text-[11px] tracking-wide">
-              View Profile
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-)}
-
-      
+ 
     </div>
   );
 }

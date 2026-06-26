@@ -10,13 +10,13 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 bg-indigo-100 border-b border-indigo-200 w-full flex justify-center text-black">
+    <nav className="sticky top-0 z-50 bg-indigo-100 border-b border-indigo-200 w-full flex justify-center text-black ">
       
       <div className="w-11/12 md:w-10/12 max-w-7xl h-20 flex items-center justify-between">
 
         <Link
           href="/"
-          className="text-3xl font-extrabold text-indigo-600"
+          className="text-3xl font-extrabold text-indigo-800"
         >
           Fable
         </Link>
@@ -77,7 +77,7 @@ export default function Navbar() {
          <div className="hidden md:block">
           <Link
             href="/login"
-            className="bg-indigo-600 hover:bg-indigo-700 !text-white px-8 py-6 rounded-xl font-semibold transition"
+            className="bg-indigo-600 hover:bg-indigo-700 !text-white px-8 py-6 rounded-xl font-semibold transition" style={{ padding: "4px"  }}
           >
             Get Started
           </Link>

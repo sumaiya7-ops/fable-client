@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -20,11 +21,12 @@ export default function Hero() {
             Explore thousands of original ebooks from talented writers around the world.
           </p>
 
-          <button className="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white  rounded-md font-semibold transition duration-300 shadow-md">
-           
-            Browse Ebooks 
-
-          </button>
+            <Link 
+            href="/browse"
+            className="inline-block mt-8 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3.5 rounded-xl font-semibold transition duration-300 shadow-md shadow-indigo-600/10 text-center text-sm md:text-base cursor-pointer" style={{ padding: "4px"  }}
+          >
+            Browse Ebooks
+          </Link>
         </div>
 
         

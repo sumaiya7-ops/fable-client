@@ -1,4 +1,4 @@
-// ১. একদম প্রথম লাইনে এই লেখাটি যোগ করুন (এর উপরে কোনো কমেন্ট বা স্পেস রাখবেন না)
+
 "use client"; 
 
 import { useState } from "react";
@@ -72,15 +72,16 @@ export default function FeaturedBooks() {
         <h2 className="text-3xl md:text-4xl font-bold text-black mb-10 tracking-tight text-left">
           Featured Ebooks
         </h2>
+        <div className="h-2"></div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8" >
           {booksData.map((item) => {
             const isExpanded = expandedId === item.id;
             
             return (
               <div 
                 key={item.id} 
-                className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col"
+                className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col" style={{ padding: "6px"  }}
               >
                 <div className="w-full h-72 overflow-hidden bg-gray-100">
                   <img 

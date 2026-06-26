@@ -27,8 +27,9 @@ export default function MobileSidebar() {
       href: "/contact",
     },
     {
+      // 🟢 ৪MD এরর এড়াতে বড় হাতের 'D' পরিবর্তন করে সঠিক ছোট হাতের রাউট /dashboard করা হলো
       name: "Dashboard",
-      href: "/Dashboard",
+      href: "/dashboard",
     },
   ];
 
@@ -41,10 +42,11 @@ export default function MobileSidebar() {
         <Menu size={28} />
       </button>
 
+      {/* 🟢 ব্যাকড্রপকে একদম কালো থেকে পরিবর্তন করে প্রিমিয়াম bg-black/40 ওভারলে করা হলো */}
       <div
         className={`fixed inset-0 z-50 transition-all duration-300 ${
           open
-            ? "visible bg-black"
+            ? "visible bg-black/40"
             : "invisible bg-black/0"
         }`}
         onClick={() => setOpen(false)}
@@ -76,9 +78,10 @@ export default function MobileSidebar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`px-4 py-3 rounded-xl font-medium transition ${
+                /* 🟢 অ্যাক্টিভ স্টেটে text-white এর বদলে text-indigo-600 করা হলো যেন ধূসর ব্যাকগ্রাউন্ডে পরিষ্কার পড়া যায় */
+                className={`px-4 py-3 rounded-xl font-medium transition text-sm ${
                   pathname === link.href
-                    ? "bg-gray-200 text-white"
+                    ? "bg-gray-200 text-indigo-600 font-semibold"
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
@@ -89,7 +92,7 @@ export default function MobileSidebar() {
             <Link
               href="/login"
               onClick={() => setOpen(false)}
-              className="mt-4 bg-red-600 text-white py-3 rounded-xl text-center font-semibold hover:bg-gray-900 transition"
+              className="mt-4 bg-red-600 text-white py-3 rounded-xl text-center font-semibold hover:bg-gray-900 transition text-sm" 
             >
               Get Started
             </Link>

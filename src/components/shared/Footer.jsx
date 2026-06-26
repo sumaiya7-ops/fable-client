@@ -77,7 +77,7 @@ export default function Footer() {
                 🎉 Thank you for joining our circle!
               </p>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2 bg-white p-1.5 rounded-xl border border-indigo-200/80 shadow-md focus-within:border-indigo-500 transition duration-300">
+              <form onSubmit={handleSubscribe} className="flex gap-2 bg-white p-1.5 rounded-xl border border-indigo-200/80 shadow-md focus-within:border-indigo-500 transition duration-300" style={{ padding: "4px"  }}>
                 <input
                   type="email"
                   value={email}
@@ -86,7 +86,7 @@ export default function Footer() {
                   required
                   className="w-full bg-transparent px-3 text-sm text-black outline-none placeholder:text-indigo-800/40"
                 />
-                <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg text-xs font-semibold transition duration-300 whitespace-nowrap shadow-sm">
+                <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg text-xs font-semibold transition duration-300 whitespace-nowrap shadow-sm" style={{ padding: "4px"  }}>
                   Join Us
                 </button>
               </form>

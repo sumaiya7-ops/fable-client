@@ -14,12 +14,12 @@ export default function EbookCard({ book }) {
   className="w-full aspect-[3/4] object-cover"
 />
 
-          {book.sold && (
-            <span className="absolute top-3 right-3 bg-red-500 text-white text-xs px-3 py-1 rounded-full">
-              Sold
+     
+     {book.sales > 300 && (
+            <span className="absolute top-3 right-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-md">
+              Best Seller
             </span>
           )}
-
         </div>
 
         <div className="p-5">

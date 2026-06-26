@@ -1,6 +1,11 @@
+
+import { useParams } from "next/navigation";
 import { Star, Heart } from "lucide-react";
 
 export default function EbookDetailsPage() {
+    const { id } = useParams();
+  const book = realBooksData.find((b) => b.id === Number(id)) || {};
+
   return (
     <div className="w-10/12 mx-auto py-16">
 
@@ -13,7 +18,7 @@ export default function EbookDetailsPage() {
         <div>
 
           <img
-            src="https://i.postimg.cc/1znS3RDG/book-2.jpg"
+           src={book.image || "https://i.postimg.cc/1znS3RDG/book-2.jpg"}
             alt="ebook"
             className="w-full max-w-md rounded-3xl shadow-xl"
           />
@@ -25,15 +30,15 @@ export default function EbookDetailsPage() {
         <div>
 
           <span className="bg-indigo-500/20 text-indigo-200 px-4 py-2 rounded-full text-sm">
-            Fantasy
+           {book.genre || "Fantasy"}
           </span>
 
           <h1 className="text-5xl font-bold text-indigo-100 mt-5">
-            The Silent Watcher
+            {book.title || "The Silent Watcher"}
           </h1>
 
           <p className="text-indigo-300 mt-4">
-            By James Rollins
+           By {book.writer || "James Rollins"}
           </p>
 
           {/* Rating */}
@@ -57,14 +62,13 @@ export default function EbookDetailsPage() {
           </div>
 
           <h2 className="text-3xl font-bold text-indigo-100 mt-8">
-            $4.99
+            ${book.price ? book.price.toFixed(2) : "4.99"}
           </h2>
 
-          <p className="text-indigo-300 mt-6 leading-8">
-            A gripping fantasy adventure filled with mystery,
-            magic, betrayal and unforgettable characters.
-            Explore a world where destiny changes everything.
+           <p className="text-indigo-300 mt-6 leading-8">
+            {book.description || "A gripping adventure filled with mystery, magic, betrayal and unforgettable characters."}
           </p>
+
 
           {/* Buttons */}
 

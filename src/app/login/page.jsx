@@ -1,21 +1,31 @@
 "use client"; 
 
+import { useState } from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 
 export default function LoginPage() {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  const handleChange = (e) => {
+    const { type, value } = e.target;
+    setFormData((prev) => ({ ...prev, [type]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Logging in with:", formData);
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfbf8] px-4 py-12">
-      
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfbf8] px-4 py-12" >
       
       <h1 className="text-4xl font-bold text-center text-[#6c43f5] mb-10 tracking-wide drop-shadow-[0_0_15px_rgba(126,91,239,0.3)]">
         Fable
       </h1>
 
-     
-      <div className="w-8/12 max-w-[480px] mx-auto bg-[#eceff9]  rounded-3xl p-8 sm:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.4)] flex flex-col gap-8">
+      <div className="w-8/12 max-w-[480px] mx-auto bg-[#eceff9] rounded-3xl p-8 sm:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.4)] flex flex-col gap-8" style={{ paddingLeft: "8px" , paddingRight:"8px" }}>
 
-      
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-black">
             Welcome Back!
@@ -25,10 +35,8 @@ export default function LoginPage() {
           </p>
         </div>
 
-       
-        <form className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
-        
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-600 block pl-1">
               Email
@@ -36,11 +44,13 @@ export default function LoginPage() {
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full h-8 lg:h-10 md:h-10 bg-[#dee2f5] border border-indigo-200  rounded-sm text-gray-500 placeholder-gray-500 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full p-4 bg-[#dee2f5] border border-indigo-200 rounded-sm text-gray-800 placeholder-gray-500 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+              required
             /> 
           </div>
 
- 
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-600 block pl-1">
               Password
@@ -48,22 +58,24 @@ export default function LoginPage() {
             <input
               type="password"
               placeholder="Enter your password"
-              className="w-full  h-8 lg:h-10 md:h-10 bg-[#dee2f5] border border-indigo-200 p-5 rounded-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+              value={formData.password}
+              onChange={handleChange}
+              /* 🟢 text-white কেটে text-gray-800 করা হলো যেন হালকা ব্যাকগ্রাউন্ডে পাসওয়ার্ড টাইপ করলে ডটগুলো দেখা যায় */
+              className="w-full p-4 bg-[#dee2f5] border border-indigo-200 rounded-sm text-gray-800 placeholder-gray-500 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
+              required
             />
           </div>
 
-    
           <div className="flex justify-end mt-1">
+            {/* 🟢 ইনলাইন সিএসএস টাইপো ফিক্স করে লিংক সচল করা হলো */}
             <Link
               href="/forgot-password"
-              className=" hover:text-[#9677ff] text-xs font-medium transition-colors"
-              style={{ color: "#f03737 !important" }}
+              className="text-[#f03737] hover:text-[#9677ff] text-xs font-medium transition-colors"
             >
               Forgot Password?
             </Link>
           </div>
 
-          
           <div className="mt-2">
             <button
               type="submit"
@@ -89,7 +101,6 @@ export default function LoginPage() {
 
         </form>
 
-        {/* ৪. ডিভাইডার লাইন */}
         <div className="relative py-2 text-center">
           <div className="absolute inset-0 flex items-center" aria-hidden="true">
             <div className="w-full border-t border-[#232d52]"></div>
@@ -101,23 +112,21 @@ export default function LoginPage() {
           </div>
         </div>
 
-       
         <div className="flex flex-col gap-6">
           <button
             type="button"
             className="w-full bg-[#35437d] border border-[#2b3765] text-gray-200 py-4 rounded-xl flex items-center justify-center gap-3 text-base sm:text-lg font-semibold hover:bg-[#1b2343] hover:border-[#384883] transition-all duration-200 cursor-pointer"
           >
-            <FcGoogle className="text-2xl " />
+            <FcGoogle className="text-2xl" />
             Google
           </button>
 
-         
           <p className="text-center text-gray-500 text-xs sm:text-sm mt-2">
             Don't have an account?{" "}
+            {/* 🟢 ইনলাইন সিএসএস টাইপো ফিক্স করে লিংকটি রেজিস্টার রাউটে যুক্ত করা হলো */}
             <Link
               href="/register"
-              className=" hover:text-[#9677ff] font-semibold transition-colors"
-              style={{ color: "#f03737 !important" }}
+              className="text-[#f03737] hover:text-[#9677ff] font-semibold transition-colors"
             >
               Register
             </Link>
@@ -125,7 +134,6 @@ export default function LoginPage() {
         </div>
 
       </div>
-
     </div>
   );
 }

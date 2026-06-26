@@ -5,18 +5,18 @@
 =========================== */
 
 :root {
-  /* Deep Indigo Theme */
-  --background: #1E1B4B;
-  --card: rgba(30, 27, 75, 0.45);
-  --foreground: #f1f5f9;
+  /* 🟢 Deep Indigo Theme পরিবর্তন করে Light Indigo-50 (#EEF2FF) করা হলো */
+  --background: #EEF2FF;
+  --card: rgba(238, 242, 255, 0.7);
+  --foreground: #1E1B4B; /* লেখার কালারটি ডার্ক নীল করা হলো যাতে লাইট ব্যাকগ্রাউন্ডে সহজে পড়া যায় */
 
   /* Soft Emerald Accent */
   --primary: #059669;
   --secondary: #10b981;
 
-  --border: rgba(255, 255, 255, 0.06);
-  --glass: rgba(255, 255, 255, 0.04);
-  --shadow: 0 10px 30px rgba(99, 102, 241, 0.12);
+  --border: rgba(30, 27, 75, 0.08);
+  --glass: rgba(255, 255, 255, 0.6);
+  --shadow: 0 10px 30px rgba(99, 102, 241, 0.05);
 }
 
 /* ===========================
@@ -34,7 +34,6 @@ html {
 }
 
 body {
-
   width: 100%;
   overflow-x: hidden;
   background: var(--background);
@@ -44,8 +43,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-
-
 .container-custom {
   max-width: 1280px;
   margin: 0 auto !important;
@@ -53,8 +50,6 @@ body {
   padding-right: 1.5rem;
   width: 100%;
 }
-
-
 
 .glass {
   background: var(--card);
@@ -65,11 +60,9 @@ body {
   border-radius: 20px;
 }
 
-
-
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: #052e24;
+  color: #ffffff; /* লাইট থিমের সাথে ম্যাচ করে বাটন টেক্সট সাদা করা হলো */
   border: none;
   padding: 12px 26px;
   border-radius: 12px;
@@ -84,9 +77,9 @@ body {
 }
 
 .btn-outline {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(30, 27, 75, 0.15);
   background: transparent;
-  color: #e2e8f0;
+  color: #1E1B4B;
   padding: 12px 26px;
   border-radius: 12px;
   font-weight: 500;
@@ -95,33 +88,33 @@ body {
 }
 
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(30, 27, 75, 0.04);
+  border-color: rgba(30, 27, 75, 0.3);
 }
-
-
 
 .section-title {
   font-size: 32px;
   font-weight: 700;
-  color: #f8fafc;
+  color: #1E1B4B; /* শিরোনামের কালার ডার্ক করা হলো */
   letter-spacing: -0.02em;
 }
 
 .section-subtitle {
-  color: #94a3b8;
+  color: #475569;
   max-width: 600px;
   line-height: 1.7;
 }
 
-
+/* ===========================
+   SCROLLBAR & CARDS
+=========================== */
 
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1E1B4B;
+  background: #EEF2FF; /* 🟢 স্ক্রলবার ট্র্যাক ব্যাকগ্রাউন্ডও Indigo-50 করা হলো */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -133,17 +126,17 @@ body {
   background: #6366f1;
 }
 
-
 .book-card {
   transition: all 0.3s ease;
+  background: #ffffff; /* কার্ড ব্যাকগ্রাউন্ড সাদা করা হলো যাতে Indigo-50 এর ওপর সুন্দর ফুটে ওঠে */
+  border: 1px solid rgba(99, 102, 241, 0.1);
 }
 
 .book-card:hover {
   transform: translateY(-6px);
   border-color: rgba(99, 102, 241, 0.25);
-  box-shadow: 0 15px 35px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 15px 35px rgba(99, 102, 241, 0.1);
 }
-
 
 img {
   max-width: 100%;
@@ -154,8 +147,6 @@ a {
   text-decoration: none;
   color: inherit;
 }
-
-
 
 @media (max-width: 768px) {
   .section-title {

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function PaymentSuccessPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen bg-indigo-50 flex items-center justify-center">
 
       <div className="bg-white p-10 rounded-3xl shadow-lg text-center max-w-md">
 
@@ -10,7 +10,7 @@ export default function PaymentSuccessPage() {
           ✅
         </div>
 
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl text-emerald-500 font-bold">
           Payment Successful
         </h1>
 
@@ -20,7 +20,7 @@ export default function PaymentSuccessPage() {
 
         <Link
           href="/dashboard/purchases"
-          className="inline-block mt-6 bg-indigo-600 text-white px-8 py-3 rounded-xl"
+          className="inline-block mt-6 bg-indigo-600 text-white px-8 py-3 rounded-md"
         >
           View Purchase
         </Link>
