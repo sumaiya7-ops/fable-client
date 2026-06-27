@@ -307,7 +307,7 @@ export default function BrowsePage() {
                       </Link>
 
                       {/* বইয়ের ডিটেইলস */}
-                    <Link href={`/ebook/${book.id}`}>
+                    <Link href={`/ebook/${book._id}`}>
   <h4 className="font-bold text-gray-800 text-sm mt-3 line-clamp-1 leading-snug cursor-pointer hover:text-[#9059ff] transition">
     {book.title}
   </h4>

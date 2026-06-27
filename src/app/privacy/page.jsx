@@ -1,12 +1,12 @@
 export default function PrivacyPage() {
   return (
-    <div className="w-10/12 mx-auto py-20 ">
+    <div className="w-10/12 mx-auto py-20 bg-indigo-50 " style={{ padding: "8px"  }}>
 
-      <h1 className="text-5xl font-bold text-white mb-8">
+      <h1 className="text-5xl font-bold text-gray-900 mb-8" style={{ paddingBottom: "8px"  }}>
         Privacy Policy
       </h1>
 
-      <div className="glass rounded-3xl p-8 space-y-5">
+      <div className="glass rounded-3xl p-8 bg-white space-y-5" style={{ padding: "8px"  }}>
 
         <p className="text-shadow-white">
           We respect your privacy and protect your information.

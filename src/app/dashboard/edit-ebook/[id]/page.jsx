@@ -44,8 +44,8 @@ export default function EditEbookPage() {
   const book = realBooksData.find((b) => b.id === Number(id)) || {};
 
   return (
-    <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-md max-w-2xl mx-auto mt-10 border border-gray-100">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800 tracking-tight">
+    <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-md max-w-2xl mx-auto mt-10 border border-gray-100" style={{ padding: "8px"  }}>
+      <h1 className="text-3xl font-bold mb-6 text-gray-800 tracking-tight" style={{ paddingBottom: "8px"  }}>
         Edit Ebook
       </h1>
 
@@ -53,17 +53,17 @@ export default function EditEbookPage() {
         
         {/* ইবুক টাইটেল ইনপুট ফিল্ড */}
         <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Ebook Title</label>
+          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2" style={{ paddingBottom: "8px"  }}>Ebook Title</label>
           <input
             defaultValue={book.title || "Silent Watcher"}
-            className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-gray-800 focus:outline-none focus:border-indigo-500 font-medium"
+            className="w-full bg-indigo-50 border border-gray-200 p-4 rounded-xl text-gray-600 focus:outline-none focus:border-indigo-500 font-medium"
           />
         </div>
 
         {/* ইমেজ ডিসপ্লে ও আপলোড সেকশন */}
         <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Cover Image</label>
-          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-gray-50/50 p-4 rounded-2xl border border-gray-200/60">
+          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2" style={{ paddingTop: "8px" , paddingBottom:"8px"  }}>Cover Image</label>
+          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-indigo-50 p-4 rounded-2xl border border-gray-200/60" style={{ padding: "8px"  }}>
             
             {/* পুরাতন কভার ইমেজ প্রিভিউ */}
             <div className="sm:col-span-3 w-16 aspect-[3/4] bg-gray-200 rounded-xl overflow-hidden border border-gray-300/40 shadow-sm mx-auto sm:mx-0">
@@ -95,11 +95,12 @@ export default function EditEbookPage() {
 
         {/* ইবুক ডেসক্রিপশন টেক্সট-এরিয়া ফিল্ড */}
         <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Description</label>
+          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2" style={{ paddingTop: "8px" , paddingBottom: "8px"  }}>Description</label>
           <textarea
             rows="6"
             defaultValue={book.description || "Book Description"}
-            className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-gray-800 focus:outline-none focus:border-indigo-500 resize-none font-medium leading-relaxed"
+            className="w-full bg-indigo-50 border border-gray-200 p-4 rounded-xl text-gray-600 focus:outline-none focus:border-indigo-500 resize-none font-medium leading-relaxed"
+          style={{ padding: "8px"  }}
           />
         </div>
 
@@ -108,6 +109,7 @@ export default function EditEbookPage() {
           <button 
             type="submit" 
             className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3.5 rounded-xl font-semibold text-xs tracking-wider uppercase transition shadow-lg shadow-indigo-600/10"
+          style={{ padding: "4px"  }}
           >
             Update Ebook
           </button>

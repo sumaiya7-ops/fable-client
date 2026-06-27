@@ -2,19 +2,71 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // রিডাইরেক্ট করার জন্য
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
+  // ইনপুট হ্যান্ডলার (টাইপো ফিক্সড: e.target.type এর বদলে e.target.name ব্যবহার করা হলো)
   const handleChange = (e) => {
-    const { type, value } = e.target;
-    setFormData((prev) => ({ ...prev, [type]: value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  // ইমেইল/পাসওয়ার্ড দিয়ে লগইন সাবমিট
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Logging in with:", formData);
+    setError("");
+    setLoading(true);
+
+    try {
+      // ১. টোকেন জেনারেট করার জন্য ব্যাকএন্ডে রিকোয়েস্ট পাঠানো
+      const response = await axios.post("http://localhost:5000/jwt", {
+        email: formData.email,
+      });
+
+      if (response.data.token) {
+        // ২. টোকেন লোকাল স্টোরেজে সংরক্ষণ করা
+        localStorage.setItem("fable_token", response.data.token);
+
+        // ৩. ইউজারের রোল চেক করার জন্য প্রোফাইল রিকোয়েস্ট পাঠানো
+        const userResponse = await axios.get("http://localhost:5000/users/me", {
+          headers: { Authorization: `Bearer ${response.data.token}` }
+        });
+
+        const loggedInUser = userResponse.data;
+
+        // ৪. রিকোয়ারমেন্ট অনুযায়ী রোল-ভিত্তিক রিডাইরেকশন
+        if (loggedInUser?.role === "admin") {
+          router.push("/dashboard/admin");
+        } else if (loggedInUser?.role === "writer") {
+          router.push("/dashboard/writer");
+        } else {
+          router.push("/"); // সাধারণ রিডার/ইউজারদের জন্য হোম পেজে রিডাইরেক্ট
+        }
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Invalid credentials or login failed!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // BetterAuth / Google ওঅথ লগইন হ্যান্ডলার
+  const handleGoogleLogin = async () => {
+    setError("");
+    try {
+      // এখানে আপনার BetterAuth ওঅথ ফ্লো বা গুগল পপআপ ট্রিপ হবে
+      console.log("BetterAuth Google OAuth Triggered");
+      // গুগল থেকে ইমেইল পাওয়ার পর ব্যাকএন্ড /jwt এন্ডপয়েন্টে হিট করে টোকেন সেট হবে
+    } catch (err) {
+      setError("Google sign-in failed");
+    }
   };
 
   return (
@@ -35,6 +87,13 @@ export default function LoginPage() {
           </p>
         </div>
 
+        {/* এরর মেসেজ ডিসপ্লে */}
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm text-center">
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
           <div className="flex flex-col gap-2.5">
@@ -43,6 +102,7 @@ export default function LoginPage() {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
@@ -57,17 +117,16 @@ export default function LoginPage() {
             </label>
             <input
               type="password"
+              name="password"
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
-              /* 🟢 text-white কেটে text-gray-800 করা হলো যেন হালকা ব্যাকগ্রাউন্ডে পাসওয়ার্ড টাইপ করলে ডটগুলো দেখা যায় */
               className="w-full p-4 bg-[#dee2f5] border border-indigo-200 rounded-sm text-gray-800 placeholder-gray-500 focus:outline-none focus:border-[#583ae2] transition-all duration-200 text-base"
               required
             />
           </div>
 
           <div className="flex justify-end mt-1">
-            {/* 🟢 ইনলাইন সিএসএস টাইপো ফিক্স করে লিংক সচল করা হলো */}
             <Link
               href="/forgot-password"
               className="text-[#f03737] hover:text-[#9677ff] text-xs font-medium transition-colors"
@@ -79,7 +138,8 @@ export default function LoginPage() {
           <div className="mt-2">
             <button
               type="submit"
-              className="w-full text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-base sm:text-lg cursor-pointer"
+              disabled={loading}
+              className="w-full text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-base sm:text-lg cursor-pointer disabled:opacity-50"
               style={{
                 backgroundColor: "#583ae2",
                 paddingTop: "18px",
@@ -87,15 +147,19 @@ export default function LoginPage() {
                 boxShadow: "0 4px 15px rgba(88, 58, 226, 0.3)"
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#472ec4";
-                e.currentTarget.style.boxShadow = "0 6px 25px rgba(88, 58, 226, 0.6)";
+                if (!loading) {
+                  e.currentTarget.style.backgroundColor = "#472ec4";
+                  e.currentTarget.style.boxShadow = "0 6px 25px rgba(88, 58, 226, 0.6)";
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#583ae2";
-                e.currentTarget.style.boxShadow = "0 4px 15px rgba(88, 58, 226, 0.3)";
+                if (!loading) {
+                  e.currentTarget.style.backgroundColor = "#583ae2";
+                  e.currentTarget.style.boxShadow = "0 4px 15px rgba(88, 58, 226, 0.3)";
+                }
               }}
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </button>
           </div>
 
@@ -115,6 +179,7 @@ export default function LoginPage() {
         <div className="flex flex-col gap-6">
           <button
             type="button"
+            onClick={handleGoogleLogin}
             className="w-full bg-[#35437d] border border-[#2b3765] text-gray-200 py-4 rounded-xl flex items-center justify-center gap-3 text-base sm:text-lg font-semibold hover:bg-[#1b2343] hover:border-[#384883] transition-all duration-200 cursor-pointer"
           >
             <FcGoogle className="text-2xl" />
@@ -123,7 +188,6 @@ export default function LoginPage() {
 
           <p className="text-center text-gray-500 text-xs sm:text-sm mt-2">
             Don't have an account?{" "}
-            {/* 🟢 ইনলাইন সিএসএস টাইপো ফিক্স করে লিংকটি রেজিস্টার রাউটে যুক্ত করা হলো */}
             <Link
               href="/register"
               className="text-[#f03737] hover:text-[#9677ff] font-semibold transition-colors"

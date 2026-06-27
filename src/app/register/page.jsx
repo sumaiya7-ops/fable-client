@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import axios from "axios";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [role, setRole] = useState("reader");
+  const [role, setRole] = useState("reader"); // "reader" অথবা "writer"
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  // 🟢 ডাইনামিক ফর্ম সাবমিশন ও স্টেট হ্যান্ডলিং
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,11 +25,51 @@ export default function RegisterPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Registering as:", role, formData);
-  };
+    setError("");
 
+    if (formData.password !== formData.confirmPassword) {
+      return setError("Passwords do not match!");
+    }
+
+    setLoading(true);
+
+    try {
+      const mappedRole = role === "reader" ? "user" : "writer";
+      const userPayload = {
+        name: formData.name,
+        email: formData.email,
+        role: mappedRole
+      };
+
+      // ১. ডাটাবেজে ইউজার ইনফো পাঠানো
+      const userResponse = await axios.post("http://localhost:5000/users", userPayload);
+
+      if (userResponse.data.insertedId) {
+        // ২. সফল রেজিস্ট্রেশন শেষে JWT টোকেন জেনারেট করা
+        const jwtResponse = await axios.post("http://localhost:5000/jwt", {
+          email: formData.email
+        });
+
+        if (jwtResponse.data.token) {
+          // ৩. টোকেন লোকাল স্টোরেজে সংরক্ষণ (৭ দিন মেয়াদি)
+          localStorage.setItem("fable_token", jwtResponse.data.token);
+
+          // ৪. রোল অনুযায়ী সঠিক ড্যাশবোর্ড বা হোমে রিডাইরেক্ট করা
+          if (mappedRole === "writer") {
+            router.push("/dashboard/writer");
+          } else {
+            router.push("/");
+          }
+        }
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Registration failed. Try again!");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfbf8] px-4 py-12">
       
@@ -35,7 +79,6 @@ export default function RegisterPage() {
 
       <div className="w-8/12 max-w-[480px] mx-auto bg-[#eceff9] border rounded-2xl p-8 sm:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.4)] flex flex-col gap-8" style={{ paddingLeft: "8px" , paddingRight:"8px" }}>
 
-        {/* Create Your Account সেকশন */}
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-black">
             Create Your Account
@@ -44,6 +87,12 @@ export default function RegisterPage() {
             Join Fable and start your journey.
           </p>
         </div>
+
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm text-center">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
@@ -103,6 +152,7 @@ export default function RegisterPage() {
               </button>
             </div>
           </div>
+
           {/* Confirm Password */}
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-900 block pl-1">
@@ -128,13 +178,12 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* Choose Role */}
+          {/* Choose Role Card-Based Layout */}
           <div className="flex flex-col gap-2.5">
             <label className="text-xl font-medium text-gray-800 block pl-1">
               Choose Role
             </label>
             <div className="grid grid-cols-2 gap-4">
-              
               <div 
                 className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all duration-200 bg-indigo-100 ${
                   role === "reader" ? "border-[#583ae2]" : "border-transparent"
@@ -162,33 +211,24 @@ export default function RegisterPage() {
                 </div>
                 <span className="text-sm text-gray-800 font-medium">I'm a Writer</span>
               </div>
-
             </div>
           </div>
 
           <div className="mt-2">
             <button
               type="submit"
-              className="w-full text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-base sm:text-lg cursor-pointer"
+              disabled={loading}
+              className="w-full text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-base sm:text-lg cursor-pointer disabled:opacity-50"
               style={{
                 backgroundColor: "#583ae2",
                 paddingTop: "18px",
                 paddingBottom: "18px",
                 boxShadow: "0 4px 15px rgba(88, 58, 226, 0.3)"
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#472ec4";
-                e.currentTarget.style.boxShadow = "0 6px 25px rgba(88, 58, 226, 0.6)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#583ae2";
-                e.currentTarget.style.boxShadow = "0 4px 15px rgba(88, 58, 226, 0.3)";
-              }}
             >
-              Register
+              {loading ? "Registering Account..." : "Register"}
             </button>
           </div>
-
         </form>
 
         <p className="text-center text-gray-700 text-xs sm:text-sm mt-2">
