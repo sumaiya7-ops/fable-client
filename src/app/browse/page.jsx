@@ -296,7 +296,7 @@ export default function BrowsePage() {
                   })}
                 </div>
 
-                {/* ডাইনামিক পেজিনেশন কন্ট্রোল */}
+              
                 <div className="flex justify-center items-center gap-2 mt-8">
                   <button
                     type="button"
@@ -337,9 +337,6 @@ export default function BrowsePage() {
         </div>
       </div>
 
-      {/* =================================================================
-          🛍️ ভিউ বুক ও কুইক বাইং মডেল পপআপ (অ্যাসাইনমেন্ট স্পেক বোনাস মডিউল)
-          ================================================================= */}
       {selectedBook && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fadeIn">
           <div className="bg-white rounded-3xl p-6 max-w-lg w-full relative space-y-4 text-gray-800 border border-gray-100 shadow-2xl">
