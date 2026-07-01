@@ -119,12 +119,12 @@ export default function Navbar() {
             </div>
           ) : (
             <Link
-              href="/login"
-              className="bg-indigo-600 hover:bg-indigo-700 !text-white rounded-xl font-semibold transition"
-              style={{ padding: "8px 24px" }}
-            >
-              Get Started
-            </Link>
+  href="/login"
+  className="bg-indigo-600 hover:bg-indigo-700 !text-white rounded-xl font-semibold transition"
+  style={{ padding: "8px 24px" }}
+>
+  Login
+</Link>
           )}
         </div>
 
