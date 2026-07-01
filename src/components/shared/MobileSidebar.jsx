@@ -107,7 +107,7 @@ if (user) {
                 onClick={() => setOpen(false)}
                 className="mt-6 bg-indigo-600 text-white py-3 rounded-xl text-center font-semibold hover:bg-indigo-700 transition text-sm"
               >
-                Get Started
+               Login
               </Link>
             )}
           </div>
