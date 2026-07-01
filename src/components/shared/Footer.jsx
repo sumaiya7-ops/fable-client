@@ -2,7 +2,16 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Share2, Globe, Link as LinkIcon, MessageSquare, MapPin, Mail, Phone } from "lucide-react";
+import {
+ FaFacebookF,
+ FaInstagram,
+ FaTwitter,
+ ArrowUpRight,
+  MapPin,
+  Mail,
+  Phone,
+ FaLinkedinIn
+} from "react-icons/fa";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -35,17 +44,34 @@ export default function Footer() {
               A premium sanctuary for bibliophiles and visionary authors.
             </p>
             <div className="flex items-center gap-4 pt-2">
-              <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50"><Share2 size={18} /></a>
-              <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50"><Globe size={18} /></a>
-              <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50"><LinkIcon size={18} /></a>
-              <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50"><MessageSquare size={18} /></a>
-            </div>
+  <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50">
+    <FaFacebookF size={18} />
+  </a>
+
+  <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50">
+    <FaInstagram size={18} />
+  </a>
+
+  <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50">
+    <FaTwitter size={18} />
+  </a>
+
+  <a href="#" className="p-3 bg-white text-indigo-700 rounded-xl shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 border border-indigo-50">
+    <FaLinkedinIn size={18} />
+  </a>
+</div>
           </div>
 
           <div className="space-y-5">
             <h3 className="font-bold text-lg text-indigo-950">Quick Links</h3>
             <ul className="space-y-2.5 text-sm font-medium">
-              {[{ name: "Home", href: "/" }, { name: "Browse Ebooks", href: "/browse" }, { name: "Dashboard", href: "/dashboard" }, { name: "About", href: "/about" }].map((link, index) => (
+              {[
+  { name: "Home", href: "/" },
+  { name: "Browse Ebooks", href: "/browse" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+  { name: "Privacy Policy", href: "/privacy" },
+].map((link, index) => (
                 <li key={index}>
                   <Link href={link.href} className="text-indigo-800/80 hover:text-indigo-700 flex items-center gap-1 group transition duration-200">
                     <span>{link.name}</span>
