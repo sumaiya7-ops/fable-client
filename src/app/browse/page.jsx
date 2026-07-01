@@ -228,7 +228,7 @@ export default function BrowsePage() {
                             </button>
                           </Link>
 
-                          {/* বইয়ের ডিটেইলস */}
+                          
                           <Link href={`/ebook/${bookId}`}>
                             <h4 className="font-bold text-gray-800 text-sm mt-3 line-clamp-1 leading-snug cursor-pointer hover:text-[#633efd] transition" title={book.title}>
                               {book.title}
@@ -244,7 +244,7 @@ export default function BrowsePage() {
                             <p className="text-xs text-[#633efd] font-bold bg-indigo-500/5 px-2 py-0.5 rounded inline-block uppercase text-[10px] tracking-wider">{book.genre || "Premium"}</p>
                           </div>
                         
-                          {/* স্টার রেটিং */}
+                       
                           <div className="flex items-center gap-0.5 mt-1.5 text-amber-500">
                             {[...Array(5)].map((_, i) => (
                               <Star key={i} size={11} className={i < Math.round(book.rating || 4.8) ? "fill-current" : "text-gray-300"} />
@@ -252,7 +252,6 @@ export default function BrowsePage() {
                             <span className="text-[10px] text-gray-700 ml-1 font-medium">({book.rating || "4.8"})</span>
                           </div>
 
-                          {/* ডেসক্রিপশন ট্রিম */}
                           <p className="text-gray-600 text-[11px] mt-2 leading-relaxed font-medium">
                             {isDescExpanded ? (book.description || "") : `${(book.description || "").substring(0, 35)}...`}
                             <button
