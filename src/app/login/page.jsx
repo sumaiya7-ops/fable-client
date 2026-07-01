@@ -73,14 +73,11 @@ useEffect(() => {
   };
 
   // BetterAuth / Google ওঅথ লগইন হ্যান্ডলার
-  const handleGoogleLogin = async () => {
-    setError("");
-    try {
-      // এখানে আপনার BetterAuth ওঅথ ফ্লো বা গুগল পপআপ ট্রিপ হবে
-     window.location.href = "https://fable-server-z2xt.onrender.com/auth/google";
-      // গুগল থেকে ইমেইল পাওয়ার পর ব্যাকএন্ড /jwt এন্ডপয়েন্টে হিট করে টোকেন সেট হবে
-    
-  };
+const handleGoogleLogin = () => {
+  setError("");
+  window.location.href =
+    "https://fable-server-z2xt.onrender.com/auth/google";
+};
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfbf8] px-4 py-12" >
