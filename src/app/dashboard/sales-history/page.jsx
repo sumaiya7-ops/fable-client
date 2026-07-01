@@ -21,15 +21,18 @@ const SalesHistoryPage = () => {
         }
 
         // লাইভ আলাদা রাইটার এপিআই এন্ডপয়েন্ট কল
-        const res = await axios.get("https://fable-server-z2xt.onrender.com", {
-          headers: { 
-            Authorization: `Bearer ${token}` 
-          }
-        });
+        const res = await axios.get(
+  "https://fable-server-z2xt.onrender.com/writer-orders",
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+setSalesList(res.data);
         
-        // ওরিজিনাল লাইভ ডাটাবেজ রেসপন্স অ্যারে সেটআপ
-        const ordersData = res.data.orders || (Array.isArray(res.data) ? res.data : []);
-        setSalesList(ordersData);
+    
       } catch (err) {
         console.error("Failed to stream sales invoice data from database engine:", err);
       } finally {
