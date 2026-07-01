@@ -3,16 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
- FaFacebookF,
- FaInstagram,
- FaTwitter,
- ArrowUpRight,
-  MapPin,
-  Mail,
-  Phone,
- FaLinkedinIn
+  FaFacebookF,
+  FaInstagram,
+  FaTwitter,
+  FaLinkedinIn,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaPhone,
+  FaArrowUp
 } from "react-icons/fa";
-
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -75,7 +74,7 @@ export default function Footer() {
                 <li key={index}>
                   <Link href={link.href} className="text-indigo-800/80 hover:text-indigo-700 flex items-center gap-1 group transition duration-200">
                     <span>{link.name}</span>
-                    <ArrowUpRight size={14} className="opacity-0 -translate-y-0.5 group-hover:opacity-100 transition duration-200" />
+                    <FaArrowUp size={14} className="opacity-0 -translate-y-0.5 group-hover:opacity-100 transition duration-200" />
                   </Link>
                 </li>
               ))}
@@ -85,9 +84,9 @@ export default function Footer() {
           <div className="space-y-5">
             <h3 className="font-bold text-lg text-indigo-950">The Atelier</h3>
             <ul className="space-y-3.5 text-sm font-medium text-indigo-800/80">
-              <li className="flex items-start gap-3"><MapPin size={18} className="text-indigo-600 shrink-0 mt-0.5" /><span>Bangladesh</span></li>
-              <li className="flex items-center gap-3"><Mail size={18} className="text-indigo-600 shrink-0" /><a href="mailto:sumaiyakookie307@gmail.com" className="hover:text-indigo-700 transition">sumaiyakookie307@gmail.com</a></li>
-              <li className="flex items-center gap-3"><Phone size={18} className="text-indigo-600 shrink-0" /><a href="tel:+8801826459605" className="hover:text-indigo-700 transition">+880 1826459605</a></li>
+              <li className="flex items-start gap-3"><FaMapMarkerAlt  size={18} className="text-indigo-600 shrink-0 mt-0.5" /><span>Bangladesh</span></li>
+              <li className="flex items-center gap-3"><FaEnvelope size={18} className="text-indigo-600 shrink-0" /><a href="mailto:sumaiyakookie307@gmail.com" className="hover:text-indigo-700 transition">sumaiyakookie307@gmail.com</a></li>
+              <li className="flex items-center gap-3"><FaPhone size={18} className="text-indigo-600 shrink-0" /><a href="tel:+8801826459605" className="hover:text-indigo-700 transition">+880 1826459605</a></li>
             </ul>
           </div>
 
