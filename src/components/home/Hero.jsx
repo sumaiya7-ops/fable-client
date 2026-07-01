@@ -22,8 +22,8 @@ export default function Hero() {
             Original Ebooks
           </h1>
           <span className="text-indigo-600 font-semibold uppercase">
-Digital Ebook Sharing Platform
-</span>
+            Digital Ebook Sharing Platform
+             </span>
 
           <p className="mt-6 text-gray-700 text-base md:text-lg max-w-xl leading-relaxed">
             Explore thousands of original ebooks from talented writers around the world.
@@ -56,14 +56,14 @@ Digital Ebook Sharing Platform
 
     <SwiperSlide>
       <img
-        src="https://i.postimg.cc/Yq2nH6d9/ebook.jpg"
+        src="https://i.postimg.cc/sgQySjHK/book-5.jpg"
         className="w-full rounded-3xl"
       />
     </SwiperSlide>
 
     <SwiperSlide>
       <img
-        src="https://i.postimg.cc/fT3t3p0R/library.jpg"
+        src="https://i.postimg.cc/gj2b0m6v/book-6.jpg"
         className="w-full rounded-3xl"
       />
     </SwiperSlide>
