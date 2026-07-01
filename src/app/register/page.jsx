@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
-import { auth } from "@/firebase/firebase.config";
+import { auth } from "../../firebase/firebase.config";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export default function RegisterPage() {
