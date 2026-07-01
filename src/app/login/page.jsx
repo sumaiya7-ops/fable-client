@@ -1,6 +1,7 @@
 "use client"; 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation"; // রিডাইরেক্ট করার জন্য
 import { FcGoogle } from "react-icons/fc";
@@ -13,10 +14,21 @@ export default function LoginPage() {
   const router = useRouter();
 
   // ইনপুট হ্যান্ডলার (টাইপো ফিক্সড: e.target.type এর বদলে e.target.name ব্যবহার করা হলো)
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+   const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
+useEffect(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+
+  if (token) {
+    localStorage.setItem("fable_token", token);
+    router.push("/");
+  }
+}, []);
 
   // ইমেইল/পাসওয়ার্ড দিয়ে লগইন সাবমিট
   const handleSubmit = async (e) => {
@@ -26,10 +38,13 @@ export default function LoginPage() {
 
     try {
       // ১. টোকেন জেনারেট করার জন্য ব্যাকএন্ডে রিকোয়েস্ট পাঠানো
-      const response = await axios.post("https://fable-server-z2xt.onrender.com/jwt", {
-        email: formData.email,
-      });
-
+    const response = await axios.post(
+  "https://fable-server-z2xt.onrender.com/jwt",
+  {
+    email: formData.email,
+    password: formData.password,
+  }
+);
       if (response.data.token) {
         // ২. টোকেন লোকাল স্টোরেজে সংরক্ষণ করা
         localStorage.setItem("fable_token", response.data.token);
@@ -62,7 +77,7 @@ export default function LoginPage() {
     setError("");
     try {
       // এখানে আপনার BetterAuth ওঅথ ফ্লো বা গুগল পপআপ ট্রিপ হবে
-      console.log("BetterAuth Google OAuth Triggered");
+     window.location.href = "https://fable-server-z2xt.onrender.com/auth/google";
       // গুগল থেকে ইমেইল পাওয়ার পর ব্যাকএন্ড /jwt এন্ডপয়েন্টে হিট করে টোকেন সেট হবে
     } catch (err) {
       setError("Google sign-in failed");
