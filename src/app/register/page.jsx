@@ -27,7 +27,38 @@ export default function RegisterPage() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+ // 🟢 গুগোল লগইন ফাংশনটি এখন সঠিকভাবে বাইরে (독립적으로) ডিফাইন করা হলো
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
 
+      const userPayload = {
+        name: user.displayName,
+        email: user.email,
+        role: "user",
+      };
+
+      await axios.post(
+        "https://fable-server-z2xt.onrender.com/users",
+        userPayload
+      );
+
+      const jwtRes = await axios.post(
+        "https://fable-server-z2xt.onrender.com/jwt",
+        {
+          email: user.email,
+        }
+      );
+
+      localStorage.setItem("fable_token", jwtRes.data.token);
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // ইমেইল/পাসওয়ার্ড দিয়ে সাধারণ রেজিস্ট্রেশন সাবমিট
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -47,38 +78,6 @@ export default function RegisterPage() {
         role: mappedRole
       };
 
-      const handleGoogleLogin = async () => {
-  try {
-    const result = await signInWithPopup(auth, provider);
-
-    const user = result.user;
-
-    const userPayload = {
-      name: user.displayName,
-      email: user.email,
-      role: "user",
-    };
-
-    await axios.post(
-      "https://fable-server-z2xt.onrender.com/users",
-      userPayload
-    );
-
-    const jwtRes = await axios.post(
-      "https://fable-server-z2xt.onrender.com/jwt",
-      {
-        email: user.email,
-      }
-    );
-
-    localStorage.setItem("fable_token", jwtRes.data.token);
-
-    router.push("/");
-  } catch (err) {
-    console.log(err);
-  }
-};
-
       // ১. ডাটাবেজে ইউজার ইনফো পাঠানো
       const userResponse = await axios.post("https://fable-server-z2xt.onrender.com/users", userPayload);
 
@@ -89,7 +88,7 @@ export default function RegisterPage() {
         });
 
         if (jwtResponse.data.token) {
-          // ৩. টোকেন লোকাল স্টোরেজে সংরক্ষণ (৭ দিন মেয়াদি)
+          // ৩. টোকেন লোকাল স্টোরেজে সংরক্ষণ
           localStorage.setItem("fable_token", jwtResponse.data.token);
 
           // ৪. রোল অনুযায়ী সঠিক ড্যাশবোর্ড বা হোমে রিডাইরেক্ট করা
