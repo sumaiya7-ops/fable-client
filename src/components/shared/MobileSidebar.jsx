@@ -16,20 +16,19 @@ export default function MobileSidebar({ user, handleLogout }) {
     return name.trim().charAt(0).toUpperCase();
   };
 
-  const links = [
-    { name: "Home", href: "/" },
-    { name: "Browse Ebooks", href: "/browse" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-    
-     
-          {
-            name: "Dashboard",
-            href:"/dashboard",
-          },
-        
-      
-  ];
+ const links = [
+  { name: "Home", href: "/" },
+  { name: "Browse Ebooks", href: "/browse" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+];
+
+if (user) {
+  links.push({
+    name: "Dashboard",
+    href: "/dashboard",
+  });
+}
   return (
     <>
       <button
