@@ -1,6 +1,11 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 export default function Hero() {
   return (
@@ -16,6 +21,9 @@ export default function Hero() {
             <br />
             Original Ebooks
           </h1>
+          <span className="text-indigo-600 font-semibold uppercase">
+Digital Ebook Sharing Platform
+</span>
 
           <p className="mt-6 text-gray-700 text-base md:text-lg max-w-xl leading-relaxed">
             Explore thousands of original ebooks from talented writers around the world.
@@ -30,13 +38,39 @@ export default function Hero() {
         </div>
 
         
-        <div className="order-1 lg:order-2 w-full flex justify-center">
-          <img
-            src="https://i.postimg.cc/1znS3RDG/book-2.jpg"
-            alt="Library student reading books"
-            className="w-full object-cover rounded-3xl shadow-xl border border-indigo-200 aspect-[4/3] lg:aspect-auto"
-          />
-        </div>
+  <div className="order-1 lg:order-2 w-full">
+
+  <Swiper
+    modules={[Autoplay, Pagination]}
+    autoplay={{ delay: 3000 }}
+    loop={true}
+    pagination={{ clickable: true }}
+  >
+
+    <SwiperSlide>
+      <img
+        src="https://i.postimg.cc/1znS3RDG/book-2.jpg"
+        className="w-full rounded-3xl"
+      />
+    </SwiperSlide>
+
+    <SwiperSlide>
+      <img
+        src="https://i.postimg.cc/Yq2nH6d9/ebook.jpg"
+        className="w-full rounded-3xl"
+      />
+    </SwiperSlide>
+
+    <SwiperSlide>
+      <img
+        src="https://i.postimg.cc/fT3t3p0R/library.jpg"
+        className="w-full rounded-3xl"
+      />
+    </SwiperSlide>
+
+  </Swiper>
+
+</div>
 
       </div>
     </section>
