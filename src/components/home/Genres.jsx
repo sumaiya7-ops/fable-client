@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import axios from "axios";
+
 import {
   FaBookOpen,
   FaUserSecret,
@@ -13,74 +15,64 @@ import {
   FaLandmark,
 } from "react-icons/fa";
 
-const genres = [
-  { name: "Fiction", icon: FaBookOpen },
-  { name: "Mystery", icon: FaUserSecret },
-  { name: "Romance", icon: FaHeart },
-  { name: "Sci-Fi", icon: FaRocket },
-  { name: "Fantasy", icon: FaDragon },
-  { name: "Horror", icon: FaGhost },
-  { name: "Thriller", icon: FaBolt },
-  { name: "History", icon: FaLandmark },
-];
+const iconMap = {
+  Fiction: FaBookOpen,
+  Mystery: FaUserSecret,
+  Romance: FaHeart,
+  "Sci-Fi": FaRocket,
+  Fantasy: FaDragon,
+  Horror: FaGhost,
+  Thriller: FaBolt,
+  History: FaLandmark,
+};
 
 export default function Genres() {
+  const [genres, setGenres] = useState([]);
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const res = await axios.get(
+          "https://fable-server-z2xt.onrender.com/genres/count"
+        );
+        setGenres(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchGenres();
+  }, []);
+
   return (
     <section className="bg-indigo-100 w-full py-20 flex justify-center">
       <div className="w-11/12 md:w-10/12 max-w-7xl">
 
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
-          <div>
-            <span className="inline-block px-4 py-1 rounded-full bg-white text-indigo-600 text-sm font-semibold shadow-sm">
-              📚 Browse Categories
-            </span>
+        <h2 className="text-4xl font-bold mb-10 text-gray-900">
+          Ebook Genres
+        </h2>
 
-            <h2 className="mt-5 text-4xl md:text-5xl font-extrabold text-gray-900">
-              Ebook Genres
-            </h2>
-          </div>
-
-          <p className="mt-4 md:mt-0 text-gray-600 max-w-md">
-            Explore thousands of books across your favorite genres and discover your next read.
-          </p>
-        </div>
-
-        {/* Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-6">
-          {genres.map((genre, index) => {
-            const Icon = genre.icon;
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
+          {genres.map((genre) => {
+            const Icon = iconMap[genre.name] || FaBookOpen;
 
             return (
               <Link
                 key={genre.name}
-                href={`/browse?genre=${encodeURIComponent(genre.name)}`}
-                className="group relative bg-white rounded-3xl p-6 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-out overflow-hidden"
+                href={`/browse?genre=${genre.name}`}
+                className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition"
               >
-                {/* Glow Effect */}
-                <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-indigo-200 blur-3xl opacity-0 group-hover:opacity-100 transition duration-500" />
-
-                {/* Icon */}
-                <div className="relative z-10 w-14 h-14 rounded-2xl bg-indigo-100 flex items-center justify-center mx-auto group-hover:scale-110 transition">
-                  <Icon className="text-2xl text-indigo-600" />
+                <div className="flex justify-center">
+                  <Icon className="text-3xl text-indigo-600" />
                 </div>
 
-                {/* Title */}
-                <h3 className="relative z-10 mt-5 text-center font-bold text-gray-900">
+                <h3 className="text-center mt-4 font-bold">
                   {genre.name}
                 </h3>
 
-                {/* Count */}
-                <p className="relative z-10 text-center text-sm text-gray-500 mt-2">
-                  {500 + index * 200}+ Books
+                <p className="text-center text-sm text-gray-500">
+                  {genre.count} Books
                 </p>
-
-                {/* Hover CTA */}
-                <div className="relative z-10 mt-4 text-center opacity-0 group-hover:opacity-100 transition">
-                  <span className="text-indigo-600 font-semibold text-sm">
-                    Explore →
-                  </span>
-                </div>
               </Link>
             );
           })}
