@@ -38,7 +38,12 @@ export default function Hero() {
         </div>
 
         
-  <div className="order-1 lg:order-2 w-full">
+ <motion.div
+  className="order-2 lg:order-1 text-left"
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+>
 
   <Swiper
     modules={[Autoplay, Pagination]}
@@ -49,16 +54,18 @@ export default function Hero() {
 
     <SwiperSlide>
       <img
-        src="https://i.postimg.cc/1znS3RDG/book-2.jpg"
-        className="w-full rounded-3xl"
-      />
+  src="https://i.postimg.cc/1znS3RDG/book-2.jpg"
+  alt="Featured Ebook 1"
+  className="w-full rounded-3xl"
+/>
     </SwiperSlide>
 
     <SwiperSlide>
-      <img
-        src="https://i.postimg.cc/sgQySjHK/book-5.jpg"
-        className="w-full rounded-3xl"
-      />
+ <img
+  src="https://i.postimg.cc/gj2b0m6v/book-6.jpg"
+  alt="Featured Ebook 3"
+  className="w-full rounded-3xl"
+/>
     </SwiperSlide>
 
     <SwiperSlide>
@@ -70,7 +77,7 @@ export default function Hero() {
 
   </Swiper>
 
-</div>
+</motion.div>
 
       </div>
     </section>
