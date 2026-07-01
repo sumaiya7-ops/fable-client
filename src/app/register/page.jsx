@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
+import { auth } from "@/firebase/firebase.config";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +15,7 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const provider = new GoogleAuthProvider();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -40,8 +43,41 @@ export default function RegisterPage() {
       const userPayload = {
         name: formData.name,
         email: formData.email,
+        password: formData.password,
         role: mappedRole
       };
+
+      const handleGoogleLogin = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+
+    const user = result.user;
+
+    const userPayload = {
+      name: user.displayName,
+      email: user.email,
+      role: "user",
+    };
+
+    await axios.post(
+      "https://fable-server-z2xt.onrender.com/users",
+      userPayload
+    );
+
+    const jwtRes = await axios.post(
+      "https://fable-server-z2xt.onrender.com/jwt",
+      {
+        email: user.email,
+      }
+    );
+
+    localStorage.setItem("fable_token", jwtRes.data.token);
+
+    router.push("/");
+  } catch (err) {
+    console.log(err);
+  }
+};
 
       // ১. ডাটাবেজে ইউজার ইনফো পাঠানো
       const userResponse = await axios.post("https://fable-server-z2xt.onrender.com/users", userPayload);
@@ -230,6 +266,16 @@ export default function RegisterPage() {
             </button>
           </div>
         </form>
+
+        <div className="mt-4">
+  <button
+    onClick={handleGoogleLogin}
+    type="button"
+    className="w-full border border-gray-300 rounded-xl py-4 bg-white hover:bg-gray-100 transition font-semibold"
+  >
+    Continue with Google
+  </button>
+</div>
 
         <p className="text-center text-gray-700 text-xs sm:text-sm mt-2">
           Already have an account?{" "}
