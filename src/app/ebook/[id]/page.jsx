@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Star, Heart } from "lucide-react";
 import axios from "axios";
+import Link from "next/link";
 
 export default function EbookDetailsPage() {
   const { id } = useParams();
@@ -86,6 +87,8 @@ const handleBuyNow = async () => {
   }
 };
 
+const rating = Number(book.rating) || 4;
+
 
 const handleBookmark = async () => {
   console.log("Book ID:", id);
@@ -148,17 +151,21 @@ const handleBookmark = async () => {
           </h1>
 
           <p className="text-gray-700 mt-4 font-medium">
-            By {book.writerName || book.writer || "Unknown Author"}
+     <Link href={`/writer/${book.writerEmail || "#"}`}>
+  By {book.writerName || "Unknown Writer"}
+</Link>
           </p>
 
           {/* Rating */}
           <div className="flex items-center gap-2 mt-6">
             <div className="flex text-amber-400">
-              <Star size={18} fill="currentColor" />
-              <Star size={18} fill="currentColor" />
-              <Star size={18} fill="currentColor" />
-              <Star size={18} fill="currentColor" />
-              <Star size={18} fill="currentColor" />
+              {[...Array(5)].map((_, i) => (
+  <Star
+    key={i}
+    size={18}
+   fill={i < Math.round(rating) ? "currentColor" : "transparent"}
+  />
+))}
             </div>
             <span className="text-gray-600 text-sm font-medium">
               {book.rating || "4.9"} ({book.reviewsCount || "120"} Reviews)
@@ -166,7 +173,7 @@ const handleBookmark = async () => {
           </div>
 
           <h2 className="text-3xl font-extrabold text-red-500 mt-8">
-            ${book.price ? book.price.toFixed(2) : "0.00"}
+           ${Number(book.price || 0).toFixed(2)}
           </h2>
 
           <p className="text-gray-600 mt-6 leading-8 text-base">
@@ -176,14 +183,18 @@ const handleBookmark = async () => {
           {/* Buttons Actions */}
           <div className="flex flex-wrap gap-4 mt-10">
                        {/* 🛠️ এখানে onClick যুক্ত করে বাটনটি অ্যাক্টিভেট করা হলো */}
-            <button 
-              onClick={handleBuyNow}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-2xl font-semibold transition-all shadow-lg shadow-indigo-600/30 cursor-pointer" 
-              style={{ padding: "3px" }}
-            >
-              Buy Now
-            </button>
-
+       
+<button 
+  onClick={handleBuyNow}
+  disabled={book.status === "sold"}
+  className={`px-8 py-4 rounded-2xl font-semibold transition-all shadow-lg cursor-pointer 
+  ${book.status === "sold" 
+    ? "bg-gray-400 cursor-not-allowed" 
+    : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/30"
+  }`}
+>
+  {book.status === "sold" ? "Already Sold" : "Buy Now"}
+</button>
 
            <button
   onClick={handleBookmark}
@@ -226,12 +237,21 @@ const handleBookmark = async () => {
               <div key={relBook._id || relBook.id} className="p-4 rounded-3xl bg-white text-gray-700 border border-white/10 backdrop-blur-md flex flex-col justify-between hover:border-indigo-500/30 transition-all">
                 <img
                   src={relBook.coverUrl || relBook.image || defaultBookCover}
+                  onError={(e) => {
+  e.target.src = defaultBookCover;
+}}
                   alt={relBook.title}
                   className="rounded-2xl object-cover aspect-[3/4] w-full shadow-md"
                 />
                 <h3 className="mt-4 text-gray-700 font-semibold text-sm line-clamp-1">
                   {relBook.title}
                 </h3>
+                <p className="text-sm mt-2 font-bold text-gray-500">
+                   Status: {relBook.status === "sold" ? "Sold" : "Available"}
+</p>
+<p className="text-xs text-gray-500 mt-1">
+ Uploaded: {relBook.createdAt ? new Date(relBook.createdAt).toLocaleDateString() : "N/A"}
+ </p>
                 <p className="text-red-500 text-sm mt-1 font-bold">
                   ${relBook.price ? relBook.price.toFixed(2) : "0.00"}
                 </p>
