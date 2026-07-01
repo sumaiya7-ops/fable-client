@@ -7,8 +7,11 @@ import axios from "axios";
 import Link from "next/link";
 
 export default function EbookDetailsPage() {
+  
+
   const { id } = useParams();
   const [book, setBook] = useState(null);
+  const [user, setUser] = useState(null);
   const [relatedBooks, setRelatedBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -17,6 +20,19 @@ export default function EbookDetailsPage() {
     const fetchBookDetails = async () => {
       try {
         setLoading(true);
+        const token = localStorage.getItem("fable_token");
+        if (token) {
+  const me = await axios.get(
+    "https://fable-server-z2xt.onrender.com/users/me",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  setUser(me.data);
+}
         const response = await axios.get(`https://fable-server-z2xt.onrender.com/ebook/${id}`);
         
         if (response.data.book) {
@@ -42,11 +58,29 @@ export default function EbookDetailsPage() {
   "https://i.postimg.cc/1znS3RDG/book-2.jpg";
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center text-gray-900 justify-center bg-white">
-        <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+   return (
+  <div className="w-10/12 mx-auto py-20 animate-pulse">
+    <div className="grid lg:grid-cols-2 gap-10">
+
+      <div className="h-[520px] bg-gray-300 rounded-3xl"></div>
+
+      <div>
+
+        <div className="h-8 bg-gray-300 rounded w-3/4 mb-6"></div>
+
+        <div className="h-5 bg-gray-300 rounded w-1/2 mb-4"></div>
+
+        <div className="h-4 bg-gray-300 rounded mb-3"></div>
+
+        <div className="h-4 bg-gray-300 rounded mb-3"></div>
+
+        <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+
       </div>
-    );
+
+    </div>
+  </div>
+);
   }
 
   if (error || !book) {
@@ -151,10 +185,10 @@ const handleBookmark = async () => {
           </h1>
 
           <p className="text-gray-700 mt-4 font-medium">
-     <Link href={`/writer/${book.writerEmail || "#"}`}>
-  By {book.writerName || "Unknown Writer"}
+  <Link href={`/browse?search=${book.writerName}`}>
+  By {book.writerName}
 </Link>
-          </p>
+     </p>
 
           {/* Rating */}
           <div className="flex items-center gap-2 mt-6">
@@ -175,6 +209,15 @@ const handleBookmark = async () => {
           <h2 className="text-3xl font-extrabold text-red-500 mt-8">
            ${Number(book.price || 0).toFixed(2)}
           </h2>
+          <p className="mt-3 font-semibold text-green-600">
+  Status: {book.status === "sold" ? "Sold" : "Available"}
+</p>
+          <p className="text-gray-500 mt-2">
+  Uploaded:
+  {book.createdAt
+    ? new Date(book.createdAt).toLocaleDateString()
+    : "N/A"}
+</p>
 
           <p className="text-gray-600 mt-6 leading-8 text-base">
             {book.description || "No description provided for this ebook."}
@@ -186,14 +229,27 @@ const handleBookmark = async () => {
        
 <button 
   onClick={handleBuyNow}
-  disabled={book.status === "sold"}
+  disabled={
+book.status === "sold" ||
+book.writerEmail === user?.email
+}
   className={`px-8 py-4 rounded-2xl font-semibold transition-all shadow-lg cursor-pointer 
   ${book.status === "sold" 
     ? "bg-gray-400 cursor-not-allowed" 
     : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/30"
   }`}
 >
-  {book.status === "sold" ? "Already Sold" : "Buy Now"}
+ {
+book.writerEmail === user?.email
+?
+"Your Ebook"
+:
+book.status === "sold"
+?
+"Already Sold"
+:
+"Buy Now"
+}
 </button>
 
            <button
