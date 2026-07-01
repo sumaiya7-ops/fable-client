@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const defaultAvatar =
+  "https://i.postimg.cc/WpKrKVxG/profile-jpg.png";
 
 export default function TopWriters() {
   const [writers, setWriters] = useState([]);
@@ -47,11 +49,11 @@ useEffect(() => {
             >
               {/* Image */}
               <div className="relative overflow-hidden rounded-2xl">
-                <img
-                src={writer.avatar}
-                  alt={writer.name}
-                  className="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
-                />
+             <img
+  src={writer.avatar?.trim() || defaultAvatar}
+  alt={writer.name}
+  className="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
+/>
               </div>
 
               {/* Content */}
