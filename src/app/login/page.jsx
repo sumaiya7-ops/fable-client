@@ -28,7 +28,7 @@ useEffect(() => {
     localStorage.setItem("fable_token", token);
     router.push("/");
   }
-}, []);
+}, [router]);
 
   // ইমেইল/পাসওয়ার্ড দিয়ে লগইন সাবমিট
   const handleSubmit = async (e) => {
@@ -79,9 +79,7 @@ useEffect(() => {
       // এখানে আপনার BetterAuth ওঅথ ফ্লো বা গুগল পপআপ ট্রিপ হবে
      window.location.href = "https://fable-server-z2xt.onrender.com/auth/google";
       // গুগল থেকে ইমেইল পাওয়ার পর ব্যাকএন্ড /jwt এন্ডপয়েন্টে হিট করে টোকেন সেট হবে
-    } catch (err) {
-      setError("Google sign-in failed");
-    }
+    
   };
 
   return (
