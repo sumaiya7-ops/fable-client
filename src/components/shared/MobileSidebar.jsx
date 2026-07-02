@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 export default function MobileSidebar({ user, handleLogout }) {
@@ -21,22 +21,28 @@ export default function MobileSidebar({ user, handleLogout }) {
   { name: "Browse Ebooks", href: "/browse" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
+ ...(user ? [{ name: "Dashboard", href: "/dashboard" }] : []),
 ];
 
-if (user) {
-  links.push({
-    name: "Dashboard",
-    href: "/dashboard",
-  });
-}
+useEffect(() => {
+  const handleEsc = (e) => {
+    if (e.key === "Escape") setOpen(false);
+  };
+
+  window.addEventListener("keydown", handleEsc);
+  return () => window.removeEventListener("keydown", handleEsc);
+}, []);
+
+
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="md:hidden text-black p-2 hover:bg-indigo-50 rounded-lg transition"
-      >
-        <Menu size={28} />
-      </button>
+    <button
+  onClick={() => setOpen(true)}
+  className="md:hidden text-black p-2 hover:bg-indigo-50 rounded-lg transition"
+  aria-label="Open menu"
+>
+  <Menu size={28} />
+</button>
 
       {/* ব্যাকড্রপ প্রিমিয়াম bg-black/40 ওভারলে */}
       <div

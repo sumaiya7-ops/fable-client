@@ -20,6 +20,7 @@ import {
 export default function DashboardSidebar() {
   const pathname = usePathname();
   const [currentUser, setCurrentUser] = useState(null);
+  const [open, setOpen] = useState(false);
 
   // ডাটাবেজ থেকে টোকেন রিড করে লগইন থাকা ইউজারের রোল এবং নাম নিয়ে আসা
   useEffect(() => {
@@ -38,7 +39,21 @@ export default function DashboardSidebar() {
     fetchUserRole();
   }, []);
     return (
-    <aside className="bg-white text-gray-800 h-full min-h-screen border-r border-indigo-400 flex flex-col justify-between" style={{ paddingLeft: "16px" }}>
+   <aside className={`
+  bg-white text-gray-800 
+  h-full min-h-screen 
+  border-r border-indigo-400 
+  flex flex-col justify-between
+
+  w-64 md:w-64 sm:w-56 w-full
+  fixed md:static top-0 left-0 z-50
+
+  overflow-y-auto
+
+  ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+  transition-transform duration-300
+`}
+ >
       <div>
        
         <h2 className="text-2xl font-bold text-indigo-700 mb-8 tracking-wide pl-2">
