@@ -19,6 +19,9 @@ const genresList = ["All Genres", "Psychology", "History", "Self Improvement", "
 export default function ManageAllEbooks() {
   // 🛠️ রিকোয়ারমেন্ট অনূযায়ী ইনিশিয়াল স্টেট ফাঁকা অ্যারে, কোনো ডামি মক ডেটা নেই
   const [ebooks, setEbooks] = useState([]);
+  const [page, setPage] = useState(1);
+const [limit] = useState(10);
+const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
@@ -27,11 +30,12 @@ export default function ManageAllEbooks() {
   const fetchAllEbooksFromDB = async () => {
     try {
       setLoading(true);
-      // ক্যাশ লক ভাঙতে টাইমস্ট্যাম্প প্যারামস সিঙ্ক
-      const res = await axios.get("https://fable-server-z2xt.onrender.com/ebooks?t=" + new Date().getTime());
-      
-      // ব্যাকএ্যান্ডের পেলোড স্ট্রাকচার চেক (অবজেক্টের ভেতর .ebooks অথবা ডিরেক্ট অ্যারে)
-      const extractedBooks = res.data.ebooks || (Array.isArray(res.data) ? res.data : []);
+   const res = await axios.get(
+  `https://fable-server-z2xt.onrender.com/ebooks?page=${page}&limit=${limit}&t=${new Date().getTime()}`
+);
+     const extractedBooks = res.data.ebooks || [];
+setEbooks(extractedBooks);
+setTotalPages(res.data.totalPages || 1);
       
       // ডাটাবেজের স্ট্যাটাস ফিল্ড (available/draft) ফ্রন্টঅ্যান্ডের সাথে ডাইনামিক ম্যাপিং
       const mappedBooks = extractedBooks.map((book) => ({
@@ -48,10 +52,9 @@ export default function ManageAllEbooks() {
     }
   };
 
-  useEffect(() => {
-    fetchAllEbooksFromDB();
-  }, []);
-
+useEffect(() => {
+  fetchAllEbooksFromDB();
+}, [page]);
   // ⚙️ ২. ডাটাবেজ ইন্টারেক্টিভ ডিলিট ইভেন্ট হ্যান্ডলার (Simulated Notification সহ)
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this ebook permanently from Database?");
@@ -251,21 +254,21 @@ export default function ManageAllEbooks() {
           </div>
         )}
 
-        {/* পেজিনーション */}
-        <div className="flex justify-center items-center gap-2 pt-2">
-          <button className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#5826df] text-white text-xs font-semibold cursor-pointer shadow-md shadow-indigo-600/10">
-            1
-          </button>
-          <button className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-700 bg-white border border-gray-200 hover:bg-[#b6bced] text-xs font-semibold transition cursor-pointer">
-            2
-          </button>
-          <button className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-700 bg-white border border-gray-200 hover:bg-[#b6bced] text-xs font-semibold transition cursor-pointer">
-            3
-          </button>
-          <button className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-700 bg-white border border-gray-200 hover:bg-[#b6bced] text-xs font-semibold transition cursor-pointer">
-            &gt;
-          </button>
-        </div>
+      <div className="flex justify-center items-center gap-2 pt-2">
+  {Array.from({ length: totalPages }, (_, i) => (
+    <button
+      key={i}
+      onClick={() => setPage(i + 1)}
+      className={`w-8 h-8 rounded-lg text-xs font-semibold ${
+        page === i + 1
+          ? "bg-[#5826df] text-white"
+          : "bg-white border"
+      }`}
+    >
+      {i + 1}
+    </button>
+  ))}
+</div>
 
       </div>
     </div>
