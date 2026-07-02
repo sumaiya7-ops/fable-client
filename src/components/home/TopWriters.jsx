@@ -62,9 +62,9 @@ useEffect(() => {
                   {writer.name}
                 </h3>
 
-                <p className="text-gray-500 mt-2">
-                  {writer.totalSales} Sales
-                </p>
+               <p className="text-gray-500 mt-2">
+            📚 {writer.totalBooks} Books
+</p>
 
                 {/* 🟢 button কেটে রিকোয়ারমেন্ট অনুযায়ী Link ট্যাগ দেওয়া হলো যেন প্রোফাইল পেজে নিয়ে যায় */}
                 <Link 

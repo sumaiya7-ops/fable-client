@@ -60,17 +60,17 @@ export default function Genres() {
               <Link
                 key={genre.name}
                 href={`/browse?genre=${genre.name}`}
-                className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition"
-              >
-                <div className="flex justify-center">
-                  <Icon className="text-3xl text-indigo-600" />
-                </div>
+                className="bg-white rounded-3xl p-6 flex flex-col items-center border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-3 hover:bg-indigo-50 transition-all duration-300"
+                >
+                <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center">
+  <Icon className="text-3xl text-indigo-600" />
+</div>
 
-                <h3 className="text-center mt-4 font-bold">
+               <h3 className="text-center mt-5 font-bold text-gray-900 text-lg">
                   {genre.name}
                 </h3>
 
-                <p className="text-center text-sm text-gray-500">
+                <p className="text-center text-sm text-indigo-600 font-semibold mt-2">
                   {genre.count} Books
                 </p>
               </Link>

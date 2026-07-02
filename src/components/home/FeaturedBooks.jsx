@@ -34,7 +34,13 @@ useEffect(() => {
         </h2>
         <div className="h-2"></div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8" >
+        <motion.div
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.8 }}
+  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8"
+>
           {books.map((item) => {
            const isExpanded = expandedId === item._id;
             
@@ -44,11 +50,15 @@ useEffect(() => {
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{
-      duration: 0.5,
-      delay: 0.1,
-    }}
-    whileHover={{ scale: 1.05 }}
+   transition={{
+  duration: 0.6,
+  ease: "easeOut",
+}}
+   whileHover={{
+  scale: 1.05,
+  y: -10,
+  boxShadow: "0px 20px 40px rgba(99,102,241,0.25)",
+}}
     className="bg-white rounded-2xl overflow-hidden shadow-md transition duration-300 flex flex-col"
     style={{ padding: "6px" }}
   >
@@ -89,8 +99,9 @@ useEffect(() => {
               </motion.div>
             );
           })}
+      
+      </motion.div>
         </div>
-      </div>
     </section>
   );
 }
