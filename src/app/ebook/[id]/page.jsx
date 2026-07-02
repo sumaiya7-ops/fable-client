@@ -15,6 +15,9 @@ export default function EbookDetailsPage() {
   const [relatedBooks, setRelatedBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [bookmarked, setBookmarked] = useState(false);
+const [bookmarkId, setBookmarkId] = useState(null);
+
 
   useEffect(() => {
     const fetchBookDetails = async () => {
@@ -32,6 +35,23 @@ export default function EbookDetailsPage() {
   );
 
   setUser(me.data);
+  const bookmarkRes = await axios.get(
+  "https://fable-server-z2xt.onrender.com/bookmarks",
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+const found = bookmarkRes.data.find(
+  (item) => item.ebookId.toString() === id
+);
+
+if (found) {
+  setBookmarked(true);
+  setBookmarkId(found._id);
+}
 }
         const response = await axios.get(`https://fable-server-z2xt.onrender.com/ebook/${id}`);
         
@@ -123,41 +143,52 @@ const handleBuyNow = async () => {
 
 const rating = Number(book.rating) || 4;
 
-
 const handleBookmark = async () => {
-  console.log("Book ID:", id);
-
   const token = localStorage.getItem("fable_token");
 
   if (!token) {
     alert("Please login first!");
-    window.location.href = "/login";
     return;
   }
 
   try {
-    const res = await axios.post(
-      "https://fable-server-z2xt.onrender.com/bookmarks",
-      {
-        ebookId: id,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    if (bookmarked) {
+      await axios.delete(
+        `https://fable-server-z2xt.onrender.com/bookmarks/${bookmarkId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setBookmarked(false);
+      setBookmarkId(null);
+
+    } else {
+      const res = await axios.post(
+        "https://fable-server-z2xt.onrender.com/bookmarks",
+        {
+          ebookId: id,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setBookmarked(true);
+
+      if (res.data.insertedId) {
+        setBookmarkId(res.data.insertedId);
       }
-    );
-
-    console.log("Response:", res.data);
-    alert("Bookmarked Successfully ❤️");
+    }
   } catch (err) {
-    console.log(err.response?.data);
-    console.log(err.response?.status);
     console.log(err);
-
-    alert("Bookmark Failed");
   }
 };
+
   return (
     <div className="w-10/12 mx-auto py-16" style={{ padding: "8px" }}>
 
@@ -258,7 +289,7 @@ book.status === "sold"
   style={{ padding: "3px" }}
 >
   <Heart size={18} />
-  Bookmark
+  {bookmarked ? "Bookmarked ❤️" : "Bookmark 🤍"}
 </button>
           </div>
         </div>
