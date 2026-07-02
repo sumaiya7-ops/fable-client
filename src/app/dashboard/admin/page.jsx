@@ -22,6 +22,7 @@ export default function AdminDashboard() {
     booksSold: 0,
     revenue: 0
   });
+  const [users, setUsers] = useState([]);
 
   // ⚙️ MongoDB Atlas থেকে প্ল্যাটফর্মের লাইভ ডাটা কাউন্ট টেনে আনার কোর ইঞ্জিন
   useEffect(() => {
@@ -69,6 +70,8 @@ const usersCountRes = await axios.get(
   }
 );
 
+
+
 const realWritersCount = writersCountRes.data.totalWriters || 0;
 
 
@@ -90,6 +93,26 @@ const realWritersCount = writersCountRes.data.totalWriters || 0;
 
     fetchAdminLiveStats();
   }, []);
+
+  const toggleUserStatus = async (userId, currentStatus) => {
+  try {
+    const token = localStorage.getItem("fable_token");
+
+    await axios.put(
+      `https://fable-server-z2xt.onrender.com/users/${userId}`,
+      { status: currentStatus === "blocked" ? "active" : "blocked" },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert("User status updated!");
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   if (loading) {
     return (
@@ -168,6 +191,31 @@ const realWritersCount = writersCountRes.data.totalWriters || 0;
       <div className="h-2"></div>
 
       {/* Analytics Section — সেলস রেভিনিউ এবং জঁনরা পাই চার্ট গ্রিড */}
+      <div className="bg-white p-6 rounded-xl">
+  <h2 className="text-lg font-bold mb-4">All Users</h2>
+
+  {users.map((user) => (
+    <div key={user._id} className="flex justify-between border-b py-2">
+      
+      <div>
+        <p>{user.name}</p>
+        <p className="text-xs text-gray-500">{user.email}</p>
+      </div>
+
+      {/* 🔴 এখানে BUTTON */}
+      <button
+        onClick={() => toggleUserStatus(user._id, user.status)}
+        className={`px-3 py-1 text-xs rounded text-white ${
+          user.status === "blocked"
+            ? "bg-green-500"
+            : "bg-red-500"
+        }`}
+      >
+        {user.status === "blocked" ? "Unblock" : "Block"}
+      </button>
+    </div>
+  ))}
+</div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         
         {/* সেলস রেভিনিউ চার্ট */}
