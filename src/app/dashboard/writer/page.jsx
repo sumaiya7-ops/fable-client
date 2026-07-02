@@ -1,47 +1,46 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; 
-import axios from "axios"; 
-import {
-  BookOpen,
-  DollarSign,
-  ShoppingBag,
-  Clock,
-  Edit2,
-  Trash2,
-} from "lucide-react";
-import { style } from "framer-motion/client";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { BookOpen, DollarSign, ShoppingBag, Clock, Edit2, Trash2 } from "lucide-react";
 
 export default function WriterDashboard() {
-  const router = useRouter(); 
-  const [ebooks, setEbooks] = useState([]); 
+  const router = useRouter();
+  const [ebooks, setEbooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ডাটাবেজ থেকে এই রাইটারের আপলোড করা আসল বইগুলো টেনে আনার ফাংশন
+  // 📦 FETCH
   const fetchWriterEbooks = async () => {
     try {
       setLoading(true);
+
       const token = localStorage.getItem("fable_token");
-      
-      const res = await axios.get("https://fable-server-z2xt.onrender.com/ebooks?t=" + new Date().getTime(), {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      
+
+      const res = await axios.get(
+        "https://fable-server-z2xt.onrender.com/ebooks?t=" + new Date().getTime(),
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       const allBooks = res.data.ebooks || res.data || [];
-      
-      const mappedBooks = allBooks.map(book => ({
+
+      const mappedBooks = allBooks.map((book) => ({
         ...book,
-        id: book._id, 
+        id: book._id,
         status: book.status === "available" ? "Published" : "Draft",
-        statusColor: book.status === "available" 
-          ? "bg-emerald-950/40 text-emerald-400 border-emerald-800" 
-          : "bg-purple-950/40 text-purple-400 border-purple-800"
+        statusColor:
+          book.status === "available"
+            ? "bg-emerald-950/40 text-emerald-400 border-emerald-800"
+            : "bg-purple-950/40 text-purple-400 border-purple-800",
       }));
 
       setEbooks(mappedBooks);
     } catch (err) {
-      console.error("Failed to load writer ebooks from MongoDB Atlas:", err);
+      console.error("Failed to load ebooks:", err);
     } finally {
       setLoading(false);
     }
@@ -51,50 +50,76 @@ export default function WriterDashboard() {
     fetchWriterEbooks();
   }, []);
 
-  // ডাটাবেজ ইন্টারেক্টিভ ডিলিট ইভেন্ট হ্যান্ডলার
+  // 🗑️ DELETE FIXED
   const handleDeleteEbook = async (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this ebook permanently from DB?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this ebook?"
+    );
     if (!confirmDelete) return;
 
     try {
       const token = localStorage.getItem("fable_token");
-      
-      await axios.delete(`https://fable-server-z2xt.onrender.com/users/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
 
-      alert("🎉 Ebook removed from database successfully!");
-      fetchWriterEbooks(); 
+      await axios.delete(
+        `https://fable-server-z2xt.onrender.com/ebooks/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert("Deleted successfully!");
+      fetchWriterEbooks();
     } catch (err) {
       console.error("Deletion error:", err);
-      alert("Failed to delete ebook from server engine.");
     }
   };
 
-  // 🛠️ স্ট্যাটাস আপডেট রাউট ফিক্স: এপিআই পাথ /ebooks থেকে পরিবর্তন করে /users করা হলো
+  // 🔁 STATUS FIXED
   const handleToggleStatus = async (id, currentStatus) => {
     try {
       const token = localStorage.getItem("fable_token");
-      // যদি বর্তমানে Published থাকে তবে হবে draft, আর draft থাকলে হবে available
-      const nextStatus = currentStatus === "Published" ? "draft" : "available";
 
-      // 🟢 এখানে সঠিক পাথ /users/${id} সেট করা হলো যেন ব্যাকএন্ড রাউটে সঠিক ডেটা পৌঁছায়
-      await axios.put(`https://fable-server-z2xt.onrender.com/users/${id}`, 
+      const nextStatus =
+        currentStatus === "Published" ? "draft" : "available";
+
+      await axios.put(
+        `https://fable-server-z2xt.onrender.com/ebooks/${id}`,
         { status: nextStatus },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
-      alert(`🎉 Ebook status updated to ${nextStatus === 'available' ? 'Published' : 'Draft'}!`);
-      fetchWriterEbooks(); // ডাটাবেজ রি-ফেচ করে ইনস্ট্যান্ট স্ট্যাটাস টেক্সট ও কালার পরিবর্তন
+      alert(
+        `Status updated to ${
+          nextStatus === "available" ? "Published" : "Draft"
+        }`
+      );
+
+      fetchWriterEbooks();
     } catch (err) {
       console.error("Status update error:", err);
-      alert("Failed to update status on server engine.");
     }
   };
 
-  const publishedBooks = ebooks.filter((book) => book.status === "Published").length;
-  const totalSales = ebooks.reduce((sum, book) => sum + (book.sales || 0), 0);
-  const totalEarnings = ebooks.reduce((sum, book) => sum + ((book.sales || 0) * parseFloat(book.price || 0) * 0.70), 0); 
+  const publishedBooks = ebooks.filter(
+    (book) => book.status === "Published"
+  ).length;
+
+  const totalSales = ebooks.reduce(
+    (sum, book) => sum + (book.sales || 0),
+    0
+  );
+
+  const totalEarnings = ebooks.reduce(
+    (sum, book) =>
+      sum + (book.sales || 0) * parseFloat(book.price || 0) * 0.7,
+    0
+  );
 
   if (loading) {
     return (
@@ -108,13 +133,17 @@ export default function WriterDashboard() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-indigo-50 text-gray-500">
         <p className="italic">No ebooks published yet by this writer profile.</p>
-        <button onClick={() => router.push("/dashboard/add-ebook")} className="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-md">
+
+        <button
+          onClick={() => router.push("/dashboard/add-ebook")}
+          className="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-md"
+        >
           + Add New Ebook First
         </button>
       </div>
     );
   }
-
+}
   return (
     <div className="min-h-screen bg-indigo-50 text-gray-900 p-6 md:p-8" style={{ paddingLeft: "8px" , paddingRight:"8px" }}>
       {/* Header */}
