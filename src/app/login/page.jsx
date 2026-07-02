@@ -6,12 +6,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation"; // রিডাইরেক্ট করার জন্য
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
+import { auth } from "../../firebase/firebase.config";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const provider = new GoogleAuthProvider();
 
   // ইনপুট হ্যান্ডলার (টাইপো ফিক্সড: e.target.type এর বদলে e.target.name ব্যবহার করা হলো)
    const handleChange = (e) => {
@@ -72,13 +75,53 @@ useEffect(() => {
     }
   };
 
-  // BetterAuth / Google ওঅথ লগইন হ্যান্ডলার
-const handleGoogleLogin = () => {
-  setError("");
-  window.location.href =
-    "https://fable-server-z2xt.onrender.com/auth/google";
-};
+const handleGoogleLogin = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
 
+    const user = result.user;
+
+    const userPayload = {
+      name: user.displayName,
+      email: user.email,
+      role: "user",
+    };
+
+    await axios.post(
+      "https://fable-server-z2xt.onrender.com/users",
+      userPayload
+    );
+
+    const jwtRes = await axios.post(
+      "https://fable-server-z2xt.onrender.com/jwt",
+      {
+        email: user.email,
+      }
+    );
+
+    localStorage.setItem("fable_token", jwtRes.data.token);
+
+    const me = await axios.get(
+      "https://fable-server-z2xt.onrender.com/users/me",
+      {
+        headers: {
+          Authorization: `Bearer ${jwtRes.data.token}`,
+        },
+      }
+    );
+
+    if (me.data.role === "admin") {
+      router.push("/dashboard/admin");
+    } else if (me.data.role === "writer") {
+      router.push("/dashboard/writer");
+    } else {
+      router.push("/");
+    }
+  } catch (err) {
+    console.log(err);
+    setError("Google login failed");
+  }
+};
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfbf8] px-4 py-12" >
       
