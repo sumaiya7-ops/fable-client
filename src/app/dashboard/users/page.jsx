@@ -195,49 +195,37 @@ export default function UserDashboardPage() {
           <div className="xl:col-span-2 space-y-6">
             
             {/* ─── RECENTLY PURCHASED — লাইভ MongoDB Atlas ডেটা ─── */}
-            <div className="bg-white p-6 rounded-xl border border-indigo-700 bg-white shadow-md" style={{ padding: "16px" }}>
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-bold text-gray-900">Recently Purchased</h2>
-                <button onClick={() => router.push("/dashboard/purchases")} className="text-xs text-purple-600 font-semibold hover:underline bg-transparent border-none cursor-pointer">View all</button>
-              </div>
+     <div className="bg-white p-6 rounded-xl border shadow-md">
+  <h2 className="text-lg font-bold mb-4">Purchase History</h2>
 
-              {isLoggedIn ? (
-                purchasedBooks.length === 0 ? (
-                  <p className="text-sm text-gray-400 italic text-center py-6">You haven't purchased any ebooks yet.</p>
-                ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {purchasedBooks.map((book, idx) => (
-                      <div key={idx} className="bg-white p-4 rounded-xl flex space-x-4 border border-gray-100 shadow-sm hover:border-purple-400 transition duration-300" style={{ padding: "12px" }}>
-                        <img 
-                          src={book.img} 
-                          alt={book.title} 
-                          className="w-16 h-22 object-cover rounded-lg shadow-md border border-gray-50" 
-                          onError={(e) => { e.target.src = "https://co.com"; }}
-                        />
-                        <div className="flex-1 flex flex-col justify-between">
-                          <div>
-                            <h4 className="text-sm font-bold text-gray-800 line-clamp-1">{book.title}</h4>
-                            <p className="text-xs text-gray-500 mt-0.5">by {book.author}</p>
-                            <p className="text-xs font-bold text-red-500 mt-1">{book.price}</p>
-                          </div>
-                          {/* 🟢 ওরিজিনাল বাটন অ্যাকশন ফিক্স: ক্লিক করলেই সরাসরি ছোট হাতেরPurchases পেজে নিয়ে যাবে */}
-                          <button 
-                            type="button" 
-                            onClick={() => router.push("/dashboard/purchases")}
-                            className="flex items-center space-x-1 text-xs text-purple-600 hover:text-purple-800 font-bold mt-2 transition cursor-pointer bg-transparent border-none text-left"
-                          >
-                            <span>Continue Reading</span>
-                            <svg className="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )
-              ) : (
-                <p className="text-sm text-gray-700 text-center py-6">Please log in to see your purchased books.</p>
-              )}
-            </div>
+  {isLoggedIn ? (
+    <table className="w-full text-sm border">
+      <thead>
+        <tr className="bg-gray-100">
+          <th className="p-2 border">Date</th>
+          <th className="p-2 border">Book</th>
+          <th className="p-2 border">Amount</th>
+          <th className="p-2 border">Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {purchasedBooks.map((book, idx) => (
+          <tr key={idx}>
+            <td className="p-2 border">Today</td>
+            <td className="p-2 border">{book.title}</td>
+            <td className="p-2 border">{book.price}</td>
+            <td className="p-2 border text-green-600">Paid</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  ) : (
+    <p className="text-sm text-gray-700 text-center py-6">
+      Please log in to see your purchased books.
+    </p>
+  )}
+</div>
 
             {/* ─── RECOMMENDED BOOKS — ডাটাবেজের লাইভ ইবুক ম্যাপ ─── */}
             <div className="bg-white p-6 rounded-2xl border border-indigo-500 shadow-md" style={{ padding: "16px" }}>

@@ -116,6 +116,32 @@ setBookmarks(res.data || []);
                   <BookOpen size={14} />
                   Read Details
                 </Link>
+                <button
+  onClick={async () => {
+    try {
+      const token = localStorage.getItem("fable_token");
+
+      await axios.delete(
+        `https://fable-server-z2xt.onrender.com/bookmarks/${item._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // UI থেকে remove
+      setBookmarks(prev =>
+        prev.filter(b => b._id !== item._id)
+      );
+    } catch (err) {
+      console.error("Delete failed", err);
+    }
+  }}
+  className="mt-2 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl text-xs font-semibold"
+>
+  Remove Bookmark
+</button>
               </div>
             </div>
           );
