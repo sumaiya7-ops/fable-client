@@ -86,6 +86,7 @@ const handleGoogleLogin = async () => {
       email: user.email,
       role: "user",
     };
+    console.log(userPayload);
 
     await axios.post(
       "https://fable-server-z2xt.onrender.com/users",
@@ -118,7 +119,7 @@ const handleGoogleLogin = async () => {
       router.push("/");
     }
   } catch (err) {
-    console.log(err);
+    console.log(err.response);
     setError("Google login failed");
   }
 };
