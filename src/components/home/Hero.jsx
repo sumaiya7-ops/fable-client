@@ -62,7 +62,7 @@ export default function Hero() {
 
     <SwiperSlide>
  <img
-  src="https://i.postimg.cc/gj2b0m6v/book-6.jpg"
+  src="https://i.postimg.cc/gj2b0m6v/book-5.jpg"
   alt="Featured Ebook 3"
   className="w-full rounded-3xl"
 />
