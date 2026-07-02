@@ -81,28 +81,27 @@ export default function RegisterPage() {
         password: formData.password,
         role: mappedRole
       };
+await axios.post(
+  "https://fable-server-z2xt.onrender.com/users",
+  userPayload
+);
 
-      // ১. ডাটাবেজে ইউজার ইনফো পাঠানো
-      const userResponse = await axios.post("https://fable-server-z2xt.onrender.com/users", userPayload);
+const jwtResponse = await axios.post(
+  "https://fable-server-z2xt.onrender.com/jwt",
+  {
+    email: formData.email,
+    password: formData.password,
+  }
+);
 
-      if (userResponse.data.insertedId) {
-        // ২. সফল রেজিস্ট্রেশন শেষে JWT টোকেন জেনারেট করা
-        const jwtResponse = await axios.post("https://fable-server-z2xt.onrender.com/jwt", {
-          email: formData.email
-        });
+localStorage.setItem("fable_token", jwtResponse.data.token);
 
-        if (jwtResponse.data.token) {
-          // ৩. টোকেন লোকাল স্টোরেজে সংরক্ষণ
-          localStorage.setItem("fable_token", jwtResponse.data.token);
-
-          // ৪. রোল অনুযায়ী সঠিক ড্যাশবোর্ড বা হোমে রিডাইরেক্ট করা
-          if (mappedRole === "writer") {
-            router.push("/dashboard/writer");
-          } else {
-            router.push("/");
-          }
-        }
-      }
+if (mappedRole === "writer") {
+  router.push("/dashboard/writer");
+} else {
+  router.push("/");
+}
+   
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed. Try again!");
     } finally {
