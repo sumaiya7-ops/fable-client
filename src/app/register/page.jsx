@@ -39,10 +39,14 @@ export default function RegisterPage() {
         role: "user",
       };
 
-      await axios.post(
-        "https://fable-server-z2xt.onrender.com/users",
-        userPayload
-      );
+  try {
+  await axios.post(
+    "https://fable-server-z2xt.onrender.com/users",
+    userPayload
+  );
+} catch (err) {
+  // User already exists হলে ignore করবে
+}
 
       const jwtRes = await axios.post(
         "https://fable-server-z2xt.onrender.com/jwt",
