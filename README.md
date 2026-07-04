@@ -279,9 +279,10 @@ npm run start
 
 **Name:** Sumaiya Sorhad Marjiya
 
-**Email:** [your@email.com](sumaiyakookie307@gmail.com)
+**Email:** [sumaiyakookie307@gmail.com](sumaiyakookie307@gmail.com)
 
 **GitHub:** https://github.com/sumaiya7-ops
+
 **LinkedIn:** https://linkedin.com/in/sumaiya-sorhad
 
 ---
