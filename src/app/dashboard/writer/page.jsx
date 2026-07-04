@@ -143,7 +143,7 @@ export default function WriterDashboard() {
       </div>
     );
   }
-}
+
   return (
     <div className="min-h-screen bg-indigo-50 text-gray-900 p-6 md:p-8" style={{ paddingLeft: "8px" , paddingRight:"8px" }}>
       {/* Header */}
@@ -268,4 +268,4 @@ export default function WriterDashboard() {
       </div>
     </div>
   );
-
+}
