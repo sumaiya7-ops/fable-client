@@ -17,7 +17,7 @@
 
 # 🌐 Live Website
 
-**Client:** https://your-client-url.vercel.app
+**Client:** https://fable-client-five.vercel.app
 
 **Server:** https://fable-server-z2xt.onrender.com
 
@@ -197,7 +197,8 @@ STRIPE_SECRET_KEY=
 Clone the repository
 
 ```
-git clone https://github.com/yourusername/fable-client.git
+git clone https://github.com/sumaiya7-ops/fable-client.git
+
 ```
 
 Install dependencies
@@ -276,13 +277,12 @@ npm run start
 
 # 👨‍💻 Developer
 
-**Name:** Your Name
+**Name:** Sumaiya Sorhad Marjiya
 
-**Email:** [your@email.com](mailto:your@email.com)
+**Email:** [your@email.com](sumaiyakookie307@gmail.com)
 
-**GitHub:** https://github.com/yourusername
-
-**LinkedIn:** https://linkedin.com/in/yourusername
+**GitHub:** https://github.com/sumaiya7-ops
+**LinkedIn:** https://linkedin.com/in/sumaiya-sorhad
 
 ---
 
