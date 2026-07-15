@@ -119,6 +119,31 @@
 
 # 🛠 Tech Stack
 
+## 🎨 Frontend
+
+<p>
+  <img src="https://skillicons.dev/icons?i=nextjs,react,tailwind" />
+</p>
+
+- Axios
+- Framer Motion
+- Lucide React
+- Recharts
+
+---
+
+## ⚙️ Backend
+
+<p>
+  <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb" />
+</p>
+
+- Mongoose
+- JWT
+- Stripe
+
+# 🛠 Tech Stack
+
 ## Frontend
 
 * Next.js
