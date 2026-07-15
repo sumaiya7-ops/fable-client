@@ -52,8 +52,8 @@ export default function DashboardSidebar() {
 
   ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
   transition-transform duration-300
-`
-   style={{ padding: "8px" }}}
+`   }
+     style={{ padding: "8px" }}
  >
       <div>
        
