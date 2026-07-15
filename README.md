@@ -266,14 +266,17 @@ npm run start
 
 # 📸 Screenshots
 
-* Home Page
-* Browse Page
-* Ebook Details
-* Dashboard
-* Writer Panel
-* Admin Panel
-* Analytics
-* Checkout
+## Home Page
+
+<img src="./screenshots/home.png" />
+
+## Dashboard
+
+<img src="./screenshots/dashboard.png" />
+
+## Checkout
+
+<img src="./screenshots/checkout.png" />
 
 ---
 
