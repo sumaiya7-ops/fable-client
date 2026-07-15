@@ -142,29 +142,6 @@
 - JWT
 - Stripe
 
-# 🛠 Tech Stack
-
-## Frontend
-
-* Next.js
-* React
-* Tailwind CSS
-* Axios
-* Framer Motion
-* Lucide React
-* Recharts
-
----
-
-## Backend
-
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT
-* Stripe
-
 ---
 
 # 📂 Project Structure
