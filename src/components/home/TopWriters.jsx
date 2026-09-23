@@ -11,14 +11,14 @@ import {
 } from "lucide-react";
 
 const defaultAvatar =
-  "https://i.postimg.cc/WpKrKVxG/profile-jpg.png";
+  "https://postimg.cc";
 
 export default function TopWriters() {
   const [writers, setWriters] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://fable-server-z2xt.onrender.com/writers/top")
+      .get("https://onrender.com")
       .then((res) => {
         setWriters(res.data);
       })
@@ -60,12 +60,10 @@ export default function TopWriters() {
         </div>
 
         {/* Writer cards */}
-        {/* 🟢 এখানে md:grid-cols-3 এবং items-stretch যোগ করা হয়েছে যাতে ব্রেকপয়েন্ট স্মুথ হয় */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-stretch">
           {writers.map((writer, index) => (
             <article
               key={writer._id}
-              {/* 🟢 flex flex-col h-full w-full নিশ্চিত করে সব কার্ডের সাইজ সমান থাকবে */}
               className="group relative flex flex-col h-full w-full overflow-hidden rounded-3xl border border-white/80 bg-white/80 p-2 shadow-[0_15px_45px_rgba(79,70,229,0.08)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-indigo-100 hover:shadow-[0_25px_60px_rgba(79,70,229,0.16)]"
             >
               {/* Rank badge */}
@@ -92,10 +90,8 @@ export default function TopWriters() {
               </div>
 
               {/* Content */}
-              {/* 🟢 flex-grow এবং flex flex-col এর মাধ্যমে কনটেন্ট ও বাটনকে অ্যালাইন করা হয়েছে */}
               <div className="px-4 pb-5 pt-5 flex flex-col flex-grow justify-between">
                 <div>
-                  {/* জেনার বা রাইটারের নাম বড় হলেও গ্রিড ভাঙবে না */}
                   <h3 className="text-xl font-bold text-[#1E1B4B] transition-colors duration-300 group-hover:text-indigo-600 line-clamp-1">
                     {writer.name}
                   </h3>
@@ -105,7 +101,6 @@ export default function TopWriters() {
                   </p>
                 </div>
 
-                {/* এক্সপ্লোর বাটন সবসময় কার্ডের একদম নিচে থাকবে */}
                 <div className="mt-5 pt-2">
                   <Link
                     href={`/browse?search=${encodeURIComponent(writer.name)}`}
