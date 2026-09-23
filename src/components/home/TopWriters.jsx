@@ -60,72 +60,66 @@ export default function TopWriters() {
         </div>
 
         {/* Writer cards */}
-        {writers && writers.length > 0 ? (
-          /* 🟢 গ্রিড পরিবর্তন করে flex-wrap এবং justify-center করা হয়েছে যাতে কার্ড ছড়িয়ে না যায় */
-          <div className="flex flex-wrap gap-6 justify-center lg:justify-start items-stretch">
-            {writers.map((writer, index) => (
-              <article
-                key={writer._id}
-                /* 🟢 এখানে কার্ডের নির্দিষ্ট width (w-[280px]) এবং ন্যূনতম height (min-h-[420px]) ফিক্সড করে দেওয়া হয়েছে */
-                className="group relative flex flex-col w-full sm:w-[280px] min-h-[420px] overflow-hidden rounded-3xl border border-white/80 bg-white/80 p-2 shadow-[0_15px_45px_rgba(79,70,229,0.08)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-indigo-100 hover:shadow-[0_25px_60px_rgba(79,70,229,0.16)]"
-              >
-                {/* Rank badge */}
-                <div className="absolute left-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/80 bg-white/90 text-sm font-bold text-indigo-600 shadow-md backdrop-blur">
-                  {String(index + 1).padStart(2, "0")}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {writers.map((writer, index) => (
+            <article
+              key={writer._id}
+              className="group relative overflow-hidden rounded-3xl border border-white/80 bg-white/80 p-2 shadow-[0_15px_45px_rgba(79,70,229,0.08)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-indigo-100 hover:shadow-[0_25px_60px_rgba(79,70,229,0.16)]"
+            >
+              {/* Rank badge */}
+              <div className="absolute left-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/80 bg-white/90 text-sm font-bold text-indigo-600 shadow-md backdrop-blur">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+
+              {/* Image */}
+              <div className="relative overflow-hidden rounded-[22px]">
+                <img
+                  src={writer.avatar?.trim() || defaultAvatar}
+                  alt={writer.name}
+                  className="h-72 w-full object-cover transition duration-700 ease-out group-hover:scale-105"
+                />
+
+                {/* Image overlay */}
+                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/50 to-transparent opacity-70" />
+
+                {/* Book count */}
+                <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/35 px-3 py-2 text-xs font-semibold text-white backdrop-blur-md">
+                  <BookOpen size={14} />
+                  {writer.totalBooks} Books
                 </div>
+              </div>
 
-                {/* Image */}
-                {/* 🟢 ইমেজ কন্টেইনারের হাইট h-56 এ ফিক্সড রাখা হয়েছে */}
-                <div className="relative h-56 w-full overflow-hidden rounded-[22px] flex-shrink-0">
-                  <img
-                    src={writer.avatar?.trim() || defaultAvatar}
-                    alt={writer.name}
-                    className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
-                  />
+              {/* Content */}
+              <div className="px-4 pb-5 pt-5">
+                <h3 className="truncate text-xl font-bold text-[#1E1B4B] transition-colors duration-300 group-hover:text-indigo-600">
+                  {writer.name}
+                </h3>
 
-                  {/* Image overlay */}
-                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 to-transparent opacity-70" />
+                <p className="mt-2 text-sm leading-6 text-slate-500">
+                  Explore books and stories by this featured author.
+                </p>
 
-                  {/* Book count */}
-                  <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/35 px-3 py-2 text-xs font-semibold text-white backdrop-blur-md">
-                    <BookOpen size={14} />
-                    {writer.totalBooks} Books
-                  </div>
-                </div>
+                <Link
+                  href={`/browse?search=${encodeURIComponent(writer.name)}`}
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-indigo-600 transition-all duration-300 hover:gap-3 hover:text-indigo-800"
+                >
+                  Explore Books
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
 
-                {/* Content */}
-                {/* 🟢 flex-grow এবং justify-between দিয়ে ভেতরের সব লেখা ও বাটন সমান লাইনে আনা হয়েছে */}
-                <div className="px-4 pb-5 pt-5 flex flex-col flex-grow justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold text-[#1E1B4B] transition-colors duration-300 group-hover:text-indigo-600 line-clamp-1">
-                      {writer.name}
-                    </h3>
+        {/* Empty state */}
+        {writers.length === 0 && (
+          <div className="rounded-3xl border border-white/80 bg-white/70 px-6 py-14 text-center shadow-sm backdrop-blur">
+            <BookOpen className="mx-auto text-indigo-400" size={32} />
 
-                    <p className="mt-2 text-sm leading-relaxed text-slate-500 line-clamp-2">
-                      Explore books and stories by this featured author.
-                    </p>
-                  </div>
-
-                  <div className="mt-4 pt-2">
-                    <Link
-                      href={`/browse?search=${encodeURIComponent(writer.name)}`}
-                      className="inline-flex items-center gap-2 text-sm font-bold text-indigo-600 transition-all duration-300 hover:gap-3 hover:text-indigo-800"
-                    >
-                      Explore Books
-                      <ArrowRight size={16} />
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        ) : (
-          /* Empty state */
-          <div className="w-full rounded-3xl border border-white/80 bg-white/70 px-6 py-14 text-center shadow-sm backdrop-blur">
-            <BookOpen className="mx-auto text-indigo-400 mb-4" size={32} />
-            <h3 className="text-lg font-bold text-[#1E1B4B]">
+            <h3 className="mt-4 text-lg font-bold text-[#1E1B4B]">
               No featured writers yet
             </h3>
+
             <p className="mt-2 text-sm text-slate-500">
               Check back soon to discover amazing authors.
             </p>
