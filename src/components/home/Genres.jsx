@@ -46,15 +46,15 @@ export default function Genres() {
   }, []);
 
   return (
-    <section className="w-8/12 bg-indigo-100 py-16 sm:py-20">
-      <div className="mx-auto w-11/12 max-w-7xl md:w-10/12">
+    <section className="flex w-full justify-center bg-indigo-100 py-20">
+      <div className="w-11/12 md:w-8/12 max-w-7xl">
         {/* Section Title */}
-        <h2 className="mb-10 text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h2 className="mb-10 text-4xl font-bold text-gray-900">
           Ebook Genres
         </h2>
 
         {/* Genre Grid */}
-        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-8">
           {genres.map((genre) => {
             const Icon = iconMap[genre.name] || FaBookOpen;
 
@@ -63,7 +63,6 @@ export default function Genres() {
                 key={genre.name}
                 href={`/browse?genre=${encodeURIComponent(genre.name)}`}
                 className="
-                  group
                   flex
                   min-h-[200px]
                   w-full
@@ -74,37 +73,23 @@ export default function Genres() {
                   border
                   border-gray-100
                   bg-white
-                  p-5
+                  p-6
                   text-center
                   shadow-lg
                   transition-all
                   duration-300
-                  hover:-translate-y-2
+                  hover:-translate-y-3
                   hover:bg-indigo-50
                   hover:shadow-2xl
                 "
               >
-                {/* Icon */}
-                <div
-                  className="
-                    flex
-                    h-16
-                    w-16
-                    shrink-0
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-indigo-100
-                    transition-transform
-                    duration-300
-                    group-hover:scale-110
-                  "
-                >
+                {/* Fixed Icon */}
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-indigo-100">
                   <Icon className="text-3xl text-indigo-600" />
                 </div>
 
                 {/* Genre Name */}
-                <h3 className="mt-5 text-base font-bold text-gray-900 sm:text-lg">
+                <h3 className="mt-5 text-lg font-bold text-gray-900">
                   {genre.name}
                 </h3>
 
