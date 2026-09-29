@@ -46,7 +46,7 @@ export default function Genres() {
   }, []);
 
   return (
-    <section className="w-full bg-indigo-100 py-16 sm:py-20">
+    <section className="w-8/12 bg-indigo-100 py-16 sm:py-20">
       <div className="mx-auto w-11/12 max-w-7xl md:w-10/12">
         {/* Section Title */}
         <h2 className="mb-10 text-3xl font-bold text-gray-900 sm:text-4xl">
