@@ -53,7 +53,7 @@ export default function TopWriters() {
       </div>
 
       {/* Main Container */}
-      <div className="relative mx-auto w-10/12 max-w-7xl">
+      <div className="w-11/12 md:w-10/12 max-w-7xl">
         {/* Heading */}
         <div className="mb-14 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
