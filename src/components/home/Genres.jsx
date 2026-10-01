@@ -47,14 +47,14 @@ export default function Genres() {
 
   return (
     <section className="flex w-full justify-center bg-indigo-100 py-20">
-      <div className="w-11/12 md:w-8/12 max-w-7xl">
+      <div className="w-10/12 max-w-7xl">
         {/* Section Title */}
         <h2 className="mb-10 text-4xl font-bold text-gray-900">
           Ebook Genres
         </h2>
 
         {/* Genre Grid */}
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-8">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-6">
           {genres.map((genre) => {
             const Icon = iconMap[genre.name] || FaBookOpen;
 
@@ -83,7 +83,7 @@ export default function Genres() {
                   hover:shadow-2xl
                 "
               >
-                {/* Fixed Icon */}
+                {/* Icon */}
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-indigo-100">
                   <Icon className="text-3xl text-indigo-600" />
                 </div>
