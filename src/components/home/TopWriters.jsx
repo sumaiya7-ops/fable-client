@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+
 import {
   ArrowRight,
   BookOpen,
@@ -10,43 +11,68 @@ import {
   Sparkles,
 } from "lucide-react";
 
+// তোমার backend-এর actual Top Writers endpoint এখানে বসাও
+const TOP_WRITERS_API =
+  "https://fable-server-z2xt.onrender.com/top-writers";
+
+// Default avatar
 const defaultAvatar =
-  "https://postimg.cc";
+  "https://placehold.co/600x600/eef2ff/1e1b4b?text=Author";
 
 export default function TopWriters() {
   const [writers, setWriters] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("https://onrender.com")
-      .then((res) => {
-        setWriters(res.data);
-      })
-      .catch((error) => {
+    const fetchTopWriters = async () => {
+      try {
+        const res = await axios.get(TOP_WRITERS_API);
+
+        // Backend response যদি সরাসরি array দেয়
+        const data = Array.isArray(res.data)
+          ? res.data
+          : res.data.writers || res.data.topWriters || [];
+
+        setWriters(data);
+      } catch (error) {
         console.error("Failed to load top writers:", error);
-      });
+        setWriters([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTopWriters();
   }, []);
 
   return (
     <section className="relative w-full overflow-hidden bg-[#EEF2FF] py-20 sm:py-24 lg:py-28">
-      {/* Decorative background */}
+      {/* Decorative Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl" />
+
         <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-300/20 blur-3xl" />
       </div>
 
-      <div className="container-custom relative">
-        {/* Section heading */}
+      {/* Main Container */}
+      <div className="relative mx-auto w-10/12 max-w-7xl">
+        {/* Section Heading */}
         <div className="mb-12 flex flex-col gap-6 lg:mb-14 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/70 px-4 py-2 text-sm font-semibold text-indigo-700 shadow-sm backdrop-blur-sm">
               <Feather size={16} />
+
               <span>Featured Authors</span>
-              <Sparkles size={15} className="text-emerald-500" />
+
+              <Sparkles
+                size={15}
+                className="text-emerald-500"
+              />
             </div>
 
             <h2 className="text-3xl font-extrabold tracking-tight text-[#1E1B4B] sm:text-4xl lg:text-5xl">
               Meet the voices behind
+
               <span className="block bg-gradient-to-r from-indigo-600 to-emerald-500 bg-clip-text text-transparent">
                 unforgettable stories.
               </span>
@@ -59,62 +85,138 @@ export default function TopWriters() {
           </p>
         </div>
 
-        {/* Writer cards */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {writers.map((writer, index) => (
-            <article
-              key={writer._id}
-              className="group relative overflow-hidden rounded-3xl border border-white/80 bg-white/80 p-2 shadow-[0_15px_45px_rgba(79,70,229,0.08)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-indigo-100 hover:shadow-[0_25px_60px_rgba(79,70,229,0.16)]"
-            >
-              {/* Rank badge */}
-              <div className="absolute left-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/80 bg-white/90 text-sm font-bold text-indigo-600 shadow-md backdrop-blur">
-                {String(index + 1).padStart(2, "0")}
-              </div>
+        {/* Loading */}
+        {loading && (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[1, 2, 3, 4].map((item) => (
+              <div
+                key={item}
+                className="h-[430px] animate-pulse rounded-3xl bg-white/70"
+              />
+            ))}
+          </div>
+        )}
 
-              {/* Image */}
-              <div className="relative overflow-hidden rounded-[22px]">
-                <img
-                  src={writer.avatar?.trim() || defaultAvatar}
-                  alt={writer.name}
-                  className="h-72 w-full object-cover transition duration-700 ease-out group-hover:scale-105"
-                />
+        {/* Writer Cards */}
+        {!loading && writers.length > 0 && (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {writers.map((writer, index) => {
+              const writerId = writer._id || writer.id || index;
 
-                {/* Image overlay */}
-                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/50 to-transparent opacity-70" />
+              const writerName =
+                writer.name ||
+                writer.writerName ||
+                writer.authorName ||
+                "Unknown Author";
 
-                {/* Book count */}
-                <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/35 px-3 py-2 text-xs font-semibold text-white backdrop-blur-md">
-                  <BookOpen size={14} />
-                  {writer.totalBooks} Books
-                </div>
-              </div>
+              const avatar =
+                writer.avatar?.trim() ||
+                writer.photoURL?.trim() ||
+                writer.photoUrl?.trim() ||
+                defaultAvatar;
 
-              {/* Content */}
-              <div className="px-4 pb-5 pt-5">
-                <h3 className="truncate text-xl font-bold text-[#1E1B4B] transition-colors duration-300 group-hover:text-indigo-600">
-                  {writer.name}
-                </h3>
+              const totalBooks =
+                writer.totalBooks ??
+                writer.bookCount ??
+                writer.booksCount ??
+                0;
 
-                <p className="mt-2 text-sm leading-6 text-slate-500">
-                  Explore books and stories by this featured author.
-                </p>
-
-                <Link
-                  href={`/browse?search=${encodeURIComponent(writer.name)}`}
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-indigo-600 transition-all duration-300 hover:gap-3 hover:text-indigo-800"
+              return (
+                <article
+                  key={writerId}
+                  className="
+                    group
+                    relative
+                    flex
+                    h-full
+                    flex-col
+                    overflow-hidden
+                    rounded-3xl
+                    border
+                    border-white/80
+                    bg-white/80
+                    p-2
+                    shadow-[0_15px_45px_rgba(79,70,229,0.08)]
+                    backdrop-blur-xl
+                    transition-all
+                    duration-500
+                    hover:-translate-y-2
+                    hover:border-indigo-100
+                    hover:shadow-[0_25px_60px_rgba(79,70,229,0.16)]
+                  "
                 >
-                  Explore Books
-                  <ArrowRight size={16} />
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+                  {/* Rank */}
+                  <div className="absolute left-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/80 bg-white/90 text-sm font-bold text-indigo-600 shadow-md backdrop-blur">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
 
-        {/* Empty state */}
-        {writers.length === 0 && (
+                  {/* Image */}
+                  <div className="relative overflow-hidden rounded-[22px]">
+                    <img
+                      src={avatar}
+                      alt={`${writerName} profile`}
+                      className="
+                        block
+                        h-72
+                        w-full
+                        object-cover
+                        object-center
+                        transition
+                        duration-700
+                        ease-out
+                        group-hover:scale-105
+                      "
+                      onError={(event) => {
+                        event.currentTarget.src = defaultAvatar;
+                      }}
+                    />
+
+                    {/* Image Overlay */}
+                    <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/50 to-transparent opacity-70" />
+
+                    {/* Book Count */}
+                    <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/35 px-3 py-2 text-xs font-semibold text-white backdrop-blur-md">
+                      <BookOpen size={14} />
+
+                      {totalBooks} Books
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex flex-1 flex-col px-4 pb-5 pt-5">
+                    <h3
+                      className="truncate text-xl font-bold text-[#1E1B4B] transition-colors duration-300 group-hover:text-indigo-600"
+                      title={writerName}
+                    >
+                      {writerName}
+                    </h3>
+
+                    <p className="mt-2 text-sm leading-6 text-slate-500">
+                      Explore books and stories by this featured author.
+                    </p>
+
+                    <Link
+                      href={`/browse?search=${encodeURIComponent(writerName)}`}
+                      className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-bold text-indigo-600 transition-all duration-300 hover:gap-3 hover:text-indigo-800"
+                    >
+                      Explore Books
+
+                      <ArrowRight size={16} />
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && writers.length === 0 && (
           <div className="rounded-3xl border border-white/80 bg-white/70 px-6 py-14 text-center shadow-sm backdrop-blur">
-            <BookOpen className="mx-auto text-indigo-400" size={32} />
+            <BookOpen
+              className="mx-auto text-indigo-400"
+              size={32}
+            />
 
             <h3 className="mt-4 text-lg font-bold text-[#1E1B4B]">
               No featured writers yet
