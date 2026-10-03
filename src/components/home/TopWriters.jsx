@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 
 // তোমার backend-এর আসল Top Writers endpoint এখানে বসাবে
-const TOP_WRITERS_API = "https://fable-server-z2xt.onrender.com/top-writers";
+ const TOP_WRITERS_API = "https://fable-server-z2xt.onrender.com/top-writers";
+
 
 const defaultAvatar = "/default-avatar.png";
 
