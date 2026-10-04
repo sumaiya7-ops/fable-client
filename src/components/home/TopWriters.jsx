@@ -45,12 +45,8 @@ export default function TopWriters() {
   }, []);
 
   return (
-        <section className="bg-indigo-100  w-full flex justify-center relative overflow-hidden py-12">
-      <div className="w-11/12 md:w-10/12 max-w-7xl mx-auto relative"> 
-        <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl" />
-
-        <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-300/20 blur-3xl" />
-      </div>
+    <section className="flex w-full justify-center bg-indigo-100 py-20">
+      <div className="w-10/12 max-w-7xl">       
 
       {/* Main Container */}
       <div className="w-11/12 md:w-10/12 ">
@@ -210,6 +206,7 @@ export default function TopWriters() {
             </p>
           </div>
         )}
+           </div> 
       </div>
     </section>
   );
