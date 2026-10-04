@@ -19,7 +19,7 @@ export default function BrowseSidebar({
   return (
     <div className="bg-white rounded-2xl p-6 shadow-md sticky top-24 border border-gray-100">
 
-      <h3 className="text-xl font-bold text-black mb-6 tracking-tight">
+      <h3 className="text-xl font-bold text-black mb-6 tracking-tight" style={{ padding: "4px"  }}>
         Filters
       </h3>
 

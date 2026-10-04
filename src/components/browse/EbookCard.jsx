@@ -10,7 +10,7 @@ export default function EbookCard({ book, onAddToCart, onToggleWishlist }) {
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-md transition duration-300 hover:shadow-xl">
       {/* Cover */}
-      <div className="relative aspect-[3/4] w-full bg-gray-100">
+      <div className="relative aspect-[3/4] w-full bg-gray-100" style={{ padding: "4px"  }}>
         <Link href={href} className="block h-full w-full">
           <img
             src={book.coverUrl || book.image || "/no-book.png"}
@@ -20,13 +20,13 @@ export default function EbookCard({ book, onAddToCart, onToggleWishlist }) {
         </Link>
 
         {isSold && (
-          <span className="absolute left-3 top-3 rounded bg-red-600 px-2 py-1 text-[10px] font-bold uppercase text-white">
+          <span className="absolute left-3 top-3 rounded bg-red-600 px-2 py-1 text-[10px] font-bold uppercase text-white" style={{ padding: "4px"  }}>
             Sold
           </span>
         )}
 
         {!isSold && book.sales > 300 && (
-          <span className="absolute left-3 top-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-md">
+          <span className="absolute left-3 top-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-md" style={{ padding: "4px"  }}>
             Best Seller
           </span>
         )}

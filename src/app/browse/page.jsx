@@ -69,7 +69,7 @@ export default function BrowsePage() {
       <div className="w-11/12 md:w-10/12 mx-auto py-10 max-w-7xl flex flex-col gap-6">
 
         {/* সার্চ বার */}
-        <div className="flex gap-3 w-full">
+        <div className="flex gap-3 w-full" style={{ padding: "4px"  }}>
           <div className="relative flex-1">
             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
@@ -80,7 +80,7 @@ export default function BrowsePage() {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full bg-indigo-50 border border-indigo-200 rounded-xl py-3 pl-12 pr-4 text-sm text-black focus:outline-none focus:border-[#8466fa] transition placeholder:text-gray-400"
+              className="w-full bg-indigo-50 border border-indigo-200 rounded-xl py-3 pl-12 pr-4 text-sm text-black focus:outline-none focus:border-[#8466fa] transition placeholder:text-gray-400" style={{ padding: "4px"  }}
             />
           </div>
           <button
@@ -89,7 +89,7 @@ export default function BrowsePage() {
             className="bg-[#737ef7] border border-blue-400 px-4 py-3 rounded-xl flex items-center gap-2 text-sm text-black hover:bg-[#633efd] hover:text-white transition cursor-pointer"
           >
             <SlidersHorizontal size={16} />
-            <span className="hidden sm:inline text-xs font-medium">Filters</span>
+            <span className="hidden sm:inline text-xs font-medium" style={{ padding: "4px"  }}>Filters</span>
           </button>
         </div>
 
