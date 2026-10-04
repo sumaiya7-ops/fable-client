@@ -45,9 +45,8 @@ export default function TopWriters() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#EEF2FF] py-20 sm:py-24 lg:py-28">
-      {/* Background Decoration */}
-      <div className="pointer-events-none absolute inset-0">
+        <section className="bg-indigo-100 py-16 md:py-20 w-full flex justify-center">
+      <div className="w-11/12 md:w-10/12 max-w-7xl"> 
         <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl" />
 
         <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-emerald-300/20 blur-3xl" />

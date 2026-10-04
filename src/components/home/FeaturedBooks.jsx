@@ -28,7 +28,7 @@ useEffect(() => {
 
   return (
 <section className="bg-indigo-100 py-16 md:py-20 w-full flex justify-center">
-      <div className="w-11/12 md:w-10/12 max-w-7xl"> 2tar  mazr defference ki
+      <div className="w-11/12 md:w-10/12 max-w-7xl"> 
         <h2 className="text-3xl md:text-4xl font-bold text-black mb-10 tracking-tight text-left">
           Featured Ebooks
         </h2>
