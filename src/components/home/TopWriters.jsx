@@ -45,7 +45,7 @@ export default function TopWriters() {
   }, []);
 
   return (
-        <section className="bg-indigo-100 py-16 md:py-20 w-full flex justify-center">
+        <section className="bg-indigo-100  w-full flex justify-center">
       <div className="w-11/12 md:w-10/12 max-w-7xl"> 
         <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl" />
 
